@@ -1,37 +1,44 @@
 import * as d3 from 'd3';
 import {auditLabel} from './audit.js';
 import {encoding,frontier,pointInPolygon,fmt,esc,pretty,toCSV,download} from './data.js';
+import {valueScale,frontierTrace} from './value-scale.js';
 
 export function mountTimeline(container,{points,metric,devices,papers,colorBy,onSelect,onSelection,log=true}){
  let selected=new Set(),mode='lasso',transform=d3.zoomIdentity,polygon=[],dragging=false,disposed=false,frame=0;
  const surface=document.createElement('div');surface.className='timeline-surface';container.append(surface);
  const width=Math.max(460,container.clientWidth),height=570,margin={top:35,right:28,bottom:58,left:82};
- const available=points.filter(p=>!log||p.value>0);
- const all=available.map(p=>({...p,year:devices[p.device].year})).filter(p=>Number.isFinite(p.year));
+ const scale=valueScale(metric,log),dated=points.map(p=>({...p,year:devices[p.device].year})).filter(p=>Number.isFinite(p.year)&&Number.isFinite(p.value));
+ const all=dated.filter(p=>scale.plottable(p.value));
+ const frontierInputs=scale.complement?dated.filter(p=>p.value>=0&&p.value<=scale.limit):all;
+ const omittedAtLimit=scale.complement?dated.filter(p=>p.value===scale.limit).length:0,omittedOther=dated.length-all.length-omittedAtLimit;
  const color=encoding([...new Set(all.map(p=>p.device))].map(i=>devices[i]),colorBy);
- const years=d3.extent(all,d=>d.year);
- const x0=d3.scaleLinear().domain(all.length?[years[0]-.4,years[1]+.4]:[0,1]).range([margin.left,width-margin.right]);
- let extent=d3.extent(all,d=>d.value);if(!all.length)extent=[1,10];if(extent[0]===extent[1])extent=[extent[0]*.8||.1,extent[1]*1.2||1];
- const y0=(log?d3.scaleLog():d3.scaleLinear()).domain(log?[extent[0]/1.8,extent[1]*1.8]:[Math.min(0,extent[0]),extent[1]*1.08]).range([height-margin.bottom,margin.top]);
+ const years=d3.extent(frontierInputs,d=>d.year),hasYears=Number.isFinite(years[0]);
+ const x0=d3.scaleLinear().domain(hasYears?[years[0]-.4,years[1]+.4]:[0,1]).range([margin.left,width-margin.right]);
+ let extent=d3.extent(all,d=>scale.axisValue(d.value));if(!all.length)extent=scale.complement?[.001,1]:[1,10];if(extent[0]===extent[1])extent=[extent[0]*.8||.1,extent[1]*1.2||1];
+ const y0=(log?d3.scaleLog():d3.scaleLinear()).domain(log?[extent[0]/1.8,scale.complement?Math.min(1,extent[1]*1.8):extent[1]*1.8]:[Math.min(0,extent[0]),extent[1]*1.08]).range(scale.complement?[margin.top,height-margin.bottom]:[height-margin.bottom,margin.top]);
  surface.style.aspectRatio=`${width}/${height}`;
  const canvas=document.createElement('canvas');canvas.className='timeline-canvas';canvas.setAttribute('aria-hidden','true');surface.append(canvas);
  const ratio=Math.min(window.devicePixelRatio||1,2);canvas.width=Math.round(width*ratio);canvas.height=Math.round(height*ratio);
  const ctx=canvas.getContext('2d');
- const svg=d3.select(surface).append('svg').attr('viewBox',`0 0 ${width} ${height}`).attr('class','timeline-svg').attr('role','img').attr('aria-label',`${metric.label} versus paper year; select points or draw a lasso`);
+ const svg=d3.select(surface).append('svg').attr('viewBox',`0 0 ${width} ${height}`).attr('class','timeline-svg').attr('role','img').attr('aria-label',`${metric.label} versus paper year${scale.complement?'; logarithmic distance from perfect fidelity':''}; select points or draw a lasso`);
  svg.append('defs').append('clipPath').attr('id','plot-clip').append('rect').attr('x',margin.left).attr('y',margin.top).attr('width',width-margin.left-margin.right).attr('height',height-margin.top-margin.bottom);
  const axisX=svg.append('g').attr('class','axis x-axis').attr('transform',`translate(0,${height-margin.bottom})`),axisY=svg.append('g').attr('class','axis y-axis').attr('transform',`translate(${margin.left},0)`),grid=svg.append('g').attr('class','grid').attr('transform',`translate(${margin.left},0)`);
  svg.append('text').attr('class','axis-title').attr('x',width/2).attr('y',height-10).attr('text-anchor','middle').text('Paper year');
- svg.append('text').attr('class','axis-title').attr('transform','rotate(-90)').attr('x',-height/2).attr('y',20).attr('text-anchor','middle').text(`${metric.label} (${metric.unit})`);
+ svg.append('text').attr('class','axis-title value-axis-title').attr('transform','rotate(-90)').attr('x',-height/2).attr('y',20).attr('text-anchor','middle').text(scale.axisLabel);
  const drawing=svg.append('g').attr('clip-path','url(#plot-clip)');
- const envelope=frontier(all,metric.direction),line=drawing.append('path').attr('class','frontier-line');
+ const envelope=frontier(frontierInputs,metric.direction),line=drawing.append('path').attr('class','frontier-line');
+ let scaleNote=scale.complement?`Log axis uses the remaining gap, 1 − F (F = fidelity${metric.unit==='%'?' / 100':''}). Ticks show fidelity${metric.unit==='%'?' in %':''}; higher fidelity is higher on the plot.`:log?'Log scale omits zero and negative values; switch to linear to include them.':'Linear axis shows the original metric values.';
+ if(omittedAtLimit)scaleNote+=` ${omittedAtLimit} reported ${scale.limit}${metric.unit==='%'?'%':''} values have zero gap and are omitted; switch to linear to show them.`;
+ if(scale.complement&&omittedOther)scaleNote+=` ${omittedOther} values outside the fidelity range are also omitted.`;
+ if(scale.complement&&envelope.some(p=>!scale.plottable(p.value)))scaleNote+=' The frontier stops at an omitted ideal-limit record.';
  // Cache projection and colors once. Zoom redraws no per-point DOM nodes.
- const projected=all.map(p=>({p,x:x0(p.year),y:y0(p.value),color:color.color(devices[p.device])}));
+ const projected=all.map(p=>({p,x:x0(p.year),y:y0(scale.axisValue(p.value)),color:color.color(devices[p.device])}));
  const tree=d3.quadtree(projected,p=>p.x,p=>p.y);
  const batches=new Map();
  for(const q of projected){const key=[q.color,q.p.eligible,['exact','approximate','with_uncertainty'].includes(q.p.nature)].join('|');if(!batches.has(key))batches.set(key,[]);batches.get(key).push(q);}
  const lasso=svg.append('path').attr('class','lasso-path').attr('pointer-events','none');
  const tip=document.createElement('div');tip.className='graph-tooltip';tip.hidden=true;container.append(tip);
- function position(p){return [transform.applyX(x0(p.year)),transform.applyY(y0(p.value))];}
+ function position(p){return [transform.applyX(x0(p.year)),transform.applyY(y0(scale.axisValue(p.value)))];}
  function inPlot([x,y]){return x>=margin.left&&x<=width-margin.right&&y>=margin.top&&y<=height-margin.bottom;}
  function hit(event){const xy=d3.pointer(event,svg.node());if(!inPlot(xy))return;const local=transform.invert(xy);return tree.find(local[0],local[1],7/transform.k)?.p;}
  function paint(){
@@ -49,19 +56,18 @@ export function mountTimeline(container,{points,metric,devices,papers,colorBy,on
  function draw(){
   if(disposed)return;
   const [x,y]=scales(),domain=x.domain();
-  let yearTicks=all.length?x.ticks(Math.min(10,(width-100)/65)).filter(year=>Number.isInteger(year)&&year>=years[0]&&year<=years[1]):[];
+  let yearTicks=hasYears?x.ticks(Math.min(10,(width-100)/65)).filter(year=>Number.isInteger(year)&&year>=years[0]&&year<=years[1]):[];
   // Label the data endpoints when visible, leaving room for readable years.
-  if(all.length)for(const year of new Set(years))if(year>=domain[0]&&year<=domain[1]){
+  if(hasYears)for(const year of new Set(years))if(year>=domain[0]&&year<=domain[1]){
    yearTicks=yearTicks.filter(tick=>Math.abs(x(tick)-x(year))>=40);
    yearTicks.push(year);
   }
   yearTicks.sort((a,b)=>a-b);
   axisX.call(d3.axisBottom(x).tickValues(yearTicks).tickFormat(d3.format('d')));
-  axisY.call(d3.axisLeft(y).ticks(7,log?'.2~g':'.3~g'));
+  axisY.call(scale.complement?d3.axisLeft(y).ticks(7).tickFormat(y.tickFormat(7,scale.tick)):d3.axisLeft(y).ticks(7,log?'.2~g':'.3~g'));
   grid.call(d3.axisLeft(y).ticks(7).tickSize(-(width-margin.left-margin.right)).tickFormat(''));
   paint();
-  let pathPoints=envelope.filter(p=>p.year<=domain[1]);if(pathPoints.length)pathPoints=[...pathPoints,{...pathPoints.at(-1),year:domain[1]}];
-  line.attr('d',d3.line().curve(d3.curveStepAfter).x(p=>x(p.year)).y(p=>y(p.value))(pathPoints));
+  line.attr('d',d3.line().defined(p=>scale.plottable(p.value)).curve(d3.curveStepAfter).x(p=>x(p.year)).y(p=>y(scale.axisValue(p.value)))(frontierTrace(envelope,domain[1],scale)));
  }
  // Coalesce wheel/pointer bursts into one screen update per animation frame.
  function schedule(){if(!frame)frame=requestAnimationFrame(()=>{frame=0;draw();});}
@@ -73,9 +79,9 @@ export function mountTimeline(container,{points,metric,devices,papers,colorBy,on
  svg.on('pointerdown.lasso',event=>{if(mode!=='lasso'||event.button!==0||hit(event))return;const p=d3.pointer(event,svg.node());if(!inPlot(p))return;dragging=true;polygon=[p];tip.hidden=true;svg.node().setPointerCapture(event.pointerId);if(!event.shiftKey)selected.clear();});
  svg.on('pointermove.lasso',event=>{if(!dragging)return;polygon.push(d3.pointer(event,svg.node()));lasso.attr('d',d3.line()(polygon)+'Z');});
  svg.on('pointerup.lasso',event=>{if(!dragging)return;if(polygon.length>2)for(const p of all)if(pointInPolygon(position(p),polygon))selected.add(p.id);lasso.attr('d',null);highlight();setTimeout(()=>dragging=false,0);if(svg.node().hasPointerCapture(event.pointerId))svg.node().releasePointerCapture(event.pointerId);});
- if(!all.length)svg.append('text').attr('x',width/2).attr('y',height/2).attr('text-anchor','middle').attr('class','empty-plot').text('No reported values match these filters.');
+ if(!all.length)svg.append('text').attr('x',width/2).attr('y',height/2).attr('text-anchor','middle').attr('class','empty-plot').text(omittedAtLimit?'No finite log gaps; switch to linear to show ideal-limit values.':'No reported values match these filters.');
  draw();
- return {count:all.length,frontierCount:envelope.length,encoding:color,
+ return {count:all.length,frontierCount:envelope.length,encoding:color,scale:{type:scale.type,limit:scale.limit,omittedAtLimit,omittedOther},scaleNote,
   setMode(value){mode=value;container.dataset.mode=mode;},
   reset(){svg.call(zoom.transform,d3.zoomIdentity);},
   clear(){selected.clear();highlight();},

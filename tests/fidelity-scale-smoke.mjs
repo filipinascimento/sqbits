@@ -1,0 +1,32 @@
+import {chromium} from 'playwright';import {existsSync,readdirSync,mkdirSync,readFileSync} from 'node:fs';import {homedir} from 'node:os';import assert from 'node:assert/strict';
+const root=homedir()+'/.cache/ms-playwright',executablePath=readdirSync(root).filter(n=>/^chromium-\d+$/.test(n)).sort().map(n=>`${root}/${n}/chrome-linux64/chrome`).find(existsSync);
+const browser=await chromium.launch({headless:true,executablePath,args:['--no-sandbox']}),page=await browser.newPage({viewport:{width:1500,height:1100}}),errors=[];
+page.setDefaultTimeout(60000);page.on('pageerror',e=>errors.push(e.message));page.on('console',m=>{if(m.type()==='error')errors.push(m.text()+' '+(m.location().url||''));});
+const base=(process.env.SQBITS_TEST_URL||'http://127.0.0.1:5194/sqbits/').split('#')[0];
+async function metric(id,type){await page.locator('#metric').selectOption(id);await page.waitForFunction(([id,type])=>window.sqbits.chart?.scale.type===type&&window.sqbits.state.metric===id&&document.querySelector('#visual-count').textContent.endsWith(document.querySelector('#metric').selectedOptions[0].textContent),[id,type]);}
+try{
+ await page.goto(base+'#timeline');await page.waitForFunction(()=>window.sqbits?.chart?.count>0);
+ for(const id of ['single_qubit_gate_fidelity','two_qubit_gate_fidelity','readout_fidelity']){
+  await metric(id,'log-complement');
+  const result=await page.evaluate(()=>{const c=window.sqbits.chart,year=c.all()[0].year,ys=[99,99.9,99.99].map(value=>c.position({year,value})[1]);return {ys,scale:c.scale,ticks:[...document.querySelectorAll('.y-axis .tick text')].map(t=>t.textContent).filter(Boolean),finite:c.all().every(p=>c.position(p).every(Number.isFinite)),path:document.querySelector('.frontier-line').getAttribute('d')};});
+  assert.ok(result.ys[2]<result.ys[1]&&result.ys[1]<result.ys[0],'Higher fidelity must remain visually higher');assert.ok(Math.abs((result.ys[0]-result.ys[1])-(result.ys[1]-result.ys[2]))<1e-7,'Each tenfold smaller infidelity must occupy the same distance');
+  assert.equal(result.finite,true);assert.ok(result.ticks.some(t=>Number(t)>90));assert.ok(result.ticks.every(t=>Number(t)>=0&&Number(t)<100));assert.doesNotMatch(result.path||'',/NaN|Infinity/);
+  assert.match(await page.locator('#log-scale-label').innerText(),/distance to 100%/);assert.match(await page.locator('.value-axis-title').textContent(),/log\(1 − F\)/);assert.match(await page.locator('#scale-explanation').innerText(),/F = fidelity \/ 100/);
+ }
+ await metric('single_qubit_gate_fidelity','log-complement');
+ // Pick an isolated real observation: projected positions, canvas picking,
+ // selected values and exports must all agree on the original fidelity.
+ const target=await page.evaluate(()=>{const c=window.sqbits.chart,m=document.querySelector('.timeline-svg').getScreenCTM(),points=c.all().map(p=>({p,xy:c.position(p)}));for(const q of points){if(points.some(r=>r!==q&&Math.hypot(r.xy[0]-q.xy[0],r.xy[1]-q.xy[1])<11))continue;const v=new DOMPoint(...q.xy).matrixTransform(m);if(v.y>0&&v.y<innerHeight-30)return {id:q.p.id,value:q.p.value,x:v.x,y:v.y};}throw Error('Need an independently pickable fidelity observation');});
+ await page.mouse.move(target.x,target.y);assert.match(await page.locator('.graph-tooltip').innerText(),/%/);await page.mouse.click(target.x,target.y);assert.equal(await page.evaluate(()=>window.sqbits.chart.selected()[0]?.id),target.id);
+ const dl=page.waitForEvent('download');await page.locator('#export-selection').click();const csv=readFileSync(await (await dl).path(),'utf8');assert.ok(csv.includes('"'+target.value+'"'));assert.match(csv,/"%"/);
+ const chart=page.locator('.timeline-svg'),box=await chart.boundingBox();await page.mouse.move(box.x+box.width*.6,box.y+box.height*.5);await page.mouse.wheel(0,-700);await page.waitForTimeout(100);assert.ok(await page.evaluate(()=>window.sqbits.chart.view().transform.k)>1);await page.locator('#fit-view').click();
+ mkdirSync('verification',{recursive:true});await page.locator('.visual-column').screenshot({path:'verification/fidelity-log-scale.png'});
+ await page.locator('#log-scale').uncheck();await page.waitForFunction(()=>window.sqbits.chart?.scale.type==='linear');assert.doesNotMatch(await page.locator('.value-axis-title').textContent(),/log\(1/);
+ await page.locator('#scope').selectOption('');await page.locator('#realization').selectOption('');await page.evaluate(()=>window.beforeAll=window.sqbits.chart);await page.locator('#attribution').selectOption('');await page.waitForFunction(()=>window.sqbits.chart!==window.beforeAll&&window.sqbits.chart?.all().some(p=>p.value===100));
+ const linearCount=await page.evaluate(()=>window.sqbits.chart.count);await page.locator('#log-scale').check();await page.waitForFunction(()=>window.sqbits.chart?.scale.type==='log-complement'&&window.sqbits.chart.scale.omittedAtLimit>0);
+ const endpoint=await page.evaluate(()=>({count:window.sqbits.chart.count,...window.sqbits.chart.scale,values:window.sqbits.chart.all().map(p=>p.value)}));assert.ok(endpoint.count<linearCount);assert.equal(endpoint.values.includes(100),false);assert.match(await page.locator('#scale-explanation').innerText(),/zero gap and are omitted/);assert.match(await page.locator('#scale-explanation').innerText(),/switch to linear/);
+ assert.doesNotMatch(await page.locator('.frontier-line').getAttribute('d')||'',/NaN|Infinity/);
+ for(const id of ['single_qubit_gate_error','logical_error','resonator_qi']){await metric(id,'log');assert.equal(await page.locator('#log-scale-label').innerText(),'Logarithmic value axis');const ys=await page.evaluate(()=>[.001,.01,.1].map(value=>window.sqbits.chart.position({value,year:2020})[1]));assert.ok(ys[0]>ys[1]&&ys[1]>ys[2]);}
+ await metric('readout_fidelity','log-complement');await page.setViewportSize({width:390,height:844});assert.ok(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+2));await page.locator('.visual-column').scrollIntoViewIfNeeded();await page.evaluate(()=>new Promise(r=>requestAnimationFrame(()=>requestAnimationFrame(r))));await page.locator('.visual-column').screenshot({path:'verification/fidelity-log-scale-mobile.png'});assert.deepEqual(errors,[]);
+ console.log('FIDELITY_SCALE_BROWSER_CHECKS_PASSED',{originalSelectedValue:target.value,omittedIdealLimitValues:endpoint.omittedAtLimit});
+}catch(error){console.error(error);mkdirSync('verification',{recursive:true});await page.screenshot({path:'verification/fidelity-scale-failure.png'}).catch(()=>{});process.exitCode=1;}finally{await browser.close();}

@@ -25,6 +25,7 @@ The local path is `/sqbits/`. Build the static site with `npm run build`; `dist/
 npm test
 node tests/browser-smoke.mjs
 node tests/timeline-smoke.mjs
+node tests/fidelity-scale-smoke.mjs
 node tests/audit-smoke.mjs
 node tests/selection-smoke.mjs
 node tests/design-trends-smoke.mjs
@@ -71,7 +72,9 @@ Device communities use weighted Leiden modularity. Labels are automatic distinct
 
 - The year axis follows the filtered observations, with small point margins; zoom and pan stay within that extent.
 - One property is shown at a time; Ramsey, echo and other T₂ remain distinct.
-- Only supported, explicitly normalized, finite non-negative scalar values are plotted. Original expressions and units remain inspectable. Log axes omit zeros; the linear axis retains them.
+- Only supported, explicitly normalized, finite non-negative scalar values are plotted. Original expressions and units remain inspectable. Ordinary log axes omit zeros; the linear axis retains them.
+- Single-qubit, two-qubit and readout fidelities use a logarithmic remaining gap, `1 − F`, where `F = value / 100` for percentage data. Higher fidelity stays at the top; ticks, tooltips, selections and CSV values retain fidelity in the original display units. Equal decade spacing shows tenfold reductions in infidelity. Error and loss outcomes (ideal zero) and unbounded dimensionless Q factors retain ordinary log axes. These semantics are explicit, not inferred from a dimensionless unit or a value near one.
+- Reported ideal-limit fidelities have zero gap. They are counted in the log-view omission note and remain available in linear mode; no epsilon or finite error is invented. A frontier reaching an omitted ideal record terminates there, rather than extending an older, worse record through later years. Other out-of-range fidelities are disclosed and omitted from the log-gap view. The transformation is display-only: extraction and audit payloads are unchanged.
 - Ranges without a reported scalar are not assigned a midpoint. Bounds and unknown forms have dashed outlines and cannot establish a frontier.
 - Review-flagged observations remain visible as hollow points and cannot establish a frontier.
 - The default excludes cited, simulated, analytical and design-target observations. Changing realization filters can reveal other origins; these remain excluded from the frontier.
