@@ -55,7 +55,12 @@ export async function mountGraph(container,{nodes,edges,directed,colorBy,filters
  const labelEnter=e=>{const label=labelAt(e.target);if(!label||label===labelAt(e.relatedTarget))return;const n=byIndex.get(Number(label.dataset.nodeId));if(n)highlightCommunity(n.community);};
  const labelLeave=e=>{const label=labelAt(e.target);if(label&&label!==labelAt(e.relatedTarget))highlightCommunity(null);};
  const clearHighlight=()=>highlightCommunity(null);
+ // SVG labels are siblings of the canvas. Forward their wheel gestures through
+ // Helios's native camera, picking and layout listeners, retaining coordinates,
+ // deltas and modifier keys via the original event's WheelEventInit properties.
+ const labelWheel=e=>{if(!labelAt(e.target))return;e.preventDefault();e.stopPropagation();helios.renderer.canvas.dispatchEvent(new WheelEvent('wheel',e));};
  container.addEventListener('pointerover',labelEnter);container.addEventListener('pointerout',labelLeave);container.addEventListener('pointerleave',clearHighlight);
+ container.addEventListener('wheel',labelWheel,{capture:true,passive:false});
  const edgeByIndex=new Map(Array.from(edgeHandles,(id,i)=>[Number(id),edges[i]]));
  helios.on(EVENTS.EDGE_CLICK,e=>{const edge=edgeByIndex.get(e.detail?.index);queueMicrotask(()=>{if(!disposed&&edge)onEdge?.(edge);});});
  helios.on(EVENTS.NODE_HOVER,e=>{const d=e.detail||{},n=byIndex.get(d.index);if(d.state==='out'||!n||highlightedCommunity!=null){tip.hidden=true;return;}tip.innerHTML=`<strong>${esc(n.label)}</strong><span>${esc(n.year||'Year unknown')} · ${esc(n.communityLabel)}<br>${fmt(n.degree)} connections${n.review?' · Review flagged':''}</span>`;tip.hidden=false;const r=container.getBoundingClientRect();tip.style.left=Math.max(8,Math.min(r.width-300,d.clientX-r.left+14))+'px';tip.style.top=Math.max(8,Math.min(r.height-130,d.clientY-r.top+14))+'px';});
@@ -117,7 +122,7 @@ export async function mountGraph(container,{nodes,edges,directed,colorBy,filters
    }
   });},
   edgeOpacity(v){helios.behavior.mappers.setChannelConfig('edge','opacity',{type:'constant',value:+v});},
-  destroy(){if(disposed)return;disposed=true;clearHighlight();container.removeEventListener('pointerover',labelEnter);container.removeEventListener('pointerout',labelLeave);container.removeEventListener('pointerleave',clearHighlight);tip.remove();helios.behavior.layout.stop('destroy');helios.stopCameraTransition();pending.finally(()=>helios.destroy());},
+  destroy(){if(disposed)return;disposed=true;clearHighlight();container.removeEventListener('pointerover',labelEnter);container.removeEventListener('pointerout',labelLeave);container.removeEventListener('pointerleave',clearHighlight);container.removeEventListener('wheel',labelWheel,true);tip.remove();helios.behavior.layout.stop('destroy');helios.stopCameraTransition();pending.finally(()=>helios.destroy());},
  };
  try{controller.setColor(colorBy);controller.setFilters(filters);notify();}catch(error){controller.destroy();throw error;}
  return controller;

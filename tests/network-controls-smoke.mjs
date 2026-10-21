@@ -1,6 +1,7 @@
 import {chromium} from 'playwright';
 import {setYearRange} from './year-range-helpers.mjs';
 import {checkNodeHover} from './node-hover-helper.mjs';
+import {checkLabelWheel} from './label-wheel-helper.mjs';
 import {existsSync,mkdirSync,readdirSync,writeFileSync} from 'node:fs';
 import {homedir} from 'node:os';
 import assert from 'node:assert/strict';
@@ -13,6 +14,7 @@ page.setDefaultTimeout(90000);page.on('pageerror',e=>errors.push(e.message));
 page.on('console',m=>{if(m.type()==='error')errors.push(m.text()+' '+(m.location().url||''));});
 const url=(process.env.SQBITS_TEST_URL||'http://127.0.0.1:5194/sqbits/').split('#')[0];
 const views=process.env.SQBITS_TEST_NETWORK?[process.env.SQBITS_TEST_NETWORK]:['papers','devices'];
+const labelWheelOnly=process.env.SQBITS_TEST_LABEL_WHEEL_ONLY==='1',startPaused=labelWheelOnly||process.env.SQBITS_TEST_HOVER_ONLY==='1';
 mkdirSync('verification',{recursive:true});
 async function ready(){await page.waitForFunction(()=>window.sqbits?.graph&&!document.querySelector('#gravity')?.disabled);}
 async function slider(id,value){const input=page.locator('#'+id);await input.evaluate((el,v)=>{el.value=String(v-Number(el.step));},value);await input.press('ArrowRight');}
@@ -20,6 +22,11 @@ async function snapshot(){return page.evaluate(async()=>Array.from((await window
 async function checkNetwork(view){
  await ready();
  console.log('NETWORK_CONTROLS_START',view);
+ if(labelWheelOnly){
+  await checkLabelWheel(page,view);
+  await page.locator('#graph-mode').selectOption('3d');await page.waitForFunction(()=>window.sqbits.graph.helios.mode()==='3d'&&!document.querySelector('#graph-mode').disabled);
+  await checkLabelWheel(page,view);return;
+ }
  if(process.env.SQBITS_TEST_HOVER_ONLY==='1'){
   if(await page.evaluate(()=>window.sqbits.graph.running))await page.locator('#layout-toggle').click();
   await page.waitForFunction(()=>!window.sqbits.graph.running&&!document.querySelector('#layout-toggle').disabled);
@@ -99,10 +106,10 @@ async function checkNetwork(view){
  console.log('NETWORK_CONTROLS_PASSED',view,{communityMembers:highlight.expected,highlightedEdges:highlight.edges,...persisted});
 }
 try{
- await page.goto(url+'#'+(process.env.SQBITS_TEST_HOVER_ONLY==='1'?'trends':views[0]));
- if(process.env.SQBITS_TEST_HOVER_ONLY==='1'){await page.waitForFunction(()=>window.sqbits?.trends?.aggregate);await page.evaluate(()=>{for(const s of Object.values(window.sqbits.state.networks))s.running=false;});}
+ await page.goto(url+'#'+(startPaused?'trends':views[0]));
+ if(startPaused){await page.waitForFunction(()=>window.sqbits?.trends?.aggregate);await page.evaluate(()=>{for(const s of Object.values(window.sqbits.state.networks))s.running=false;});}
  for(const view of views){if(await page.evaluate(()=>window.sqbits?.state.view)!==view)await page.locator(`[data-view="${view}"]`).first().click();await checkNetwork(view);}
- if(views.includes('papers')&&process.env.SQBITS_TEST_HOVER_ONLY!=='1'){if(views.length>1)await page.locator('[data-view="papers"]').first().click();await ready();assert.equal(await page.locator('#edge-width').inputValue(),'3');assert.equal(await page.locator('#node-size').inputValue(),'1.75');}
+ if(views.includes('papers')&&!startPaused){if(views.length>1)await page.locator('[data-view="papers"]').first().click();await ready();assert.equal(await page.locator('#edge-width').inputValue(),'3');assert.equal(await page.locator('#node-size').inputValue(),'1.75');}
  await page.setViewportSize({width:390,height:844});assert.ok(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+2));
  for(const id of ['edge-width','node-size','gravity'])assert.ok(await page.locator('#'+id).isVisible());
  assert.deepEqual(errors,[]);console.log('NETWORK_CONTROL_BROWSER_CHECKS_PASSED');
