@@ -75,6 +75,7 @@ try{
  assert.equal(await page.locator('#attribution').inputValue(),'own_work');assert.equal(await page.locator('#realization').inputValue(),'measured_device');assert.equal(await page.locator('#scope').inputValue(),'individual_qubit');
  console.log('TIMELINE',await page.locator('#visual-count').innerText());
  const dot=page.locator('.outcome-dot').first();await dot.dispatchEvent('click');
+ await page.locator('#selection-list .selected-device-title').first().click();
  await page.waitForSelector('#inspector .observation',{timeout:30000});assert.ok(await page.locator('#selection-count').innerText());
  await page.locator('#close-inspector').click();await page.locator('#clear-selection').click();
  const box=await page.locator('.timeline-svg').boundingBox();

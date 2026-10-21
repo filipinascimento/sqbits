@@ -1,10 +1,11 @@
 import './style.css';
-import {load,esc,fmt,pretty,encoding,matchesDevice,toCSV,download} from './data.js';
+import {load,esc,fmt,pretty,encoding,matchesDevice} from './data.js';
 import {mountTimeline} from './timeline.js';
 import {guideHTML,bindGuide} from './guide.js';
+import {mountSelectionPanel} from './selection.js';
 const app=document.querySelector('#app');
 const titles={papers:['The literature, connected.','Follow citation links and explore automatically labelled research communities.'],devices:['Find the design connections.','Explore device and component records linked by similarity of reported design choices.'],timeline:['Performance, over time.','Compare one reported outcome at a time, with conditions and source evidence close at hand.'],guide:['Inside a superconducting qubit.','A visual guide to the structures, materials and processes behind the measurements.']};
-let summary,paperData,deviceData,graph,chart,renderVersion=0,inspectorVersion=0,selectedPoints=[],timelinePoints=[],focusPaper=null,focusDevice=null;
+let summary,paperData,deviceData,graph,chart,selectionPanel,selectionVersion=0,renderVersion=0,inspectorVersion=0,selectedPoints=[],timelinePoints=[],focusPaper=null,focusDevice=null;
 const viewFromHash=location.hash.slice(1);
 const state={view:titles[viewFromHash]?viewFromHash:'papers',metric:'t1',color:'community',log:true,interaction:'lasso',filters:{},networks:{papers:{mode:'2d',running:true},devices:{mode:'2d',running:true}},timelineFilters:{attribution:'own_work',realization:'measured_device',scope:'individual_qubit'}};
 const $=id=>document.getElementById(id);
@@ -17,17 +18,16 @@ function shell(){app.innerHTML=`<header class="site-header"><a class="brand" hre
  <main><section class="page-heading"><div><div class="eyebrow" id="eyebrow">AN EVIDENCE-BASED EXPLORER</div><h1 id="page-title"></h1><p id="page-subtitle"></p></div><div class="snapshot"><i></i>Data snapshot<br><strong>21 October 2026</strong></div></section>
  <section class="stats-strip" aria-label="Dataset counts"><div><strong>${fmt(summary.papers)}</strong><span>extracted papers</span></div><div><strong>${fmt(summary.devices)}</strong><span>device & component records</span></div><div><strong>${fmt(summary.citationEdges)}</strong><span>indexed citation links</span></div><div><strong>${fmt(summary.reviewPapers)}</strong><span>papers with review flags</span></div></section>
  <section id="workspace"></section></main><footer><span>SQbits · From reported design to measured performance.</span><span>Networks powered by <a href="https://heliosweb.io" target="_blank" rel="noopener">Helios</a> · <button class="text-button" data-view="guide">Data & methods</button></span></footer>
- <aside id="inspector" aria-label="Selected entry" aria-live="polite"><button id="close-inspector" aria-label="Close inspector">×</button><div id="inspector-content"></div></aside><div id="toast" role="status"></div>`;
- app.addEventListener('click',event=>{const view=event.target.closest('[data-view]');if(view){event.preventDefault();changeView(view.dataset.view);}const device=event.target.closest('[data-device]');if(device)inspectDevice(+device.dataset.device);const paper=event.target.closest('[data-paper]');if(paper)inspectPaper(+paper.dataset.paper);});
- $('close-inspector').onclick=()=>{inspectorVersion++;$('inspector').classList.remove('open');};
+ <div id="toast" role="status"></div>`;
+ app.addEventListener('click',event=>{const view=event.target.closest('[data-view]');if(view){event.preventDefault();changeView(view.dataset.view);}const device=event.target.closest('[data-device]');if(device)inspectDevice(+device.dataset.device,selectedPoints.find(p=>p.id===device.dataset.point));const paper=event.target.closest('[data-paper]');if(paper)inspectPaper(+paper.dataset.paper);});
  window.addEventListener('hashchange',()=>{const v=location.hash.slice(1);if(titles[v])changeView(v);});
- document.addEventListener('keydown',e=>{if(e.key==='Escape')$('close-inspector').click();});
+ document.addEventListener('keydown',e=>{if(e.key==='Escape')$('close-inspector')?.click();});
 }
 async function ensureDevices(){if(!deviceData)deviceData=await load('devices.json.gz');return deviceData;}
 function changeView(view){if(state.view===view)return;state.view=view;state.filters={};state.color='community';history.replaceState(null,'','#'+view);render().catch(showError);}
 function showError(error){const holder=$('chart')||$('workspace');if(holder)holder.innerHTML=`<div class="empty-state"><h3>Unable to display this view</h3><p>${esc(error.message)}</p><button id="retry-view">Try again</button></div>`;if($('retry-view'))$('retry-view').onclick=()=>render().catch(showError);console.error(error);}
 function loading(text='Loading data…'){return `<div class="loading-state"><div class="spinner"></div><span>${text}</span></div>`;}
-async function render(){const version=++renderVersion;graph?.destroy();graph=null;chart?.destroy();chart=null;
+async function render(){const version=++renderVersion;inspectorVersion++;selectionVersion++;selectionPanel=null;graph?.destroy();graph=null;chart?.destroy();chart=null;
  document.querySelectorAll('.view-nav button').forEach(b=>{b.classList.toggle('active',b.dataset.view===state.view);b.setAttribute('aria-current',b.dataset.view===state.view?'page':'false');});
  $('page-title').textContent=titles[state.view][0];$('page-subtitle').textContent=titles[state.view][1];
  $('workspace').innerHTML=loading();
@@ -48,8 +48,10 @@ async function render(){const version=++renderVersion;graph?.destroy();graph=nul
  <p class="filter-note">${isPaper?'Citing paper → cited paper. Unlinked papers remain in the atlas.':'Records represent individual devices, families and components. Missing design choices are not inferred.'}</p></div></details>
  <div class="visual-column"><section class="visual-panel"><div class="visual-heading"><div><span class="eyebrow">${isTimeline?'REPORTED PERFORMANCE':isPaper?'CITATION NETWORK':'DESIGN SIMILARITY NETWORK'}</span><h2 id="visual-count">Loading…</h2></div><div class="visual-actions" id="visual-actions">${isTimeline?`<button id="lasso-mode" class="active" aria-pressed="true">Lasso</button><button id="pan-mode" aria-pressed="false">Pan / zoom</button><button id="clear-selection">Clear</button><button id="fit-view">Reset zoom</button>`:`<button id="fit-view">Fit</button><button id="labels-toggle" class="active" aria-pressed="true">Labels</button><button id="layout-toggle" disabled aria-pressed="true">Pause layout</button>${selectControl('graph-mode','Dimension',[['2d','2D'],['3d','3D']],state.networks[state.view].mode,null)}`}</div></div>
  <div id="chart" class="chart ${isTimeline?'performance-chart':'network-chart'}">${loading('Preparing the visualization…')}</div>
- <div id="legend" class="legend"></div><div class="visual-footnote">${isTimeline?'<span class="line-sample"></span><span id="frontier-label">Observed frontier</span> · Hollow points do not set the frontier; dashed outlines denote bounds or unknown form. Wheel to zoom; draw a lasso to select. Shift adds to selection.':`${isPaper?'Citation':'Similarity'} links · Drag to pan, wheel to zoom, select a node to inspect. Community labels are automatic. Unlinked entries can be included with the sidebar control.`}</div>
- </section>${isTimeline?`<div class="selection-panel"><div class="selection-heading"><div><span class="eyebrow">SELECTED EVIDENCE</span><h3 id="selection-count">Click or lasso points to compare</h3></div><button id="export-selection" class="secondary-button">Download CSV ↓</button></div><div id="selection-table"></div></div>`:`<section class="browse-panel"><div class="browse-heading"><h3>Explore the entries</h3><span class="muted">Select any row for source-linked details</span></div><div id="browse-list"></div></section>`}</div></div>`;
+ <div id="legend" class="legend"></div><div class="visual-footnote">${isTimeline?'<span class="line-sample"></span><span id="frontier-label">Observed frontier</span> · Hollow points do not set the frontier; dashed outlines denote bounds or unknown form. Wheel to zoom; draw a lasso to select. Shift adds to selection.':`${isPaper?'Citation':'Similarity'} links · Drag to navigate, wheel to zoom. Select a node; Shift-click adds more. Open a card for source details. Community labels are automatic. Unlinked entries can be included with the sidebar control.`}</div>
+ </section></div><aside id="selection-panel" class="selection-panel" aria-label="Selected papers and devices"></aside></div>`;
+ selectionPanel=mountSelectionPanel($('selection-panel'),{papers:paperData.nodes,getDevices:()=>deviceData?.nodes||[],getMetric:()=>summary.metrics.find(m=>m.id===state.metric),onClear:()=>state.view==='timeline'?chart?.clear():graph?.clearSelection(),onExport:()=>chart?.export(),onBack:()=>{inspectorVersion++;}});
+ selectionPanel.update({view:state.view});
  if(matchMedia('(max-width:720px)').matches)document.querySelector('.filters-panel').open=false;
  const apply=()=>updateVisualization().catch(showError);let timer;
  for(const key of ['search','community','type','scope','realization','attribution','material','substrate','geometry','review','yearMin','yearMax'])if($(key))$(key).addEventListener(key==='search'||key.startsWith('year')?'input':'change',()=>{filters[key]=$(key).value;clearTimeout(timer);timer=setTimeout(apply,key==='search'?300:0);});
@@ -62,23 +64,23 @@ async function render(){const version=++renderVersion;graph?.destroy();graph=nul
 function renderLegend(enc){$('legend').innerHTML=enc.legend.slice(0,12).map(l=>`<span title="${esc(l.label)}"><i style="background:${l.color}"></i>${esc(l.label)}</span>`).join('')+(enc.legend.length>12?`<span class="muted">+ ${enc.legend.length-12} categories; use the filters to explore</span>`:'');}
 let updateVersion=0;
 async function updateVisualization(){const version=++updateVersion,view=state.view;graph?.destroy();graph=null;chart?.destroy();chart=null;$('chart').innerHTML=loading('Preparing the visualization…');
- delete $('chart').dataset.engine;
+ delete $('chart').dataset.engine;inspectorVersion++;selectionVersion++;selectedPoints=[];selectionPanel?.update({view});
  for(const id of ['fit-view','labels-toggle','layout-toggle','graph-mode'])if($(id)&&view!=='timeline')$(id).disabled=true;
  if(view==='timeline'){
   const metric=summary.metrics.find(m=>m.id===state.metric);const rows=await load(`outcomes/${state.metric}.json.gz`);if(version!==updateVersion||state.view!==view)return;
   timelinePoints=rows.filter(p=>matchesDevice(deviceData.nodes[p.device],state.timelineFilters,paperData.nodes)).filter(p=>state.timelineFilters.realization!=='measured_device'||p.origin==='measured');
-  $('chart').innerHTML='';chart=mountTimeline($('chart'),{points:timelinePoints,metric,devices:deviceData.nodes,papers:paperData.nodes,colorBy:state.color,log:state.log,onSelect:p=>inspectDevice(p.device,p),onSelection:p=>{selectedPoints=p;renderSelectionTable();}});
+  $('chart').innerHTML='';chart=mountTimeline($('chart'),{points:timelinePoints,metric,devices:deviceData.nodes,papers:paperData.nodes,colorBy:state.color,log:state.log,onSelect:()=>{},onSelection:p=>{inspectorVersion++;selectedPoints=p;renderSelectionPanel();}});
   $('visual-count').textContent=`${fmt(chart.count)} observations · ${metric.label}`;$('frontier-label').textContent=metric.direction==='envelope'?'Upper envelope (not a performance ranking)':`Observed ${metric.direction==='min'?'lower':'upper'} frontier · ${chart.frontierCount} improvements`;
   renderLegend(chart.encoding);selectedPoints=[];state.interaction='lasso';chart.setMode('lasso');
   for(const mode of ['lasso','pan'])$(mode+'-mode').onclick=()=>{state.interaction=mode;chart.setMode(mode);for(const m of ['lasso','pan']){$(m+'-mode').classList.toggle('active',m===mode);$(m+'-mode').setAttribute('aria-pressed',String(m===mode));}};
-  $('clear-selection').onclick=()=>chart.clear();$('fit-view').onclick=()=>chart.reset();$('export-selection').onclick=()=>chart.export();renderSelectionTable();
+  $('clear-selection').onclick=()=>chart.clear();$('fit-view').onclick=()=>chart.reset();renderSelectionPanel();
  }else if(view==='papers'||view==='devices'){
   const isPaper=view==='papers',data=isPaper?paperData:deviceData,filters=state.filters;
   const indexed=data.nodes.map((n,i)=>({...n,_index:i})).filter(n=>filters.includeIsolates||n.degree>0||String(filters.community)==='0').filter(n=>isPaper?(!filters.search||[n.label,n.doi].join(' ').toLowerCase().includes(filters.search.toLowerCase()))&&(!filters.community||String(n.community)===filters.community)&&(!filters.review||(filters.review==='flagged')===n.review)&&(!filters.yearMin||n.year>=+filters.yearMin)&&(!filters.yearMax||n.year<=+filters.yearMax):matchesDevice(n,filters,paperData.nodes));
   const included=new Set(indexed.map(n=>n._index));const edges=data.edges.filter(e=>included.has(e[0])&&included.has(e[1])).map(e=>({source:data.nodes[e[0]].id,target:data.nodes[e[1]].id,weight:e[2]}));
   $('visual-count').textContent=`${fmt(indexed.length)} ${isPaper?'papers':'records'} · ${fmt(edges.length)} links`;
   $('chart').innerHTML='';renderLegend(encoding(indexed,state.color));
-  $('browse-list').innerHTML=indexed.slice().sort((a,b)=>b.degree-a.degree).slice(0,18).map(n=>`<button class="browse-row" data-${isPaper?'paper':'device'}="${n._index}"><span class="entry-year">${n.year||'—'}</span><span><strong>${esc(n.label)}</strong><small>${esc(isPaper?n.communityLabel:`${pretty(n.type)} · ${pretty(n.scope)} · ${pretty(n.realization)}`)}</small></span><span class="row-arrow">↗</span></button>`).join('')||'<p class="empty-small">No entries match these filters.</p>';
+
   if(!indexed.length){$('chart').innerHTML='<div class="empty-state"><h3>No matching entries</h3><p>Try removing a filter.</p></div>';return;}
   const {mountGraph}=await import('./graph.js');if(version!==updateVersion||state.view!==view)return;
   const networkState=state.networks[view];
@@ -87,7 +89,7 @@ async function updateVisualization(){const version=++updateVersion,view=state.vi
    networkState.mode=mode;
    const toggle=$('layout-toggle');toggle.textContent=running?'Pause layout':'Resume layout';toggle.classList.toggle('active',running);toggle.setAttribute('aria-pressed',String(running));$('graph-mode').value=mode;
   };
-  const mounted=await mountGraph($('chart'),{nodes:indexed,edges,directed:isPaper,colorBy:state.color,...networkState,onLayoutState:syncControls,onSelect:n=>isPaper?inspectPaper(n._index):inspectDevice(n._index),onEdge:e=>inspectEdge(e,isPaper)});
+  const mounted=await mountGraph($('chart'),{nodes:indexed,edges,directed:isPaper,colorBy:state.color,...networkState,onLayoutState:syncControls,onSelection:async nodes=>{const ticket=++selectionVersion;inspectorVersion++;if(isPaper&&nodes.length)await ensureDevices();if(ticket!==selectionVersion||version!==updateVersion||state.view!==view)return;selectionPanel.update({view,paperIndices:isPaper?nodes.map(n=>n._index):[],deviceIndices:isPaper?[]:nodes.map(n=>n._index)});},onEdge:e=>inspectEdge(e,isPaper)});
   if(version!==updateVersion||state.view!==view){mounted?.destroy();return;}graph=mounted;if(!graph)return;
   $('chart').dataset.engine='helios';for(const id of ['fit-view','labels-toggle','layout-toggle','graph-mode'])$(id).disabled=false;
   $('fit-view').onclick=()=>graph.fit();let labels=true;
@@ -103,11 +105,9 @@ async function updateVisualization(){const version=++updateVersion,view=state.vi
   if(isPaper&&focusPaper!=null){graph.select(paperData.nodes[focusPaper]);focusPaper=null;}if(!isPaper&&focusDevice!=null){graph.select(deviceData.nodes[focusDevice]);focusDevice=null;}
  }
 }
-function renderSelectionTable(){if(!$('selection-table')||!chart)return;const rows=selectedPoints.length?selectedPoints:chart.all();$('selection-count').textContent=selectedPoints.length?`${fmt(selectedPoints.length)} observations selected`:`${fmt(rows.length)} matching observations · none selected`;
- $('selection-table').innerHTML=`<div class="table-scroll"><table><thead><tr><th>Select</th><th>Device / paper</th><th>Year</th><th>Value (${esc(summary.metrics.find(m=>m.id===state.metric).unit)})</th><th>Type / origin</th><th>Review</th></tr></thead><tbody>${rows.slice(0,60).map(p=>{const d=deviceData.nodes[p.device],paper=paperData.nodes[d.paper];return `<tr><td><input type="checkbox" data-observation="${esc(p.id)}" aria-label="Select ${esc(d.label)} observation" ${selectedPoints.some(s=>s.id===p.id)?'checked':''}></td><td><button class="table-link" data-device="${p.device}">${esc(d.label)}</button><small>${esc(paper.label)}</small></td><td>${d.year||'—'}</td><td class="numeric">${fmt(p.value)}<small>${esc(p.text)}</small></td><td>${esc(pretty(d.type))}<small>${esc(p.origin)}</small></td><td>${d.review?'<span class="review-badge">Flagged</span>':'—'}</td></tr>`;}).join('')}</tbody></table></div><p class="table-note">${rows.length>60?`Showing the first 60 of ${fmt(rows.length)} observations. The CSV includes the complete ${selectedPoints.length?'selection':'filtered set'}.`:'Use a checkbox or the lasso to select. CSV values include units, original expressions and source links.'}</p>`;
- const byId=new Map(rows.map(p=>[p.id,p]));document.querySelectorAll('[data-observation]').forEach(el=>el.onchange=()=>chart.toggle(byId.get(el.dataset.observation),el.checked));
-}
-function openInspector(){const panel=$('inspector');panel.classList.add('open');$('inspector-content').innerHTML=loading('Loading source evidence…');return ++inspectorVersion;}
+function renderSelectionPanel(){selectionPanel?.update({view:'timeline',points:selectedPoints});}
+function openInspector(){selectionPanel?.openDetails();$('inspector-content').innerHTML=loading('Loading source evidence…');return ++inspectorVersion;}
+
 async function inspectPaper(index){const ticket=openInspector(),p=paperData.nodes[index];await ensureDevices();if(ticket!==inspectorVersion)return;const rows=deviceData.nodes.map((d,i)=>[d,i]).filter(([d])=>d.paper===index);
  $('inspector-content').innerHTML=`<div class="eyebrow">SOURCE PAPER · ${esc(p.year||'YEAR UNKNOWN')}</div><h2>${esc(p.label)}</h2><div class="tag-row"><span>${esc(p.communityLabel)}</span>${p.review?'<span class="review-badge">Review flagged</span>':''}</div><p>${fmt(p.degree)} indexed citation links · ${fmt(rows.length)} extracted entity records${p.segmented?' · PDF processed in page segments':''}.</p>${sourceLink(p)}<h3>Devices & components</h3>${rows.slice(0,100).map(([d,i])=>`<button class="inspector-entry" data-device="${i}"><strong>${esc(d.label)}</strong><small>${esc(pretty(d.scope))} · ${esc(pretty(d.realization))} · ${esc(pretty(d.attribution))}</small></button>`).join('')||'<p>No device records were extracted from this paper.</p>'}${rows.length>100?'<p>First 100 records shown; filter the device network by this paper’s title to explore all records.</p>':''}<h3>Reading the source</h3><p class="muted">Paper year comes from the frozen work manifest. Cited records and proposed or simulated entities are labelled separately; a record is not automatically a measured qubit.</p>`;
 }

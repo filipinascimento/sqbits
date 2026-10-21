@@ -6,7 +6,7 @@ An interactive atlas of superconducting-qubit papers, device designs and reporte
 
 - **Citation atlas:** directed paper citations, Leiden communities with automatic labels, search, date/review filters, 2D/3D navigation and source inspection.
 - **Device designs:** approximate nearest design neighbors, weighted communities, realization and entity-scope filters, material/substrate/geometry filters and outcome coloring.
-- **Performance:** one outcome versus paper year, a filter-dependent max/min frontier, lasso and checkbox selection, zoom, source inspection and CSV export. The default is **own-work, measured individual qubits and measured observations**.
+- **Performance:** one outcome versus paper year, a filter-dependent max/min frontier, click and lasso selection, zoom, source inspection and CSV export. The default is **own-work, measured individual qubits and measured observations**.
 - **Design guide:** an interactive conceptual transmon schematic, fabrication guidance and methodological definitions.
 
 ## Run locally
@@ -24,9 +24,12 @@ The local path is `/sqbits/`. Build the static site with `npm run build`; `dist/
 npm test
 node tests/browser-smoke.mjs
 node tests/timeline-smoke.mjs
+node tests/selection-smoke.mjs
 ```
 
 The browser check uses Playwright. It accepts `SQBITS_TEST_URL` and uses an installed Chromium or the normal Playwright browser. It checks native force-layout motion, repeated 2D/3D transitions, pause/resume and dimension preservation after filtering, network rendering, the measured/own-work defaults, evidence inspection, lasso selection, CSV download, metric switching, filtering, the schematic and a mobile viewport. `SQBITS_TEST_LIFECYCLE=1 node tests/browser-smoke.mjs` runs the focused cooling, resume, queued-switch and teardown checks. `verification/` is local-only.
+
+Selections appear in a docked side panel, grouped by paper with the selected device records and observation values. Shift-click adds entries; lasso selection updates the same list. Paper and device cards open source details inside the panel, with a back button that preserves the selection. Long selections load more cards on demand, and CSV export includes the complete selection.
 
 ## Data and interpretation
 
