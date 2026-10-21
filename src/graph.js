@@ -22,7 +22,9 @@ export async function mountGraph(container,{nodes,edges,directed,colorBy,filters
  try{
   // Helios owns initialization, forces, positions and dimensional transitions.
   // In particular, do not replace the engine when resuming a paused layout.
-  helios=new Helios(network,{container,mode,layout:{type:'gpu-force'},storage:false,session:false,fileDrop:false,ui:false,quickControls:false,autoCleanup:false,disposeNetworkOnDestroy:true,
+  // Cool in about 342 force steps rather than the default 2,300. Apply this
+  // to the native engine so it also governs reheats and dimension changes.
+  helios=new Helios(network,{container,mode,layout:{type:'gpu-force',options:{alphaDecay:.02}},storage:false,session:false,fileDrop:false,ui:false,quickControls:false,autoCleanup:false,disposeNetworkOnDestroy:true,
    density:false,legends:false,edgeFastRendering:false,edgeAdaptiveQuality:{enabled:false},interactionRenderOrder:true,
    behaviors:{layout:{running,parameters:{kGravity:gravity}},
     labels:{enabled:true,source:'label',selectionMode:'ranked',maxVisible:28,maxChars:44,minScreenRadiusPx:0,fontSizeScale:.95,outlineWidth:4,fill:'#22413d',outlineColor:'#f8f8f3'},
