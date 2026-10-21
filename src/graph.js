@@ -19,7 +19,9 @@ export async function mountGraph(container,{nodes,edges,directed,colorBy,onSelec
    density:false,legends:false,edgeFastRendering:false,edgeAdaptiveQuality:{enabled:false},interactionRenderOrder:true,
    behaviors:{layout:{running,parameters:{kGravity:gravity}},
     labels:{enabled:true,source:'label',selectionMode:'ranked',maxVisible:28,maxChars:44,minScreenRadiusPx:0,fontSizeScale:.95,outlineWidth:4,fill:'#22413d',outlineColor:'#f8f8f3'},
-    hover:{hoverLabel:false,highlightConnectedEdges:true},appearance:{background:'#f4f6f2',shadedEnabled:false,shadedNodes:false,shadedEdges:false}}});
+    // Match community emphasis through native transient shader hover, without
+    // rewriting state buffers or disturbing the evidence selection.
+    hover:{nodeHover:true,hoverLabel:false,hoverConnectedEdges:true,highlightConnectedEdges:true,hoverAffectsOtherElements:true,hoverStyleFromHighlight:true},appearance:{background:'#f4f6f2',shadedEnabled:false,shadedNodes:false,shadedEdges:false}}});
   await helios.ready;
   if(!container.isConnected){helios.destroy();return null;}
   helios.behavior.labels.update({enabled:true,source:id=>{const n=byIndex.get(id);return n&&representatives.get(n.community)===n?n.communityLabel:null;},selectionMode:'ranked',pinnedNodes:[...representatives.values()].map(n=>lookup.get(n.id)),maxVisible:28,minScreenRadiusPx:0,maxChars:44,fontSizeScale:.95,outlineWidth:4,fill:'#22413d',outlineColor:'#f8f8f3'});

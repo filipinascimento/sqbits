@@ -29,6 +29,7 @@ node tests/audit-smoke.mjs
 node tests/selection-smoke.mjs
 node tests/design-trends-smoke.mjs
 node tests/year-range-smoke.mjs
+SQBITS_TEST_HOVER_ONLY=1 node tests/network-controls-smoke.mjs
 python scripts/test_design_index.py
 ```
 
@@ -39,6 +40,8 @@ Selections appear in a docked side panel, grouped by paper with the selected dev
 A single selected device automatically opens its complete design section in the card. Multiple selections expose the same section in each card on demand, so a large lasso does not fetch every source shard. All reported design observations are grouped into the domain families, including `other_design_choice`, with the full reported text, quantities, origin, component, conditions, configurations and source evidence. Explicitly linked fabrication recipes retain every step and parameter. Search applies to the complete loaded record; the JSON download preserves the original record and linked recipes exactly. The full inspector puts designs before outcomes.
 
 All four data views use Helios Web's `TwoHandleRange` for publication years. Drag either endpoint to resize, or the selected band or middle grip to pan the whole interval without changing its width. The grip also works for overlapping handles and single-year selections. Values snap to whole years within the snapshot's observed bounds. Arrow keys move a focused endpoint; on the middle band, arrows move the interval, Shift+arrow moves five years, and Home/End pans to a boundary. “All years” clears the year restriction. The slider previews immediately, with expensive filtering committed once after release (100 ms coalescing for rapid changes). Navigation cancels pending updates and active drags. The leaf control is imported separately so performance and design-trends views do not load the Helios renderer or WASM. `SQBITS_NETWORK_YEARS=1 node tests/year-range-smoke.mjs` additionally checks year filtering in both real Helios graphs.
+
+Hovering a network node uses Helios's transient shader overlay to emphasize the node and its incident edges with the same styles used by community highlights, while applying the native other-elements style to the background. Mouseout clears the overlay without changing the evidence selection. This works in both network views and dimensions; node hover does not write persistent highlight bits or rebuild the graph.
 
 ## Data and interpretation
 
