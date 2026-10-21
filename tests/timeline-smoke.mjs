@@ -1,4 +1,5 @@
 import {chromium} from 'playwright';
+import {setYearRange} from './year-range-helpers.mjs';
 import {existsSync,mkdirSync,readdirSync} from 'node:fs';
 import {homedir} from 'node:os';
 import assert from 'node:assert/strict';
@@ -45,10 +46,10 @@ try{
  for(const [x,y] of [[.85,.15],[.85,.8],[.12,.8],[.12,.15]])await page.mouse.move(b.x+b.width*x,b.y+b.height*y,{steps:8});
  await page.mouse.up();assert.match(await page.locator('#selection-count').innerText(),/\d[\d,]* observations selected/);
  const download=page.waitForEvent('download');await page.locator('#export-selection').click();assert.match((await download).suggestedFilename(),/t1/);
- await page.locator('#yearMin').fill('2025');await page.locator('#yearMax').fill('2025');
+ await setYearRange(page,2025,2025);
  await page.waitForFunction(()=>window.sqbits.chart?.all().length>0&&window.sqbits.chart.all().every(p=>p.year===2025));
  const single=await checkBounds('Single year');assert.deepEqual(single.ticks,[2025]);
- await page.locator('#yearMax').fill('2024');await page.waitForSelector('.empty-plot');assert.deepEqual((await readAxis()).ticks,[]);
+ await setYearRange(page,2026,2026);await page.waitForSelector('.empty-plot');assert.deepEqual((await readAxis()).ticks,[]);
  await page.locator('#reset-filters').click();await page.waitForFunction(()=>window.sqbits.chart?.all().some(p=>p.year<2025));await checkBounds('Reset filters');
  await page.locator('#metric').selectOption('t2_echo');await page.waitForFunction(()=>document.querySelector('#visual-count').textContent.includes('Echo coherence'));await checkBounds('Different metric');
  mkdirSync('verification',{recursive:true});await page.screenshot({path:'verification/timeline-axis.png',fullPage:true});

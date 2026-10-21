@@ -5,9 +5,10 @@ import {mountTimeline} from './timeline.js';
 import {guideHTML,bindGuide} from './guide.js';
 import {mountSelectionPanel} from './selection.js';
 import {deviceDesignHTML,bindDeviceDesigns,evidenceHTML,observationHTML} from './designs.js';
+import {mountYearRange} from './year-range.js';
 const app=document.querySelector('#app');
 const titles={papers:['The literature, connected.','Follow citation links and explore automatically labelled research communities.'],devices:['Find the design connections.','Explore device and component records linked by similarity of reported design choices.'],timeline:['Performance, over time.','Compare one reported outcome at a time, with conditions and source evidence close at hand.'],trends:['How device designs evolve.','Explore categorical design choices, reporting coverage and their shares over publication time.'],guide:['Inside a superconducting qubit.','A visual guide to the structures, materials and processes behind the measurements.']};
-let summary,paperData,deviceData,outcomeAudit,graph,chart,designTrends,selectionPanel,selectionVersion=0,renderVersion=0,inspectorVersion=0,selectedPoints=[],timelinePoints=[],focusPaper=null,focusDevice=null;
+let summary,paperData,deviceData,outcomeAudit,graph,chart,designTrends,yearRange,filterTimer,selectionPanel,selectionVersion=0,renderVersion=0,inspectorVersion=0,selectedPoints=[],timelinePoints=[],focusPaper=null,focusDevice=null;
 const viewFromHash=location.hash.slice(1);
 const networkDefaults=()=>({mode:'2d',running:true,nodeSizeScale:1,edgeWidthScale:1.5,gravity:.001});
 const state={view:titles[viewFromHash]?viewFromHash:'papers',metric:'t1',color:'community',log:true,interaction:'lasso',filters:{},networks:{papers:networkDefaults(),devices:networkDefaults()},timelineFilters:{attribution:'own_work',realization:'measured_device',scope:'individual_qubit'},designTrends:{}};
@@ -37,7 +38,7 @@ async function getDeviceDetail(index){const d=deviceData.nodes[index],p=paperDat
 function changeView(view){if(state.view===view)return;state.view=view;state.filters={};state.color='community';history.replaceState(null,'','#'+view);render().catch(showError);}
 function showError(error){const holder=$('chart')||$('workspace');if(holder)holder.innerHTML=`<div class="empty-state"><h3>Unable to display this view</h3><p>${esc(error.message)}</p><button id="retry-view">Try again</button></div>`;if($('retry-view'))$('retry-view').onclick=()=>render().catch(showError);console.error(error);}
 function loading(text='Loading data…'){return `<div class="loading-state"><div class="spinner"></div><span>${text}</span></div>`;}
-async function render(){const version=++renderVersion;inspectorVersion++;selectionVersion++;selectionPanel=null;selectedPoints=[];graph?.destroy();graph=null;chart?.destroy();chart=null;designTrends?.destroy();designTrends=null;
+async function render(){const version=++renderVersion;updateVersion++;inspectorVersion++;selectionVersion++;clearTimeout(filterTimer);yearRange?.destroy();yearRange=null;selectionPanel=null;selectedPoints=[];graph?.destroy();graph=null;chart?.destroy();chart=null;designTrends?.destroy();designTrends=null;
  document.querySelectorAll('.view-nav button').forEach(b=>{b.classList.toggle('active',b.dataset.view===state.view);b.setAttribute('aria-current',b.dataset.view===state.view?'page':'false');});
  $('page-title').textContent=titles[state.view][0];$('page-subtitle').textContent=titles[state.view][1];
  $('workspace').innerHTML=loading();
@@ -57,7 +58,7 @@ async function render(){const version=++renderVersion;inspectorVersion++;selecti
  ${selectControl('community','Community',communityOptions(nodes),filters.community)}
  ${!isPaper?selectControl('type','Qubit type',counts(nodes,'type').map(([v,n])=>[v,`${pretty(v)} (${fmt(n)})`]),filters.type)+selectControl('scope','Entity scope',counts(nodes,'scope').map(([v,n])=>[v,`${pretty(v)} (${fmt(n)})`]),filters.scope)+selectControl('realization','Realization',counts(nodes,'realization').map(([v,n])=>[v,`${pretty(v)} (${fmt(n)})`]),filters.realization)+selectControl('attribution','Attribution',[['own_work','Own work'],['cited_work','Cited work'],['Unknown','Unknown']],filters.attribution)+selectControl('geometry','Device geometry',counts(nodes,'geometry').map(([v,n])=>[v,`${pretty(v)} (${fmt(n)})`]),filters.geometry)+selectControl('substrate','Reported substrate',counts(nodes,'substrate').slice(0,70).map(([v,n])=>[v,`${v} (${fmt(n)})`]),filters.substrate)+selectControl('material','Reported superconductor',counts(nodes,'material').slice(0,70).map(([v,n])=>[v,`${v} (${fmt(n)})`]),filters.material):''}
  ${selectControl('review','Extraction review',[['clear','No automated flag'],['flagged','Review flagged']],filters.review)}
- <div class="field-pair"><label class="field">From year<input id="yearMin" type="number" min="1900" max="2026" placeholder="Any" value="${esc(filters.yearMin||'')}"></label><label class="field">To year<input id="yearMax" type="number" min="1900" max="2026" placeholder="Any" value="${esc(filters.yearMax||'')}"></label></div>
+ <div id="year-range"></div>
  ${selectControl('color','Color by',[['community','Community'],['year','Paper year'],...(isPaper?[['devices','Record count'],['review','Review flag']]:[['type','Qubit type'],['realization','Realization'],['attribution','Attribution'],['scope','Entity scope'],['material','Superconductor'],['substrate','Substrate'],['junction','Junction stack'],['geometry','Geometry'],['t1','Best measured T₁'],['t2_ramsey','Best measured Ramsey T₂*'],['t2_echo','Best measured echo T₂'],...summary.metrics.filter(m=>!['t1','t2_ramsey','t2_echo'].includes(m.id)).map(m=>[m.id,'Measured '+m.label])])],state.color,null)}
  ${!isTimeline?`<label class="check-field"><input id="include-isolates" type="checkbox" ${filters.includeIsolates?'checked':''}>Include entries without network links</label>`:''}
  ${isTimeline?`<label class="check-field"><input id="log-scale" type="checkbox" ${state.log?'checked':''}>Logarithmic value axis</label><label class="check-field"><input id="include-audit-excluded" type="checkbox" ${filters.includeAuditExcluded?'checked':''}>Include excluded or unresolved audit results</label>`:''}
@@ -71,8 +72,9 @@ async function render(){const version=++renderVersion;inspectorVersion++;selecti
  selectionPanel=mountSelectionPanel($('selection-panel'),{papers:paperData.nodes,getDevices:()=>deviceData?.nodes||[],getDeviceDetail,getMetric:()=>summary.metrics.find(m=>m.id===state.metric),onClear:()=>state.view==='timeline'?chart?.clear():graph?.clearSelection(),onExport:()=>chart?.export(),onBack:()=>{inspectorVersion++;}});
  selectionPanel.update({view:state.view});
  if(matchMedia('(max-width:720px)').matches)document.querySelector('.filters-panel').open=false;
- const apply=()=>updateVisualization().catch(showError);let timer;
- for(const key of ['search','community','type','scope','realization','attribution','material','substrate','geometry','review','yearMin','yearMax'])if($(key))$(key).addEventListener(key==='search'||key.startsWith('year')?'input':'change',()=>{filters[key]=$(key).value;clearTimeout(timer);timer=setTimeout(apply,key==='search'?300:0);});
+ const apply=()=>{clearTimeout(filterTimer);if(version===renderVersion)updateVisualization().catch(showError);};
+ for(const key of ['search','community','type','scope','realization','attribution','material','substrate','geometry','review'])if($(key))$(key).addEventListener(key==='search'?'input':'change',()=>{filters[key]=$(key).value;clearTimeout(filterTimer);filterTimer=setTimeout(apply,key==='search'?300:0);});
+ yearRange=mountYearRange($('year-range'),{nodes,filters,onCommit:range=>{Object.assign(filters,range);clearTimeout(filterTimer);filterTimer=setTimeout(apply,100);}});
  $('color').onchange=()=>{state.color=$('color').value;if(isTimeline)apply();else if(graph)renderLegend(graph.setColor(state.color));};
  if($('include-isolates'))$('include-isolates').onchange=()=>{filters.includeIsolates=$('include-isolates').checked;apply();};
  $('reset-filters').onclick=()=>{if(isTimeline)state.timelineFilters={attribution:'own_work',realization:'measured_device',scope:'individual_qubit'};else state.filters={};render().catch(showError);};

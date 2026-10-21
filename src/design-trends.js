@@ -1,6 +1,7 @@
 import {select,scaleLinear,axisBottom,axisLeft,line} from 'd3';
 import {esc,fmt,pretty,encoding,toCSV,download} from './data.js';
 import {aggregateDesigns,supportingDesignRecords,designSeriesCSVRows} from './design-stats.js';
+import {mountYearRange} from './year-range.js';
 
 export function mountDesignTrends(container,{devices,papers,index,state,onSelect}){
  let aggregate,selected=new Set(),limit=30,search='',destroyed=false,selection=[];
@@ -15,7 +16,7 @@ export function mountDesignTrends(container,{devices,papers,index,state,onSelect
  <label class="field">Share denominator<select id="design-denominator">${options([['all','All filtered entries'],['reporting','Entries reporting this field']],state.denominator)}</select></label>
  ${[['scope','Entity scope'],['realization','Realization'],['attribution','Attribution'],['type','Qubit family'],['review','Extraction review']].map(([key,label])=>`<label class="field">${label}<select id="design-${key}">${options(key==='review'?[['clear','No automated flag'],['flagged','Review flagged']]:unique(key),state.filters[key],true)}</select></label>`).join('')}
  <label class="field">Search devices / papers<input id="design-search" type="search" value="${esc(state.filters.search||'')}" placeholder="Device, paper, material…"></label>
- <div class="field-pair">${[['yearMin','From year'],['yearMax','To year']].map(([key,label])=>`<label class="field">${label}<input id="design-${key}" type="number" placeholder="Any" value="${esc(state.filters[key]||'')}"></label>`).join('')}</div>
+ <div id="design-year-range"></div>
  <label class="field">Time periods<select id="design-bin">${options([[1,'Each year'],[3,'Three-year periods'],[5,'Five-year periods']],state.bin)}</select></label>
  <button id="reset-design-population">Reset population</button><p class="filter-note">Default: own-work, measured individual qubits. Each record counts once per category; the paper option merges categories across its matching records. Records are not globally deduplicated physical devices.</p></div></details>
  <div class="visual-column design-trend-panels">
@@ -73,9 +74,10 @@ export function mountDesignTrends(container,{devices,papers,index,state,onSelect
   selection=[];onSelect([]);categoriesTable();drawTime();
  }
  let timer;
- for(const key of ['scope','realization','attribution','type','review','search','yearMin','yearMax'])el('design-'+key).addEventListener(['search','yearMin','yearMax'].includes(key)?'input':'change',e=>{state.filters[key]=e.target.value;clearTimeout(timer);timer=setTimeout(()=>update(),['search','yearMin','yearMax'].includes(key)?150:0);});
+ for(const key of ['scope','realization','attribution','type','review','search'])el('design-'+key).addEventListener(key==='search'?'input':'change',e=>{state.filters[key]=e.target.value;clearTimeout(timer);timer=setTimeout(()=>update(),key==='search'?150:0);});
+ const yearRange=mountYearRange(el('design-year-range'),{nodes:devices,filters:state.filters,inputIds:['design-yearMin','design-yearMax'],onCommit:range=>{Object.assign(state.filters,range);clearTimeout(timer);timer=setTimeout(()=>update(),100);}});
  for(const [id,key,convert] of [['design-field','field',String],['design-unit','unit',String],['design-denominator','denominator',String],['design-bin','bin',Number]])el(id).onchange=e=>{state[key]=convert(e.target.value);if(key==='field'){search='';el('category-search').value='';}limit=30;update(key==='field');};
- el('reset-design-population').onclick=()=>{state.filters=defaults();for(const key of ['scope','realization','attribution','type','review','search','yearMin','yearMax'])el('design-'+key).value=state.filters[key]||'';update();};
+ el('reset-design-population').onclick=()=>{clearTimeout(timer);state.filters=defaults();yearRange.set(state.filters);for(const key of ['scope','realization','attribution','type','review','search'])el('design-'+key).value=state.filters[key]||'';update();};
  el('category-search').oninput=e=>{search=e.target.value;limit=30;categoriesTable();};el('more-design-categories').onclick=()=>{limit+=40;categoriesTable();};
  el('category-top').onchange=e=>{selected=new Set(aggregate.counts.slice(0,+e.target.value).map(r=>r.category));categoriesTable();drawTime();};
  el('design-value-mode').onchange=e=>{state.mode=e.target.value;drawTime();};
@@ -85,5 +87,5 @@ export function mountDesignTrends(container,{devices,papers,index,state,onSelect
  if(matchMedia('(max-width:720px)').matches)container.querySelector('.filters-panel').open=false;
  // Defer the initial callback until the shared evidence panel has mounted.
  queueMicrotask(()=>{if(!destroyed)update(true);});
- return {get aggregate(){return aggregate;},get selected(){return selection;},selectCategory:choose,clearSelection(){selection=[];onSelect([]);},destroy(){destroyed=true;clearTimeout(timer);observer.disconnect();}};
+ return {get aggregate(){return aggregate;},get selected(){return selection;},selectCategory:choose,clearSelection(){selection=[];onSelect([]);},destroy(){destroyed=true;clearTimeout(timer);yearRange.destroy();observer.disconnect();}};
 }

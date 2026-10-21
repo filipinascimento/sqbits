@@ -131,3 +131,33 @@
 .design-method{font-size:11px;line-height:1.8;padding:15px 20px;border:1px solid var(--line);border-radius:6px;color:var(--muted)}
 .design-method summary{cursor:pointer;color:var(--green)}
 @media(max-width:720px){.design-coverage{gap:7px;padding:14px}.design-coverage strong{font-size:21px}.design-category-tools{padding:5px 14px;gap:10px}.design-plot-note{padding-left:14px;padding-right:14px}.design-family-coverage{padding:10px 14px}.design-family-coverage button{grid-template-columns:minmax(90px,1fr) minmax(25px,.6fr) 45px;gap:8px}.design-family-coverage button small{grid-column:1/-1;text-align:left}.design-category-table th,.design-category-table td{padding:8px 5px}.design-category-table th:first-child,.design-category-table td:first-child{padding-left:12px}.design-trends-layout .visual-heading{padding:16px}.design-trends-layout .selection-panel{max-height:75dvh}}
+
+/* Helios TwoHandleRange, scoped so its renderer and full UI need not load. */
+.year-range{grid-column:1/-1;min-width:0;font-size:10px;color:#647668}
+.year-range-heading{display:flex;justify-content:space-between;align-items:center;gap:8px;font-weight:600}
+.year-range-reset{font-size:9px;padding:4px 7px;background:transparent}
+.year-range-reset:disabled{opacity:.45;cursor:default}
+.year-range-value{display:block;margin:8px 0 2px;font-size:14px;color:var(--green);font-variant-numeric:tabular-nums}
+.year-range .helios-ui-range2{width:100%;min-width:0}
+.year-range .helios-ui-range2__track{position:relative;width:100%;height:42px;display:flex;align-items:center;--min-pct:0;--max-pct:100}
+.year-range .helios-ui-range2__bar{position:absolute;left:10px;right:10px;height:6px;background:#d8e1d3;border-radius:9px}
+.year-range .helios-ui-range2__range{position:absolute;height:8px;border-radius:9px;background:#588373;left:calc(var(--min-pct) * .01 * (100% - 20px) + 10px);right:calc((100 - var(--max-pct)) * .01 * (100% - 20px) + 10px);cursor:grab;touch-action:none}
+.year-range .helios-ui-range2__range::before{content:'';position:absolute;inset:-10px 0}
+.year-range .helios-ui-range2__range:active{cursor:grabbing}
+.year-range .helios-ui-range2__input{appearance:none;-webkit-appearance:none;position:absolute;top:0;left:0;width:100%;height:42px;margin:0;padding:0;border:0;background:transparent;pointer-events:none;touch-action:none;outline:none}
+.year-range .helios-ui-range2__input::-webkit-slider-runnable-track{height:6px;background:transparent;border:0}
+.year-range .helios-ui-range2__input::-moz-range-track{height:6px;background:transparent;border:0}
+.year-range .helios-ui-range2__input::-moz-range-progress{background:transparent}
+.year-range .helios-ui-range2__input::-webkit-slider-thumb{appearance:none;-webkit-appearance:none;pointer-events:auto;width:20px;height:20px;margin-top:-7px;border:2px solid #588373;background:#fffefa;border-radius:50%;cursor:ew-resize;box-shadow:0 1px 3px #244a3320}
+.year-range .helios-ui-range2__input::-moz-range-thumb{pointer-events:auto;width:16px;height:16px;border:2px solid #588373;background:#fffefa;border-radius:50%;cursor:ew-resize;box-shadow:0 1px 3px #244a3320}
+.year-range .helios-ui-range2__input:focus-visible::-webkit-slider-thumb{box-shadow:0 0 0 4px #bd8b4555}
+.year-range .helios-ui-range2__input:focus-visible::-moz-range-thumb{box-shadow:0 0 0 4px #bd8b4555}
+.year-range-collapsed .helios-ui-range2__input:first-of-type::-webkit-slider-thumb{transform:translateX(-5px)}
+.year-range-collapsed .helios-ui-range2__input:last-of-type::-webkit-slider-thumb{transform:translateX(5px)}
+.year-range-collapsed .helios-ui-range2__input:first-of-type::-moz-range-thumb{transform:translateX(-5px)}
+.year-range-collapsed .helios-ui-range2__input:last-of-type::-moz-range-thumb{transform:translateX(5px)}
+.year-range-grip{position:absolute;left:50%;top:14px;transform:translateX(-50%);width:16px;height:7px;border:1px solid #588373;border-radius:4px;background:#fffefa;cursor:grab;touch-action:none}
+.year-range-grip::before{content:'';position:absolute;inset:-4px -5px}
+.year-range-extents{display:flex;justify-content:space-between;font-size:9px;color:var(--muted);font-variant-numeric:tabular-nums}
+.year-range-hint{font-size:9px;color:var(--muted);line-height:1.7;margin:7px 0 0}
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}

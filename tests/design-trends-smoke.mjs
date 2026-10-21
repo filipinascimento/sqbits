@@ -1,4 +1,5 @@
 import {chromium} from 'playwright';import {existsSync,mkdirSync,readdirSync,readFileSync,writeFileSync} from 'node:fs';import {homedir} from 'node:os';import {gunzipSync} from 'node:zlib';import assert from 'node:assert/strict';
+import {setYearRange} from './year-range-helpers.mjs';
 const root=`${homedir()}/.cache/ms-playwright`,executablePath=readdirSync(root).filter(x=>/^chromium-\d+$/.test(x)).sort().map(x=>`${root}/${x}/chrome-linux64/chrome`).find(existsSync);
 const browser=await chromium.launch({headless:true,executablePath,args:['--no-sandbox']}),page=await browser.newPage({viewport:{width:1500,height:1100}}),errors=[];
 page.setDefaultTimeout(60000);page.on('pageerror',e=>errors.push(e.message));page.on('console',m=>{if(m.type()==='error')errors.push(m.text());});
@@ -35,7 +36,7 @@ try{
  await page.locator('#design-value-mode').selectOption('count');assert.match(await page.locator('#design-series-heading').innerText(),/Category counts/);
  await page.locator('#design-search').fill('zz-no-matching-device-zz');await page.waitForFunction(()=>window.sqbits.trends.aggregate.total===0);assert.match(await page.locator('#design-time-chart').innerText(),/No dated entries/);
  await page.locator('#reset-design-population').click();await page.waitForFunction(()=>window.sqbits.trends.aggregate.total>0);
- await page.locator('#design-bin').selectOption('1');await page.locator('#design-yearMin').fill('2022');await page.locator('#design-yearMax').fill('2022');await page.waitForFunction(()=>window.sqbits.trends.aggregate.years.length===1&&window.sqbits.trends.aggregate.years[0].year===2022);
+ await page.locator('#design-bin').selectOption('1');await setYearRange(page,2022,2022,'#design-year-range');await page.waitForFunction(()=>window.sqbits.trends.aggregate.years.length===1&&window.sqbits.trends.aggregate.years[0].year===2022);
  await page.locator('#design-value-mode').selectOption('share');
  await page.setViewportSize({width:390,height:844});assert.ok(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+2));
  await page.screenshot({path:'verification/design-trends-mobile.png',fullPage:true});await page.setViewportSize({width:1500,height:1100});

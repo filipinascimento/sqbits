@@ -1,4 +1,5 @@
 import {chromium} from 'playwright';
+import {setYearRange} from './year-range-helpers.mjs';
 import {existsSync,mkdirSync,readdirSync,writeFileSync} from 'node:fs';
 import {homedir} from 'node:os';
 import assert from 'node:assert/strict';
@@ -79,7 +80,7 @@ async function checkNetwork(view){
  if(await page.evaluate(()=>window.sqbits.graph.running))await page.locator('#layout-toggle').click();
  await page.waitForFunction(()=>!window.sqbits.graph.running&&!document.querySelector('#layout-toggle').disabled);
  // Rebuild an actual filtered graph and ensure user settings survive it.
- if(view==='devices')await page.locator('#type').selectOption('fluxonium');else await page.locator('#yearMin').fill('2020');
+ if(view==='devices')await page.locator('#type').selectOption('fluxonium');else await setYearRange(page,2020,2026);
  await page.waitForFunction(()=>window.sqbits.graph&&window.sqbits.graph.helios.layout()!==window.controlTestLayout&&!document.querySelector('#gravity').disabled);
  const persisted=await page.evaluate(()=>{const h=window.sqbits.graph.helios;return {width:h.edgeWidthScale(),size:h.nodeSizeScale(),gravity:h.behavior.layout.parameter('kGravity'),mode:h.mode(),running:window.sqbits.graph.running};});
  assert.deepEqual(persisted,{width:3,size:1.75,gravity:10**-2.8,mode:'3d',running:false});
