@@ -25,7 +25,7 @@ npm test
 node tests/browser-smoke.mjs
 ```
 
-The browser check uses Playwright. It accepts `SQBITS_TEST_URL` and uses an installed Chromium or the normal Playwright browser. It checks native force-layout motion, repeated 2D/3D transitions, pause/resume and dimension preservation after filtering, network rendering, the measured/own-work defaults, evidence inspection, lasso selection, CSV download, metric switching, filtering, the schematic and a mobile viewport. `verification/` is local-only.
+The browser check uses Playwright. It accepts `SQBITS_TEST_URL` and uses an installed Chromium or the normal Playwright browser. It checks native force-layout motion, repeated 2D/3D transitions, pause/resume and dimension preservation after filtering, network rendering, the measured/own-work defaults, evidence inspection, lasso selection, CSV download, metric switching, filtering, the schematic and a mobile viewport. `SQBITS_TEST_LIFECYCLE=1 node tests/browser-smoke.mjs` runs the focused cooling, resume, queued-switch and teardown checks. `verification/` is local-only.
 
 ## Data and interpretation
 

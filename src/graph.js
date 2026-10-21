@@ -34,7 +34,8 @@ export async function mountGraph(container,{nodes,edges,directed,colorBy,onSelec
  helios.on(EVENTS.EDGE_CLICK,e=>{const edge=edgeByIndex.get(e.detail?.index);if(edge)onEdge?.(edge);});
  helios.on(EVENTS.NODE_HOVER,e=>{const d=e.detail||{},n=byIndex.get(d.index);if(d.state==='out'||!n){tip.hidden=true;return;}tip.innerHTML=`<strong>${esc(n.label)}</strong><span>${esc(n.year||'Year unknown')} · ${esc(n.communityLabel)}<br>${fmt(n.degree)} connections${n.review?' · Review flagged':''}</span>`;tip.hidden=false;const r=container.getBoundingClientRect();tip.style.left=Math.max(8,Math.min(r.width-300,d.clientX-r.left+14))+'px';tip.style.top=Math.max(8,Math.min(r.height-130,d.clientY-r.top+14))+'px';});
  let disposed=false,transitioning=false,pending=Promise.resolve();
- const isRunning=()=>helios.behavior.layout.runState()!=='stopped';
+ // Helios reports a naturally cooled layout as idle, distinct from running.
+ const isRunning=()=>helios.behavior.layout.runState()==='running';
  const notify=()=>{if(!disposed&&!transitioning)onLayoutState?.({running:isRunning(),mode:helios.mode()});};
  helios.on(EVENTS.LAYOUT_START,notify);helios.on(EVENTS.LAYOUT_STOP,notify);
  // Serialize layout/camera operations, including calls made while controls are

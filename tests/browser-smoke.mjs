@@ -11,6 +11,7 @@ page.on('pageerror',e=>{errors.push(e.message);console.log('PAGE_ERROR',e.messag
 page.on('console',m=>{if(m.type()==='error'){errors.push(m.text());console.log('CONSOLE_ERROR',m.text().slice(0,600));}});
 page.on('requestfailed',r=>console.log('FAILED_REQUEST',r.url().slice(0,160),r.failure()?.errorText));
 const url=process.env.SQBITS_TEST_URL||'http://127.0.0.1:5194/sqbits/';
+const lifecycleOnly=process.env.SQBITS_TEST_LIFECYCLE==='1';
 page.setDefaultTimeout(60000);
 const cdp=await page.context().newCDPSession(page);
 mkdirSync('verification',{recursive:true});
@@ -61,8 +62,10 @@ async function checkNativeLayout(name){
  console.log('NATIVE_LAYOUT',name,JSON.stringify({nodes:first.count,initialExtent:first.max,threeDExtent:three.max,depth:three.z,finalExtent:resumed.max}));
 }
 try{
- await page.goto(url,{waitUntil:'domcontentloaded'});
+ await page.goto(lifecycleOnly?url.split('#')[0]+'#devices':url,{waitUntil:'domcontentloaded'});
  await page.waitForSelector('#chart[data-engine="helios"]',{timeout:90000});
+ await page.waitForFunction(()=>window.sqbits?.graph);
+ if(!lifecycleOnly){
  console.log('CITATIONS',await page.locator('#visual-count').innerText());
  await checkNativeLayout('citations');
  await page.locator('#color').selectOption('year');await page.locator('#color').selectOption('community');
@@ -83,11 +86,13 @@ try{
  await page.locator('#metric').selectOption('t2_echo');await page.waitForFunction(()=>document.querySelector('#visual-count')?.textContent.includes('Echo coherence'));assert.ok(await page.locator('.outcome-dot').count()>0);
  await capture('performance.png');
  await page.locator('[data-view="devices"]').first().click();await page.waitForSelector('#chart[data-engine="helios"]',{timeout:90000});
+ }
  console.log('DEVICES',await page.locator('#visual-count').innerText());
- await checkNativeLayout('devices');
+ if(!lifecycleOnly)await checkNativeLayout('devices');
  // Natural cooling updates the button without turning the user's preference
  // into a manual pause for every subsequent filtered graph.
  await page.evaluate(()=>window.sqbits.graph.helios.stopLayout('alpha-min'));
+ await page.waitForFunction(()=>!window.sqbits.graph.running&&document.querySelector('#layout-toggle').textContent==='Resume layout');
  assert.equal(await page.locator('#layout-toggle').innerText(),'Resume layout');
  assert.equal(await page.evaluate(()=>window.sqbits.state.networks.devices.running),true);
  await page.locator('#layout-toggle').click();
