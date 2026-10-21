@@ -2,12 +2,13 @@ import HeliosNetwork,{AttributeType} from 'helios-network';
 import {Helios,EVENTS} from '../node_modules/helios-web/src/index.js';
 import {encoding,numeric,pretty,esc,fmt} from './data.js';
 
-export async function mountGraph(container,{nodes,edges,directed,colorBy,onSelection,onEdge,mode='2d',running=true,onLayoutState}){
+export async function mountGraph(container,{nodes,edges,directed,colorBy,onSelection,onEdge,mode='2d',running=true,nodeSizeScale=1,edgeWidthScale=1.5,gravity=.001,onLayoutState}){
  const network=await HeliosNetwork.create({directed,initialEdges:Math.max(1,edges.length)});
  if(!container.isConnected){network.dispose();return null;}
  const handles=network.addNodes(nodes.length),lookup=new Map(nodes.map((n,i)=>[n.id,Number(handles[i])])),byIndex=new Map(nodes.map((n,i)=>[Number(handles[i]),n]));
  const edgeHandles=network.addEdges(edges.map(e=>[lookup.get(e.source),lookup.get(e.target)]));
  const representatives=new Map();for(const n of nodes){if(n.community&&(!representatives.has(n.community)||representatives.get(n.community).degree<n.degree))representatives.set(n.community,n);}
+ const communityNodes=new Map();for(const [id,n] of byIndex){if(!communityNodes.has(n.community))communityNodes.set(n.community,[]);communityNodes.get(n.community).push(id);}
  network.nodeAttribute('label',(_,id,i)=>representatives.get(nodes[i].community)===nodes[i]?nodes[i].communityLabel:'')
   .nodeAttribute('score',(_,id,i)=>Math.log1p(nodes[i].degree),{type:AttributeType.Float});
  let helios;
@@ -15,23 +16,38 @@ export async function mountGraph(container,{nodes,edges,directed,colorBy,onSelec
   // Helios owns initialization, forces, positions and dimensional transitions.
   // In particular, do not replace the engine when resuming a paused layout.
   helios=new Helios(network,{container,mode,layout:{type:'gpu-force'},storage:false,session:false,fileDrop:false,ui:false,quickControls:false,autoCleanup:false,disposeNetworkOnDestroy:true,
-   density:false,legends:false,edgeFastRendering:true,interactionRenderOrder:true,
-   behaviors:{layout:{running},
+   density:false,legends:false,edgeFastRendering:false,edgeAdaptiveQuality:{enabled:false},interactionRenderOrder:true,
+   behaviors:{layout:{running,parameters:{kGravity:gravity}},
     labels:{enabled:true,source:'label',selectionMode:'ranked',maxVisible:28,maxChars:44,minScreenRadiusPx:0,fontSizeScale:.95,outlineWidth:4,fill:'#22413d',outlineColor:'#f8f8f3'},
-    hover:{hoverLabel:false},appearance:{background:'#f4f6f2',shadedEnabled:false,shadedNodes:false,shadedEdges:false}}});
+    hover:{hoverLabel:false,highlightConnectedEdges:true},appearance:{background:'#f4f6f2',shadedEnabled:false,shadedNodes:false,shadedEdges:false}}});
   await helios.ready;
   if(!container.isConnected){helios.destroy();return null;}
   helios.behavior.labels.update({enabled:true,source:id=>{const n=byIndex.get(id);return n&&representatives.get(n.community)===n?n.communityLabel:null;},selectionMode:'ranked',pinnedNodes:[...representatives.values()].map(n=>lookup.get(n.id)),maxVisible:28,minScreenRadiusPx:0,maxChars:44,fontSizeScale:.95,outlineWidth:4,fill:'#22413d',outlineColor:'#f8f8f3'});
   helios.behavior.mappers.setChannelConfig('node','size',{type:'linear',attributes:'score',domain:[0,Math.max(1,...nodes.map(n=>Math.log1p(n.degree)))],range:[1.5,7]});
   helios.behavior.mappers.setChannelConfig('node','opacity',{type:'constant',value:.92});
-  helios.behavior.mappers.setChannelConfig('edge','opacity',{type:'constant',value:.12});
-  helios.behavior.mappers.setChannelConfig('edge','width',{type:'constant',value:.7});
+  // Keep Helios's default edge mapper: width 1, with endpoint colors derived
+  // from the live node-color mapper and interpolated along each edge.
+  helios.nodeSizeScale(nodeSizeScale);helios.edgeWidthScale(edgeWidthScale);
   helios.semanticZoomExponent(.65);
  }catch(error){helios?.destroy();if(!helios)network.dispose();throw error;}
  const tip=document.createElement('div');tip.className='graph-tooltip';tip.hidden=true;container.append(tip);
+ let highlightedCommunity=null;
+ function highlightCommunity(community){
+  if(community===highlightedCommunity)return;
+  highlightedCommunity=community;tip.hidden=true;
+  // Use the same source-managed HIGHLIGHTED state path as native Helios
+  // legend hover. This preserves selection and lets Helios dim other items.
+  if(community==null)helios._clearHighlightSource('sqbits:community-label');
+  else helios._setHighlightSource('sqbits:community-label',{nodes:communityNodes.get(community)||[]});
+ }
+ const labelAt=target=>target?.closest?.('.helios-label[data-node-id]');
+ const labelEnter=e=>{const label=labelAt(e.target);if(!label||label===labelAt(e.relatedTarget))return;const n=byIndex.get(Number(label.dataset.nodeId));if(n)highlightCommunity(n.community);};
+ const labelLeave=e=>{const label=labelAt(e.target);if(label&&label!==labelAt(e.relatedTarget))highlightCommunity(null);};
+ const clearHighlight=()=>highlightCommunity(null);
+ container.addEventListener('pointerover',labelEnter);container.addEventListener('pointerout',labelLeave);container.addEventListener('pointerleave',clearHighlight);
  const edgeByIndex=new Map(Array.from(edgeHandles,(id,i)=>[Number(id),edges[i]]));
  helios.on(EVENTS.EDGE_CLICK,e=>{const edge=edgeByIndex.get(e.detail?.index);queueMicrotask(()=>{if(!disposed&&edge)onEdge?.(edge);});});
- helios.on(EVENTS.NODE_HOVER,e=>{const d=e.detail||{},n=byIndex.get(d.index);if(d.state==='out'||!n){tip.hidden=true;return;}tip.innerHTML=`<strong>${esc(n.label)}</strong><span>${esc(n.year||'Year unknown')} · ${esc(n.communityLabel)}<br>${fmt(n.degree)} connections${n.review?' · Review flagged':''}</span>`;tip.hidden=false;const r=container.getBoundingClientRect();tip.style.left=Math.max(8,Math.min(r.width-300,d.clientX-r.left+14))+'px';tip.style.top=Math.max(8,Math.min(r.height-130,d.clientY-r.top+14))+'px';});
+ helios.on(EVENTS.NODE_HOVER,e=>{const d=e.detail||{},n=byIndex.get(d.index);if(d.state==='out'||!n||highlightedCommunity!=null){tip.hidden=true;return;}tip.innerHTML=`<strong>${esc(n.label)}</strong><span>${esc(n.year||'Year unknown')} · ${esc(n.communityLabel)}<br>${fmt(n.degree)} connections${n.review?' · Review flagged':''}</span>`;tip.hidden=false;const r=container.getBoundingClientRect();tip.style.left=Math.max(8,Math.min(r.width-300,d.clientX-r.left+14))+'px';tip.style.top=Math.max(8,Math.min(r.height-130,d.clientY-r.top+14))+'px';});
  let disposed=false,transitioning=false,pending=Promise.resolve();
  let selectionQueued=false,selectionKey='';
  helios.behavior.selection.on('change',()=>{
@@ -57,7 +73,10 @@ export async function mountGraph(container,{nodes,edges,directed,colorBy,onSelec
    helios.behavior.legends.enabled(false);return enc;
   },
   fit(){helios.frameNetwork({animate:true,durationMs:350,paddingRatio:.09});},
-  labels(on){helios.behavior.labels.enabled(on);},
+  labels(on){if(!on)clearHighlight();helios.behavior.labels.enabled(on);},
+  nodeSizeScale(v){helios.nodeSizeScale(+v);},
+  edgeWidthScale(v){helios.edgeWidthScale(+v);},
+  gravity(v){return perform(()=>{helios.behavior.layout.parameter('kGravity',+v);notify();});},
   select(node){const id=lookup.get(node.id);if(id!=null)helios.behavior.selection.selectOnly('node',id,{silent:false});},
   clearSelection(){helios.behavior.selection.clearSelection();},
   toggleLayout(){return perform(()=>{const layout=helios.behavior.layout;if(isRunning())layout.stop('atlas');else{layout.reheat('atlas');layout.start();}notify();return isRunning();});},
@@ -74,7 +93,7 @@ export async function mountGraph(container,{nodes,edges,directed,colorBy,onSelec
    }
   });},
   edgeOpacity(v){helios.behavior.mappers.setChannelConfig('edge','opacity',{type:'constant',value:+v});},
-  destroy(){if(disposed)return;disposed=true;tip.remove();helios.behavior.layout.stop('destroy');helios.stopCameraTransition();pending.finally(()=>helios.destroy());},
+  destroy(){if(disposed)return;disposed=true;clearHighlight();container.removeEventListener('pointerover',labelEnter);container.removeEventListener('pointerout',labelLeave);container.removeEventListener('pointerleave',clearHighlight);tip.remove();helios.behavior.layout.stop('destroy');helios.stopCameraTransition();pending.finally(()=>helios.destroy());},
  };
  controller.setColor(colorBy);notify();
  return controller;

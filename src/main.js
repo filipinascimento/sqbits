@@ -8,7 +8,14 @@ const app=document.querySelector('#app');
 const titles={papers:['The literature, connected.','Follow citation links and explore automatically labelled research communities.'],devices:['Find the design connections.','Explore device and component records linked by similarity of reported design choices.'],timeline:['Performance, over time.','Compare one reported outcome at a time, with conditions and source evidence close at hand.'],guide:['Inside a superconducting qubit.','A visual guide to the structures, materials and processes behind the measurements.']};
 let summary,paperData,deviceData,outcomeAudit,graph,chart,selectionPanel,selectionVersion=0,renderVersion=0,inspectorVersion=0,selectedPoints=[],timelinePoints=[],focusPaper=null,focusDevice=null;
 const viewFromHash=location.hash.slice(1);
-const state={view:titles[viewFromHash]?viewFromHash:'papers',metric:'t1',color:'community',log:true,interaction:'lasso',filters:{},networks:{papers:{mode:'2d',running:true},devices:{mode:'2d',running:true}},timelineFilters:{attribution:'own_work',realization:'measured_device',scope:'individual_qubit'}};
+const networkDefaults=()=>({mode:'2d',running:true,nodeSizeScale:1,edgeWidthScale:1.5,gravity:.001});
+const state={view:titles[viewFromHash]?viewFromHash:'papers',metric:'t1',color:'community',log:true,interaction:'lasso',filters:{},networks:{papers:networkDefaults(),devices:networkDefaults()},timelineFilters:{attribution:'own_work',realization:'measured_device',scope:'individual_qubit'}};
+const graphSliders=[
+ {id:'edge-width',key:'edgeWidthScale',label:'Edge width',min:.25,max:6,step:.05,hint:'Scale the width of network links.'},
+ {id:'node-size',key:'nodeSizeScale',label:'Node size',min:.25,max:4,step:.05,hint:'Scale node sizes while preserving their relative differences.'},
+ {id:'gravity',key:'gravity',label:'Gravity',min:-5,max:-1,step:.05,log:true,hint:'Pull toward the center, relative to the default gravity. Higher values make the layout more compact. Resume a paused layout to see the effect.'},
+];
+const sliderValue=(control,value)=>fmt(control.log?value/.001:value)+'×';
 const $=id=>document.getElementById(id);
 const option=(value,label,selected)=>`<option value="${esc(value)}" ${String(value)===String(selected)?'selected':''}>${esc(label)}</option>`;
 function selectControl(id,label,values,value,all='All'){return `<label class="field">${label}<select id="${id}">${all!==null?option('',all,value):''}${values.map(([v,l])=>option(v,l,value)).join('')}</select></label>`;}
@@ -48,8 +55,9 @@ async function render(){const version=++renderVersion;inspectorVersion++;selecti
  <button id="reset-filters" class="secondary-button">${isTimeline?'Reset to measured own-work qubits':'Reset filters'}</button>
  <p class="filter-note">${isPaper?'Citing paper → cited paper. Unlinked papers remain in the atlas.':'Records represent individual devices, families and components. Missing design choices are not inferred.'}</p></div></details>
  <div class="visual-column"><section class="visual-panel"><div class="visual-heading"><div><span class="eyebrow">${isTimeline?'REPORTED PERFORMANCE':isPaper?'CITATION NETWORK':'DESIGN SIMILARITY NETWORK'}</span><h2 id="visual-count">Loading…</h2></div><div class="visual-actions" id="visual-actions">${isTimeline?`<button id="lasso-mode" class="active" aria-pressed="true">Lasso</button><button id="pan-mode" aria-pressed="false">Pan / zoom</button><button id="clear-selection">Clear</button><button id="fit-view">Reset zoom</button>`:`<button id="fit-view">Fit</button><button id="labels-toggle" class="active" aria-pressed="true">Labels</button><button id="layout-toggle" disabled aria-pressed="true">Pause layout</button>${selectControl('graph-mode','Dimension',[['2d','2D'],['3d','3D']],state.networks[state.view].mode,null)}`}</div></div>
+ ${!isTimeline?`<div class="network-controls" role="group" aria-label="Network appearance and layout">${graphSliders.map(c=>{const value=state.networks[state.view][c.key];return `<label class="network-slider" for="${c.id}" title="${esc(c.hint)}"><span>${c.label}<output id="${c.id}-value" for="${c.id}">${sliderValue(c,value)}</output></span><input id="${c.id}" type="range" min="${c.min}" max="${c.max}" step="${c.step}" value="${c.log?Math.log10(value):value}" aria-valuetext="${sliderValue(c,value)}" disabled></label>`;}).join('')}</div>`:''}
  <div id="chart" class="chart ${isTimeline?'performance-chart':'network-chart'}">${loading('Preparing the visualization…')}</div>
- <div id="legend" class="legend"></div><div class="visual-footnote">${isTimeline?'<span class="line-sample"></span><span id="frontier-label">Observed frontier</span> · PDF audit corrections apply; excluded or unresolved quantities are available using the filter. Hollow points do not set the frontier; dashed outlines denote bounds or unknown form. Wheel to zoom; draw a lasso to select. Shift adds to selection. Log scale omits zero values; switch to linear to include them. <span class="audit-summary">'+fmt(outcomeAudit.audited_observations)+' observations checked against source PDFs across the dataset.</span>':`${isPaper?'Citation':'Similarity'} links · Drag to navigate, wheel to zoom. Select a node; Shift-click adds more. Open a card for source details. Community labels are automatic. Unlinked entries can be included with the sidebar control.`}</div>
+ <div id="legend" class="legend"></div><div class="visual-footnote">${isTimeline?'<span class="line-sample"></span><span id="frontier-label">Observed frontier</span> · PDF audit corrections apply; excluded or unresolved quantities are available using the filter. Hollow points do not set the frontier; dashed outlines denote bounds or unknown form. Wheel to zoom; draw a lasso to select. Shift adds to selection. Log scale omits zero values; switch to linear to include them. <span class="audit-summary">'+fmt(outcomeAudit.audited_observations)+' observations checked against source PDFs across the dataset.</span>':`${isPaper?'Citation':'Similarity'} links · Drag to navigate, wheel to zoom. Select a node; Shift-click adds more. Hover a community label to highlight its members. Open a card for source details. Community labels are automatic. Unlinked entries can be included with the sidebar control.`}</div>
  </section></div><aside id="selection-panel" class="selection-panel" aria-label="Selected papers and devices"></aside></div>`;
  selectionPanel=mountSelectionPanel($('selection-panel'),{papers:paperData.nodes,getDevices:()=>deviceData?.nodes||[],getMetric:()=>summary.metrics.find(m=>m.id===state.metric),onClear:()=>state.view==='timeline'?chart?.clear():graph?.clearSelection(),onExport:()=>chart?.export(),onBack:()=>{inspectorVersion++;}});
  selectionPanel.update({view:state.view});
@@ -66,7 +74,7 @@ function renderLegend(enc){$('legend').innerHTML=enc.legend.slice(0,12).map(l=>`
 let updateVersion=0;
 async function updateVisualization(){const version=++updateVersion,view=state.view;graph?.destroy();graph=null;chart?.destroy();chart=null;$('chart').innerHTML=loading('Preparing the visualization…');
  delete $('chart').dataset.engine;inspectorVersion++;selectionVersion++;selectedPoints=[];selectionPanel?.update({view});
- for(const id of ['fit-view','labels-toggle','layout-toggle','graph-mode'])if($(id)&&view!=='timeline')$(id).disabled=true;
+ for(const id of ['fit-view','labels-toggle','layout-toggle','graph-mode',...graphSliders.map(c=>c.id)])if($(id)&&view!=='timeline')$(id).disabled=true;
  if(view==='timeline'){
   const metric=summary.metrics.find(m=>m.id===state.metric);const rows=await load(`outcomes/${state.metric}.json.gz`);if(version!==updateVersion||state.view!==view)return;
   timelinePoints=auditedRows(rows,state.metric,outcomeAudit).filter(p=>state.timelineFilters.includeAuditExcluded||(!p.excluded&&!p.quarantined)).filter(p=>matchesDevice(p.attribution?{...deviceData.nodes[p.device],attribution:p.attribution}:deviceData.nodes[p.device],state.timelineFilters,paperData.nodes)).filter(p=>state.timelineFilters.realization!=='measured_device'||p.origin==='measured');
@@ -93,6 +101,14 @@ async function updateVisualization(){const version=++updateVersion,view=state.vi
   const mounted=await mountGraph($('chart'),{nodes:indexed,edges,directed:isPaper,colorBy:state.color,...networkState,onLayoutState:syncControls,onSelection:async nodes=>{const ticket=++selectionVersion;inspectorVersion++;if(isPaper&&nodes.length)await ensureDevices();if(ticket!==selectionVersion||version!==updateVersion||state.view!==view)return;selectionPanel.update({view,paperIndices:isPaper?nodes.map(n=>n._index):[],deviceIndices:isPaper?[]:nodes.map(n=>n._index)});},onEdge:e=>inspectEdge(e,isPaper)});
   if(version!==updateVersion||state.view!==view){mounted?.destroy();return;}graph=mounted;if(!graph)return;
   $('chart').dataset.engine='helios';for(const id of ['fit-view','labels-toggle','layout-toggle','graph-mode'])$(id).disabled=false;
+  for(const control of graphSliders){
+   const input=$(control.id);input.disabled=false;
+   input.oninput=()=>{
+    const value=control.log?10**Number(input.value):Number(input.value);networkState[control.key]=value;
+    const text=sliderValue(control,value);$(control.id+'-value').textContent=text;input.setAttribute('aria-valuetext',text);
+    Promise.resolve(mounted[control.key](value)).catch(error=>{if(version===updateVersion&&state.view===view){toast('Unable to update the network setting.');console.error(error);}});
+   };
+  }
   $('fit-view').onclick=()=>graph.fit();let labels=true;
   $('labels-toggle').onclick=()=>{labels=!labels;graph.labels(labels);$('labels-toggle').classList.toggle('active',labels);$('labels-toggle').setAttribute('aria-pressed',String(labels));};
   const layoutButton=$('layout-toggle'),modeSelect=$('graph-mode');layoutButton.disabled=false;
