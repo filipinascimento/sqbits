@@ -28,6 +28,15 @@
 .selection-value strong{font-weight:550;color:var(--green);font-size:12px}
 .selection-value span,.selection-value small{overflow-wrap:anywhere}
 .selection-value small{color:var(--muted);font-size:9px}
+.selection-value-withheld{background:#fbf2e7;border:1px solid #e7caa6}
+.selection-value .selection-audit-status{font-size:9px;font-weight:650;color:var(--green)}
+.selection-value-withheld .selection-audit-status{color:#80500f}
+.selection-measurement{font-weight:550}
+.selection-audit-warning{margin:0;color:#80500f;font-size:10px;font-weight:550}
+.selection-audit-evidence{font-size:9px;color:var(--muted)}
+.selection-audit-evidence summary{cursor:pointer;color:var(--green)}
+.selection-audit-evidence p{margin:7px 0}
+.selection-audit-evidence blockquote{margin:7px 0;padding-left:8px;border-left:2px solid var(--line)}
 .selection-more{display:block;width:100%;font-size:10px;line-height:1.6;margin-top:12px;background:#f4f6ef}
 .selection-empty{text-align:center;color:var(--muted);padding:35px 16px;font-size:12px;line-height:1.9}
 .selection-empty>span{font-family:Georgia,serif;font-size:32px;color:#b1bfa8}

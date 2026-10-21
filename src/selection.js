@@ -1,4 +1,5 @@
 import {esc,fmt,pretty} from './data.js';
+import {auditLabel} from './audit.js';
 
 // Group record IDs rather than names: two devices named Q1 stay distinct.
 export function groupSelection({paperIndices=[],deviceIndices=[],points=[],papers,devices}){
@@ -27,7 +28,18 @@ export function mountSelectionPanel(container,{getDevices,papers,getMetric,onCle
  function closeDetails(){container.classList.remove('showing-details');el('inspector').classList.remove('open');}
  function deviceHTML({index,device,points}){
   const metric=getMetric();
-  const values=points.map(p=>`<div class="selection-value"><strong>${fmt(p.value)} ${esc(metric?.unit||'')}</strong><span>${esc(p.text)}</span><small>${esc(pretty(p.origin))}${p.conditions?' · '+esc(p.conditions):''}</small></div>`);
+  const values=points.map(p=>{
+   const audit=p.audit,withheld=audit&&['exclude','unresolved'].includes(audit.action);
+   const warning=audit?.action==='exclude'?'Excluded from this outcome comparison and frontier.':audit?.action==='unresolved'?'Hidden by default pending review; cannot set the frontier.':audit?.frontier_eligible===false?'Excluded from the standard frontier for this protocol.':'';
+   return `<div class="selection-value${withheld?' selection-value-withheld':''}">
+    ${audit?`<span class="selection-audit-status">PDF audit: ${esc(auditLabel(audit.action))}</span>`:''}
+    <span class="selection-measurement">${esc(p.name)}</span><strong>${fmt(p.value)} ${esc(metric?.unit||'')}</strong><span>Reported: ${esc(p.text)}</span>
+    ${p.component?`<small>${esc(p.component)}</small>`:''}
+    <small>${esc(pretty(p.origin))}${p.conditions?' · '+esc(p.conditions):''}</small>
+    ${warning?`<p class="selection-audit-warning">${esc(warning)}</p>`:''}
+    ${audit?`<details class="selection-audit-evidence"><summary>Source audit${audit.page?' · PDF p. '+esc(audit.page):''}${audit.source_locator?' · '+esc(audit.source_locator):''}</summary><p>${esc(audit.reason)}</p>${audit.quote?`<blockquote>${esc(audit.quote)}</blockquote>`:''}</details>`:''}
+   </div>`;
+  });
   return `<article class="selected-device" data-device-index="${index}"><button class="selected-device-title" data-device="${index}"${points[0]?` data-point="${esc(points[0].id)}"`:''}>${esc(device.label)} <span aria-hidden="true">↗</span></button>
    <div class="selected-device-meta">${esc(pretty(device.type))} · ${esc(pretty(device.scope))}<br>${esc(pretty(device.realization))} · ${esc(pretty(device.attribution))}</div>
    ${device.review?'<span class="review-badge">Review flagged</span>':''}

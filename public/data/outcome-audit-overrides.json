@@ -7,9 +7,10 @@
     "nature": "exact",
     "page": 7,
     "quote": "Tᵣ = 3.6 h",
-    "reason": "Measured metastable fluxon-well lifetime, not the controlled plasmon computational transition. The unit conversion is correct. Source pp. 6–8 distinguishes plasmon T1 (~15 µs) from interwell fluxon tunneling (18 min to 3.6 h); full phase-coherent fluxon-qubit control is future work.",
+    "reason": "Figure 8c reports device C’s measured fluxon-state decay time of 3.6 h at bias Φ3; the conversion to 12,960,000,000 µs is correct. This is the lifetime of a metastable fluxon well before interwell tunneling, monitored through plasmon-assisted readout. It is excluded from the standard computational-qubit T1 comparison, not rejected as a fabricated value. Device C’s plasmon-qubit T1 is 17.4 µs at zero flux (Table 1, p. 4); Figure 6a (p. 5) gives a 15.8 µs decay fit across flux settings. The discussion (p. 8) leaves full phase-coherent fluxon-qubit control to future work.",
     "direct_source_checked": true,
-    "reviewed_by": "Codex direct source inspection"
+    "reviewed_by": "Codex direct source inspection",
+    "source_locator": "Figure 8c, purple curve (Φ3)"
   },
   "two_qubit_gate_fidelity:799:16": {
     "action": "exclude",
@@ -685,5 +686,31 @@
     "reason": "The T = 0 column is the temperature-independent TLS-bath model, not a measurement at absolute zero. Appendix F (p. 10) explicitly makes all inferred dielectric-loss tangents lower-bound estimates because strongly coupled TLS resonances are excluded. Preserve the numeric value and mark the lower bound.",
     "direct_source_checked": true,
     "reviewed_by": "Codex direct source inspection of PDF pp. 5–6, 10, 12"
+  },
+  "t1:34214:11": {
+    "action": "exclude",
+    "value": 3600000000.0,
+    "origin": "measured",
+    "attribution": "own_work",
+    "nature": "exact",
+    "page": 7,
+    "quote": "Tᵣ = 1.0 h",
+    "source_locator": "Figure 8c, orange curve (Φ2)",
+    "reason": "Figure 8c reports device C’s measured fluxon-state decay time of 1.0 h at bias Φ2; the conversion to 3,600,000,000 µs is correct. This is the lifetime of a metastable fluxon well before interwell tunneling, monitored through plasmon-assisted readout. It is excluded from the standard computational-qubit T1 comparison, not rejected as a fabricated value. Device C’s plasmon-qubit T1 is 17.4 µs at zero flux (Table 1, p. 4); Figure 6a (p. 5) gives a 15.8 µs decay fit across flux settings. The discussion (p. 8) leaves full phase-coherent fluxon-qubit control to future work.",
+    "direct_source_checked": true,
+    "reviewed_by": "Codex direct source inspection"
+  },
+  "t1:34214:12": {
+    "action": "exclude",
+    "value": 1086000000.0,
+    "origin": "measured",
+    "attribution": "own_work",
+    "nature": "exact",
+    "page": 7,
+    "quote": "Tᵣ = 18.1 min",
+    "source_locator": "Figure 8c, cyan curve (Φ1)",
+    "reason": "Figure 8c reports device C’s measured fluxon-state decay time of 18.1 min at bias Φ1; the conversion to 1,086,000,000 µs is correct. This is the lifetime of a metastable fluxon well before interwell tunneling, monitored through plasmon-assisted readout. It is excluded from the standard computational-qubit T1 comparison, not rejected as a fabricated value. Device C’s plasmon-qubit T1 is 17.4 µs at zero flux (Table 1, p. 4); Figure 6a (p. 5) gives a 15.8 µs decay fit across flux settings. The discussion (p. 8) leaves full phase-coherent fluxon-qubit control to future work.",
+    "direct_source_checked": true,
+    "reviewed_by": "Codex direct source inspection"
   }
 }

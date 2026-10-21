@@ -23,6 +23,8 @@ Short quoted evidence is checked against PDF page text. This catches page/quotat
 
 `frontier_eligible:false` can retain a supported specialized measurement as a hollow point while excluding it from the standard frontier. For example, an inverse partial nonsequential relaxation-channel rate is not the total computational-state lifetime. Bounds remain bounds. Protocols, encodings, postselection and statistics are not silently equated by checking their units.
 
+Device C in Hassani et al., DOI 10.1038/s41467-023-39656-2, illustrates this distinction. Original PDF Figure 8c (p. 7) reports fluxon-well decay fits of 3.6 h, 1.0 h and 18.1 min at three flux biases. Direct inspection of the rendered figure verifies all three values and their conversions. They describe long-lived metastable fluxon populations, while full phase-coherent fluxon control remains future work in that paper. The device's plasmon-qubit T1 is 17.4 µs at zero flux in Table 1 (p. 4), with a 15.8 µs fit in Figure 6a (p. 5). All three fluxon measurements are preserved but excluded from the standard computational T1 comparison and frontier. Selection cards identify the measurement and exclusion explicitly when the audit filter reveals them.
+
 The default remains own-work measured individual-qubit records with measured observation origin. Observation-level attribution corrections also affect that filter. Best-outcome color summaries are recomputed from the same correction layer. Networks retain their original reported-design features and topology; outcome audits do not introduce outcome-based similarity links or precomputed positions.
 
 ## Reproduce in the original data workspace

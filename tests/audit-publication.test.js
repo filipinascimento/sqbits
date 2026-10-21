@@ -18,3 +18,14 @@ test('numeric color summaries agree with corrected and reclassified outcomes',()
  }
  for(let i=0;i<ds.length;i++){const actual=a.device_best[i]||ds[i].best,expected=best.get(i)||{};assert.deepEqual(Object.keys(actual).sort(),Object.keys(expected).sort());for(const key of Object.keys(expected))assert.ok(Math.abs(actual[key]-expected[key])<=Math.max(1e-10,Math.abs(expected[key])*1e-10),ds[i].id+' '+key);}
 });
+test('source-verified fluxon residence times stay raw but never set computational T1 records',()=>{
+ const a=read('outcome-audit.json.gz'),raw=read('outcomes/t1.json.gz'),before=structuredClone(raw),rows=auditedRows(raw,'t1',a);
+ for(const [id,value] of [['34214:10',12960000000],['34214:11',3600000000],['34214:12',1086000000]]){
+  const p=rows.find(p=>p.id===id);assert.equal(p.value,value);assert.equal(p.rawValue,value);
+  assert.equal(p.audit.action,'exclude');assert.equal(p.audit.direct_source_checked,true);assert.equal(p.audit.page,7);assert.match(p.audit.source_locator,/Figure 8c/);
+  assert.equal(p.excluded,true);assert.equal(p.quarantined,false);assert.equal(p.eligible,false);
+ }
+ assert.deepEqual(raw,before);
+ assert.equal(rows.find(p=>p.id==='34214:0').excluded,false);
+ assert.ok(Math.abs(a.device_best[34214].t1-17.4)<1e-10);
+});

@@ -3,10 +3,20 @@ const root=`${homedir()}/.cache/ms-playwright`,executablePath=readdirSync(root).
 const browser=await chromium.launch({headless:true,executablePath,args:['--no-sandbox']}),page=await browser.newPage({viewport:{width:1500,height:1100}}),errors=[];page.on('pageerror',e=>errors.push(e.message));
 try{
  await page.goto((process.env.SQBITS_TEST_URL||'http://127.0.0.1:5194/sqbits/')+'#timeline');await page.waitForFunction(()=>window.sqbits?.chart?.count>0);
- assert.equal(await page.evaluate(()=>window.sqbits.chart.all().some(p=>p.id==='34214:10')),false);
+ const fluxonIds=['34214:10','34214:11','34214:12'];
+ assert.equal(await page.evaluate(ids=>window.sqbits.chart.all().some(p=>ids.includes(p.id)),fluxonIds),false);
  await page.locator('#include-audit-excluded').check();await page.waitForFunction(()=>window.sqbits.chart?.all().some(p=>p.id==='34214:10'));
  const original=await page.evaluate(()=>window.sqbits.chart.all().find(p=>p.id==='34214:10'));assert.equal(original.value,12960000000);assert.equal(original.audit.action,'exclude');assert.equal(original.eligible,false);
- await page.locator('#include-audit-excluded').uncheck();await page.waitForFunction(()=>window.sqbits.chart&&!window.sqbits.chart.all().some(p=>p.id==='34214:10'));
+ const fluxons=await page.evaluate(ids=>{const points=window.sqbits.chart.all().filter(p=>ids.includes(p.id));for(const point of points)window.sqbits.chart.toggle(point,true);return points;},fluxonIds);
+ assert.equal(fluxons.length,3);assert.deepEqual(fluxons.map(p=>p.value).sort((a,b)=>b-a),[12960000000,3600000000,1086000000]);
+ for(const point of fluxons){assert.equal(point.audit.action,'exclude');assert.equal(point.eligible,false);assert.equal(point.audit.direct_source_checked,true);}
+ assert.equal(await page.locator('.selection-audit-status').count(),3);
+ for(const card of await page.locator('.selection-value').all()){
+  assert.match(await card.innerText(),/PDF audit: Excluded/);assert.match(await card.innerText(),/fluxon excited-to-ground decay/);assert.match(await card.innerText(),/Excluded from this outcome comparison and frontier/);
+  await card.locator('summary').click();assert.match(await card.innerText(),/Figure 8c/);assert.match(await card.innerText(),/plasmon/);
+ }
+ await page.locator('#selection-panel').screenshot({path:'verification/fluxon-selection-audit.png'});
+ await page.locator('#include-audit-excluded').uncheck();await page.waitForFunction(ids=>window.sqbits.chart&&!window.sqbits.chart.all().some(p=>ids.includes(p.id)),fluxonIds);
  const corrected=await page.evaluate(()=>{const p=window.sqbits.chart.all().find(p=>p.id==='10873:8');window.sqbits.chart.toggle(p,true);window.sqbits.inspectDevice(p.device,p);return p;});
  assert.equal(corrected.value,.7);assert.equal(corrected.rawValue,700);await page.waitForSelector('#inspector .audit-finding');assert.match(await page.locator('.selected-value strong').innerText(),/0.7 µs/);assert.match(await page.locator('#inspector-content').innerText(),/factor of 1000/);
  await page.locator('#close-inspector').click();const download=page.waitForEvent('download');await page.locator('#export-selection').click();const csv=readFileSync(await (await download).path(),'utf8');assert.match(csv,/"original_value"/);assert.match(csv,/"700"/);assert.match(csv,/"0.7"/);assert.match(csv,/"correct"/);

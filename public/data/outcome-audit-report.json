@@ -4,8 +4,8 @@
   "selection_rule": "Per outcome/year: max(5,ceil(5% of distinct device records)), ranked by maximum observation; all scopes plus default measured own-work individual qubits. Also minimum observations for minimizing SOTA outcomes.",
   "counts": {
     "correct": 1300,
-    "unresolved": 1509,
-    "exclude": 1125,
+    "unresolved": 1507,
+    "exclude": 1127,
     "confirm": 7900
   },
   "selected_observations": 5652,
