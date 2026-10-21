@@ -23,6 +23,7 @@ The local path is `/sqbits/`. Build the static site with `npm run build`; `dist/
 ```sh
 npm test
 node tests/browser-smoke.mjs
+node tests/timeline-smoke.mjs
 ```
 
 The browser check uses Playwright. It accepts `SQBITS_TEST_URL` and uses an installed Chromium or the normal Playwright browser. It checks native force-layout motion, repeated 2D/3D transitions, pause/resume and dimension preservation after filtering, network rendering, the measured/own-work defaults, evidence inspection, lasso selection, CSV download, metric switching, filtering, the schematic and a mobile viewport. `SQBITS_TEST_LIFECYCLE=1 node tests/browser-smoke.mjs` runs the focused cooling, resume, queued-switch and teardown checks. `verification/` is local-only.
@@ -51,6 +52,7 @@ Device communities use weighted Leiden modularity. Labels are automatic distinct
 
 ### Outcome timeline
 
+- The year axis follows the filtered observations, with small point margins; zoom and pan stay within that extent.
 - One property is shown at a time; Ramsey, echo and other T₂ remain distinct.
 - Only supported, explicitly normalized, finite non-negative scalar values are plotted. Original expressions and units remain inspectable. Log axes omit zeros; the linear axis retains them.
 - Ranges without a reported scalar are not assigned a midpoint. Bounds and unknown forms have dashed outlines and cannot establish a frontier.
