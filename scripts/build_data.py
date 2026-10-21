@@ -4,7 +4,6 @@ from __future__ import annotations
 import argparse, collections, concurrent.futures, gzip, hashlib, json, math, random, re, time
 from pathlib import Path
 import igraph as ig
-import numpy as np
 import pyarrow.parquet as pq
 
 ROOT=Path(__file__).resolve().parents[2]
@@ -82,22 +81,7 @@ def communities(n,edges,texts,weighted=False):
    terms=collections.Counter(t for i in members for t in words(texts[active[i]]))
    ranked=sorted(terms,key=lambda t:terms[t]*math.log(1+n/(1+counts[t])),reverse=True)
    labels[group_id]=f'C{group_id:02d} · '+(' · '.join(t.replace('-',' ').capitalize() for t in ranked[:3]) or 'Small connected group')
- # Lay out the largest connected component, then pack the other components.
- # Isolates cannot stretch the camera bounds and hide the connected structure.
- random.seed(42);ig.set_random_number_generator(random.Random(42))
- xy=np.zeros((n,2));components=sorted(graph.connected_components(),key=lambda c:(-len(c),min(c)))
- for rank,component in enumerate(components):
-  if rank==0 and len(component)>1:
-   local=np.asarray(graph.induced_subgraph(component).layout_fruchterman_reingold(niter=300,grid='grid').coords)
-   local-=np.mean(local,axis=0);local*=420/max(float(np.max(np.linalg.norm(local,axis=1))),1)
-   xy[component]=local
-  else:
-   angle=rank*2.399963229728653;radius=500+100*((rank*.61803398875)%1)
-   center=np.array([math.cos(angle),math.sin(angle)])*radius
-   for j,index in enumerate(component):
-    theta=j*2*math.pi/max(1,len(component));spread=min(30,2*math.sqrt(len(component)))
-    xy[index]=center+spread*np.array([math.cos(theta),math.sin(theta)])
- return graph,ids,labels,[[round(float(x),2),round(float(y),2)] for x,y in xy]
+ return graph,ids,labels
 
 def save_xnet(path,nodes,edges,directed):
  with path.open('w') as f:
@@ -154,8 +138,8 @@ def main():
  edge_rows=pq.read_table(NETWORK/'edges.parquet').to_pylist()
  citations=sorted({(pub_to_paper[a],pub_to_paper[b]) for e in edge_rows for a,b in [(e['citing_id'],e['cited_id'])] if a in pub_to_paper and b in pub_to_paper and pub_to_paper[a]!=pub_to_paper[b]})
  ig.set_random_number_generator(random.Random(42))
- pg,pc,plabel,pxy=communities(len(papers),citations,[p['label'] for p in papers])
- for i,p in enumerate(papers): p.update(community=pc[i],communityLabel=plabel[pc[i]],degree=pg.degree(i),x=pxy[i][0],y=pxy[i][1])
+ pg,pc,plabel=communities(len(papers),citations,[p['label'] for p in papers])
+ for i,p in enumerate(papers): p.update(community=pc[i],communityLabel=plabel[pc[i]],degree=pg.degree(i))
  print(json.dumps(dict(stage='citations',edges=len(citations),seconds=time.time()-t)),flush=True)
  # Sparse TF-IDF design fingerprints, with HNSW-free deterministic candidate
  # retrieval. Outcomes, citation proximity and missing values are never features.
@@ -179,9 +163,9 @@ def main():
   for score,j in sorted(scores,reverse=True)[:6]:
    key=(min(i,j),max(i,j));pairs[key]=round(score,4)
  similarity=[(a,b,w) for (a,b),w in sorted(pairs.items())]
- dg,dc,dlabel,dxy=communities(len(devices),similarity,[' '.join([d['type'] if d['type'] not in {'Unknown','not_a_qubit'} else '',*[f.split(':',1)[1] for f in d['features'] if not f.split(':',1)[1].startswith('bin')]]) for d in devices],True)
+ dg,dc,dlabel=communities(len(devices),similarity,[' '.join([d['type'] if d['type'] not in {'Unknown','not_a_qubit'} else '',*[f.split(':',1)[1] for f in d['features'] if not f.split(':',1)[1].startswith('bin')]]) for d in devices],True)
  dlabel[0]='Insufficient shared design evidence'
- for i,d in enumerate(devices):d.update(community=dc[i],communityLabel=dlabel[dc[i]],degree=dg.degree(i),x=dxy[i][0],y=dxy[i][1])
+ for i,d in enumerate(devices):d.update(community=dc[i],communityLabel=dlabel[dc[i]],degree=dg.degree(i))
  print(json.dumps(dict(stage='similarity',edges=len(similarity),seconds=time.time()-t)),flush=True)
  dump(out/'papers.json.gz',dict(nodes=papers,edges=citations))
  dump(out/'devices.json.gz',dict(nodes=devices,edges=similarity))

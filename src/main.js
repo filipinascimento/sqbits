@@ -6,7 +6,7 @@ const app=document.querySelector('#app');
 const titles={papers:['The literature, connected.','Follow citation links and explore automatically labelled research communities.'],devices:['Find the design connections.','Explore device and component records linked by similarity of reported design choices.'],timeline:['Performance, over time.','Compare one reported outcome at a time, with conditions and source evidence close at hand.'],guide:['Inside a superconducting qubit.','A visual guide to the structures, materials and processes behind the measurements.']};
 let summary,paperData,deviceData,graph,chart,renderVersion=0,inspectorVersion=0,selectedPoints=[],timelinePoints=[],focusPaper=null,focusDevice=null;
 const viewFromHash=location.hash.slice(1);
-const state={view:titles[viewFromHash]?viewFromHash:'papers',metric:'t1',color:'community',log:true,interaction:'lasso',filters:{},timelineFilters:{attribution:'own_work',realization:'measured_device',scope:'individual_qubit'}};
+const state={view:titles[viewFromHash]?viewFromHash:'papers',metric:'t1',color:'community',log:true,interaction:'lasso',filters:{},networks:{papers:{mode:'2d',running:true},devices:{mode:'2d',running:true}},timelineFilters:{attribution:'own_work',realization:'measured_device',scope:'individual_qubit'}};
 const $=id=>document.getElementById(id);
 const option=(value,label,selected)=>`<option value="${esc(value)}" ${String(value)===String(selected)?'selected':''}>${esc(label)}</option>`;
 function selectControl(id,label,values,value,all='All'){return `<label class="field">${label}<select id="${id}">${all!==null?option('',all,value):''}${values.map(([v,l])=>option(v,l,value)).join('')}</select></label>`;}
@@ -46,7 +46,7 @@ async function render(){const version=++renderVersion;graph?.destroy();graph=nul
  ${isTimeline?`<label class="check-field"><input id="log-scale" type="checkbox" ${state.log?'checked':''}>Logarithmic value axis</label>`:''}
  <button id="reset-filters" class="secondary-button">${isTimeline?'Reset to measured own-work qubits':'Reset filters'}</button>
  <p class="filter-note">${isPaper?'Citing paper → cited paper. Unlinked papers remain in the atlas.':'Records represent individual devices, families and components. Missing design choices are not inferred.'}</p></div></details>
- <div class="visual-column"><section class="visual-panel"><div class="visual-heading"><div><span class="eyebrow">${isTimeline?'REPORTED PERFORMANCE':isPaper?'CITATION NETWORK':'DESIGN SIMILARITY NETWORK'}</span><h2 id="visual-count">Loading…</h2></div><div class="visual-actions" id="visual-actions">${isTimeline?`<button id="lasso-mode" class="active" aria-pressed="true">Lasso</button><button id="pan-mode" aria-pressed="false">Pan / zoom</button><button id="clear-selection">Clear</button><button id="fit-view">Reset zoom</button>`:`<button id="fit-view">Fit</button><button id="labels-toggle" class="active" aria-pressed="true">Labels</button><button id="layout-toggle" aria-pressed="false">Live layout</button>${selectControl('graph-mode','Dimension',[['2d','2D'],['3d','3D']],'2d',null)}`}</div></div>
+ <div class="visual-column"><section class="visual-panel"><div class="visual-heading"><div><span class="eyebrow">${isTimeline?'REPORTED PERFORMANCE':isPaper?'CITATION NETWORK':'DESIGN SIMILARITY NETWORK'}</span><h2 id="visual-count">Loading…</h2></div><div class="visual-actions" id="visual-actions">${isTimeline?`<button id="lasso-mode" class="active" aria-pressed="true">Lasso</button><button id="pan-mode" aria-pressed="false">Pan / zoom</button><button id="clear-selection">Clear</button><button id="fit-view">Reset zoom</button>`:`<button id="fit-view">Fit</button><button id="labels-toggle" class="active" aria-pressed="true">Labels</button><button id="layout-toggle" disabled aria-pressed="true">Pause layout</button>${selectControl('graph-mode','Dimension',[['2d','2D'],['3d','3D']],state.networks[state.view].mode,null)}`}</div></div>
  <div id="chart" class="chart ${isTimeline?'performance-chart':'network-chart'}">${loading('Preparing the visualization…')}</div>
  <div id="legend" class="legend"></div><div class="visual-footnote">${isTimeline?'<span class="line-sample"></span><span id="frontier-label">Observed frontier</span> · Hollow points do not set the frontier; dashed outlines denote bounds or unknown form. Wheel to zoom; draw a lasso to select. Shift adds to selection.':`${isPaper?'Citation':'Similarity'} links · Drag to pan, wheel to zoom, select a node to inspect. Community labels are automatic. Unlinked entries can be included with the sidebar control.`}</div>
  </section>${isTimeline?`<div class="selection-panel"><div class="selection-heading"><div><span class="eyebrow">SELECTED EVIDENCE</span><h3 id="selection-count">Click or lasso points to compare</h3></div><button id="export-selection" class="secondary-button">Download CSV ↓</button></div><div id="selection-table"></div></div>`:`<section class="browse-panel"><div class="browse-heading"><h3>Explore the entries</h3><span class="muted">Select any row for source-linked details</span></div><div id="browse-list"></div></section>`}</div></div>`;
@@ -63,6 +63,7 @@ function renderLegend(enc){$('legend').innerHTML=enc.legend.slice(0,12).map(l=>`
 let updateVersion=0;
 async function updateVisualization(){const version=++updateVersion,view=state.view;graph?.destroy();graph=null;chart?.destroy();chart=null;$('chart').innerHTML=loading('Preparing the visualization…');
  delete $('chart').dataset.engine;
+ for(const id of ['fit-view','labels-toggle','layout-toggle','graph-mode'])if($(id)&&view!=='timeline')$(id).disabled=true;
  if(view==='timeline'){
   const metric=summary.metrics.find(m=>m.id===state.metric);const rows=await load(`outcomes/${state.metric}.json.gz`);if(version!==updateVersion||state.view!==view)return;
   timelinePoints=rows.filter(p=>matchesDevice(deviceData.nodes[p.device],state.timelineFilters,paperData.nodes)).filter(p=>state.timelineFilters.realization!=='measured_device'||p.origin==='measured');
@@ -80,12 +81,25 @@ async function updateVisualization(){const version=++updateVersion,view=state.vi
   $('browse-list').innerHTML=indexed.slice().sort((a,b)=>b.degree-a.degree).slice(0,18).map(n=>`<button class="browse-row" data-${isPaper?'paper':'device'}="${n._index}"><span class="entry-year">${n.year||'—'}</span><span><strong>${esc(n.label)}</strong><small>${esc(isPaper?n.communityLabel:`${pretty(n.type)} · ${pretty(n.scope)} · ${pretty(n.realization)}`)}</small></span><span class="row-arrow">↗</span></button>`).join('')||'<p class="empty-small">No entries match these filters.</p>';
   if(!indexed.length){$('chart').innerHTML='<div class="empty-state"><h3>No matching entries</h3><p>Try removing a filter.</p></div>';return;}
   const {mountGraph}=await import('./graph.js');if(version!==updateVersion||state.view!==view)return;
-  const mounted=await mountGraph($('chart'),{nodes:indexed,edges,directed:isPaper,colorBy:state.color,onSelect:n=>isPaper?inspectPaper(n._index):inspectDevice(n._index),onEdge:e=>inspectEdge(e,isPaper)});
+  const networkState=state.networks[view];
+  const syncControls=({running,mode})=>{
+   if(version!==updateVersion||state.view!==view)return;
+   networkState.mode=mode;
+   const toggle=$('layout-toggle');toggle.textContent=running?'Pause layout':'Resume layout';toggle.classList.toggle('active',running);toggle.setAttribute('aria-pressed',String(running));$('graph-mode').value=mode;
+  };
+  const mounted=await mountGraph($('chart'),{nodes:indexed,edges,directed:isPaper,colorBy:state.color,...networkState,onLayoutState:syncControls,onSelect:n=>isPaper?inspectPaper(n._index):inspectDevice(n._index),onEdge:e=>inspectEdge(e,isPaper)});
   if(version!==updateVersion||state.view!==view){mounted?.destroy();return;}graph=mounted;if(!graph)return;
-  $('chart').dataset.engine='helios';$('fit-view').onclick=()=>graph.fit();let labels=true;
+  $('chart').dataset.engine='helios';for(const id of ['fit-view','labels-toggle','layout-toggle','graph-mode'])$(id).disabled=false;
+  $('fit-view').onclick=()=>graph.fit();let labels=true;
   $('labels-toggle').onclick=()=>{labels=!labels;graph.labels(labels);$('labels-toggle').classList.toggle('active',labels);$('labels-toggle').setAttribute('aria-pressed',String(labels));};
-  $('layout-toggle').onclick=async()=>{try{const running=await graph.toggleLayout();$('layout-toggle').classList.toggle('active',running);$('layout-toggle').setAttribute('aria-pressed',String(running));}catch(e){toast('Live layout unavailable; the precomputed layout remains interactive.');console.warn(e);}};
-  $('graph-mode').onchange=()=>graph.mode($('graph-mode').value);
+  const layoutButton=$('layout-toggle'),modeSelect=$('graph-mode');layoutButton.disabled=false;
+  const layoutAction=async action=>{
+   layoutButton.disabled=true;modeSelect.disabled=true;
+   try{await action();}catch(error){if(version===updateVersion&&state.view===view){toast('Unable to update the layout. Try again.');console.error(error);}}
+   finally{if(version===updateVersion&&state.view===view){layoutButton.disabled=false;modeSelect.disabled=false;syncControls({running:mounted.running,mode:mounted.helios.mode()});}}
+  };
+  layoutButton.onclick=()=>layoutAction(async()=>{networkState.running=await mounted.toggleLayout();});
+  modeSelect.onchange=()=>{const mode=modeSelect.value;networkState.mode=mode;return layoutAction(()=>mounted.mode(mode));};
   if(isPaper&&focusPaper!=null){graph.select(paperData.nodes[focusPaper]);focusPaper=null;}if(!isPaper&&focusDevice!=null){graph.select(deviceData.nodes[focusDevice]);focusDevice=null;}
  }
 }

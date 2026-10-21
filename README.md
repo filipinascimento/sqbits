@@ -25,7 +25,7 @@ npm test
 node tests/browser-smoke.mjs
 ```
 
-The browser check uses Playwright. It accepts `SQBITS_TEST_URL` and uses an installed Chromium or the normal Playwright browser. It checks network rendering, the measured/own-work defaults, evidence inspection, lasso selection, CSV download, metric switching, filtering, the schematic and a mobile viewport. `verification/` is local-only.
+The browser check uses Playwright. It accepts `SQBITS_TEST_URL` and uses an installed Chromium or the normal Playwright browser. It checks native force-layout motion, repeated 2D/3D transitions, pause/resume and dimension preservation after filtering, network rendering, the measured/own-work defaults, evidence inspection, lasso selection, CSV download, metric switching, filtering, the schematic and a mobile viewport. `verification/` is local-only.
 
 ## Data and interpretation
 
@@ -39,7 +39,7 @@ The data are first-pass automated extractions, with 1,774 review-flagged papers.
 
 Citation links come from the existing Dimensions 2025-11-24 quantum-computing induced graph. All manifestations in the frozen canonical-work index map to the same paper. Self-links and repeated canonical links are removed. Direction is **citing → cited**. The graph has 135,513 links; 9,398 extracted papers have at least one indexed connection. Unlinked papers remain in the dataset and can be shown with the sidebar control. Absence of a link is not evidence of zero real-world citations.
 
-Paper communities use unweighted Leiden modularity on the undirected citation projection. Community labels use distinctive source-title terms and are heuristic, not expert taxonomy. Seeded layouts arrange the largest connected component and pack smaller components/isolates without letting isolates hide the connected graph.
+Paper communities use unweighted Leiden modularity on the undirected citation projection. Community labels use distinctive source-title terms and are heuristic, not expert taxonomy. Both networks start with Helios Web’s native GPU force layout running, using WebGPU or WebGL2. Helios initializes and computes every displayed position; the dataset contains no precomputed coordinates. Pause/resume retains the same engine and positions. Dimension changes pause forces during the native position handoff, then restore the previous run state. The dimension and pause setting survive filtering. The native layout cools automatically; use Resume layout to reheat it.
 
 ### Device-design graph
 

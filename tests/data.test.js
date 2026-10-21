@@ -42,6 +42,7 @@ test('XNet exports preserve identity, directedness and similarity weights',()=>{
 test('published graph endpoints, identifiers, weights and measurement provenance reconcile',()=>{
  const get=name=>JSON.parse(gunzipSync(readFileSync(new URL('../public/data/'+name+'.json.gz',import.meta.url))));
  const papers=get('papers'),devices=get('devices');
+ for(const data of [papers,devices])for(const n of data.nodes){assert.equal(Object.hasOwn(n,'x'),false);assert.equal(Object.hasOwn(n,'y'),false);}
  assert.equal(papers.nodes.length,11746);assert.equal(new Set(devices.nodes.map(d=>d.id)).size,devices.nodes.length);
  for(const data of [papers,devices])for(const [a,b,w] of data.edges){assert.ok(a>=0&&b>=0&&a<data.nodes.length&&b<data.nodes.length&&a!==b);if(w!=null)assert.ok(w>=.22&&w<=1);}
  for(const metric of ['t1','t2_ramsey','t2_echo','single_qubit_gate_error']){
