@@ -13,7 +13,7 @@ try{
  const values=await card.locator('.design-family:not(.fabrication-details) .observation summary strong').allTextContents();
  assert.deepEqual(values.sort(),raw.record.design_choices.map(o=>o.reported_text||o.quantity?.text).sort());assert.match(await card.innerText(),/three times lower inductance/);
  await card.locator('.design-detail-search').fill('Dolan');assert.ok(await card.locator('.design-search-item[hidden]').count()>0);assert.match(await card.innerText(),/Dolan/);await card.locator('.design-detail-search').fill('');
- const dl=page.waitForEvent('download');await card.locator('.download-device-record').click();assert.deepEqual(JSON.parse(readFileSync(await (await dl).path(),'utf8')),raw);
+ assert.equal(await card.locator('.download-device-record').count(),0);assert.equal(await card.locator('.observation[open]').count()>=20,true);
  await page.locator('.selected-device-title').click();await page.waitForSelector('#inspector .device-design-content');
  assert.equal(await page.locator('#inspector .device-design-content').getAttribute('data-design-count'),'20');
  const order=await page.locator('#inspector-content').innerText();assert.ok(order.indexOf('All design choices & fabrication')<order.indexOf('Original reported outcomes'));

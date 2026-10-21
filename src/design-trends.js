@@ -1,10 +1,11 @@
 import {select,scaleLinear,axisBottom,axisLeft,line} from 'd3';
 import {esc,fmt,pretty,encoding,toCSV,download} from './data.js';
 import {aggregateDesigns,supportingDesignRecords,designSeriesCSVRows} from './design-stats.js';
+import {mountDesignDistributions} from './design-distributions.js';
 import {mountYearRange} from './year-range.js';
 
-export function mountDesignTrends(container,{devices,papers,index,state,onSelect}){
- let aggregate,selected=new Set(),limit=30,search='',destroyed=false,selection=[];
+export function mountDesignTrends(container,{devices,papers,index,numeric,state,onSelect}){
+ let distributions,aggregate,selected=new Set(),limit=30,search='',destroyed=false,selection=[];
  const defaults=()=>({scope:'individual_qubit',realization:'measured_device',attribution:'own_work'});
  state.filters??=defaults();state.field??='qubit_type';state.unit??='records';state.denominator??='all';state.bin??=1;state.mode??='share';
  const options=(values,value,all=false)=>(all?'<option value="">All</option>':'')+values.map(([v,l])=>`<option value="${esc(v)}" ${String(v)===String(value)?'selected':''}>${esc(l)}</option>`).join('');
@@ -27,7 +28,7 @@ export function mountDesignTrends(container,{devices,papers,index,state,onSelect
  <section class="visual-panel"><div class="visual-heading"><div><span class="eyebrow">CHANGE OVER TIME</span><h2 id="design-series-heading"></h2></div><div class="visual-actions"><label class="field">Value<select id="design-value-mode">${options([['share','Share (%)'],['count','Count']],state.mode)}</select></label><button id="export-design-series">Export plotted series CSV ↓</button></div></div>
  <div id="design-time-chart" class="design-time-chart"></div><div id="design-series-legend" class="design-series-legend"></div><p class="design-plot-note" id="design-time-note"></p></section>
  <section class="visual-panel"><div class="visual-heading"><div><span class="eyebrow">REPORTING COVERAGE</span><h2>Which design families are described?</h2></div></div><div id="design-family-coverage" class="design-family-coverage"></div><p class="design-plot-note">Share of all filtered entries reporting at least one choice in each family, including numeric parameters. Families overlap. Click a family to plot its reporting share over time.</p></section>
- <details class="design-method"><summary>How categories and shares are counted</summary><p>${esc(index.category_policy)}</p><p>Shares are presence per entry, not the number of extraction rows or experimental repetitions. Entries can report multiple categories, so shares need not sum to 100%. Missing reporting is separate from explicit absence. Zero-denominator periods are gaps. Undated entries are included in overall breakdowns and excluded from time plots. Years come from paper metadata, not independently established first demonstrations.</p><p>These plots summarize automated reported design statements; their coverage is not a survey of every superconducting device. Review flags and original source evidence remain available.</p></details>
+ <div id="part-distributions"></div><details class="design-method"><summary>How categories and shares are counted</summary><p>${esc(index.category_policy)}</p><p>Shares are presence per entry, not the number of extraction rows or experimental repetitions. Entries can report multiple categories, so shares need not sum to 100%. Missing reporting is separate from explicit absence. Zero-denominator periods are gaps. Undated entries are included in overall breakdowns and excluded from time plots. Years come from paper metadata, not independently established first demonstrations.</p><p>These plots summarize automated reported design statements; their coverage is not a survey of every superconducting device. Review flags and original source evidence remain available.</p></details>
  </div><aside id="selection-panel" class="selection-panel" aria-label="Selected papers and devices"></aside></div>`;
  const el=id=>container.querySelector('#'+id);
  const color=category=>encoding([{type:category}],'type').color({type:category});
@@ -71,7 +72,7 @@ export function mountDesignTrends(container,{devices,papers,index,state,onSelect
   el('design-field-note').textContent=`${fmt(aggregate.indices.length)} extracted device records contribute. ${fmt(aggregate.total?aggregate.reporting/aggregate.total*100:0)}% of ${unitLabel()} report this field. Shares use ${state.denominator==='all'?'all '+unitLabel():'only reporting '+unitLabel()} as the denominator. ${field.kind==='verbatim'?'Categories preserve reported wording; wording variants remain separate.':field.id==='material_family'?'Material names can describe films, barriers or housings. Inspect component labels and reported wording to distinguish their roles.':field.kind==='explicit_mentions'?'Families group explicit names from the reported substrate field.':'Categories follow the extracted classification or explicitly linked process steps.'}`;
   el('design-family-coverage').innerHTML=aggregate.families.map(f=>`<button data-design-family="${esc(f.id)}"><span>${esc(f.label)}</span><span class="design-coverage-track"><i style="width:${f.total?f.count/f.total*100:0}%"></i></span><strong>${fmt(f.total?f.count/f.total*100:0)}%</strong><small>${fmt(f.count)} / ${fmt(f.total)}</small></button>`).join('');
   for(const button of el('design-family-coverage').querySelectorAll('button'))button.onclick=()=>{state.field='design_family';el('design-field').value=state.field;selected=new Set([index.families.find(f=>f.id===button.dataset.designFamily).label]);update();};
-  selection=[];onSelect([]);categoriesTable();drawTime();
+  selection=[];onSelect([]);categoriesTable();drawTime();if(distributions)distributions.update();else distributions=mountDesignDistributions(el('part-distributions'),{devices,papers,index,numeric,getPopulation:()=>aggregate,onSelect:indices=>{selection=indices;onSelect(indices);}});
  }
  let timer;
  for(const key of ['scope','realization','attribution','type','review','search'])el('design-'+key).addEventListener(key==='search'?'input':'change',e=>{state.filters[key]=e.target.value;clearTimeout(timer);timer=setTimeout(()=>update(),key==='search'?150:0);});
@@ -87,5 +88,5 @@ export function mountDesignTrends(container,{devices,papers,index,state,onSelect
  if(matchMedia('(max-width:720px)').matches)container.querySelector('.filters-panel').open=false;
  // Defer the initial callback until the shared evidence panel has mounted.
  queueMicrotask(()=>{if(!destroyed)update(true);});
- return {get aggregate(){return aggregate;},get selected(){return selection;},selectCategory:choose,clearSelection(){selection=[];onSelect([]);},destroy(){destroyed=true;clearTimeout(timer);yearRange.destroy();observer.disconnect();}};
+ return {get aggregate(){return aggregate;},get selected(){return selection;},selectCategory:choose,clearSelection(){selection=[];onSelect([]);},destroy(){destroyed=true;clearTimeout(timer);yearRange.destroy();distributions?.destroy();observer.disconnect();}};
 }

@@ -6,7 +6,8 @@ import {valueScale,frontierTrace} from './value-scale.js';
 export function mountTimeline(container,{points,metric,devices,papers,colorBy,onSelect,onSelection,log=true}){
  let selected=new Set(),mode='lasso',transform=d3.zoomIdentity,polygon=[],dragging=false,disposed=false,frame=0;
  const surface=document.createElement('div');surface.className='timeline-surface';container.append(surface);
- const width=Math.max(460,container.clientWidth),height=570,margin={top:35,right:28,bottom:58,left:82};
+ let width=Math.max(280,container.clientWidth),height=Math.max(160,container.clientHeight||570);
+ const margin={top:25,right:20,bottom:50,left:72};
  const scale=valueScale(metric,log),dated=points.map(p=>({...p,year:devices[p.device].year})).filter(p=>Number.isFinite(p.year)&&Number.isFinite(p.value));
  const all=dated.filter(p=>scale.plottable(p.value));
  const frontierInputs=scale.complement?dated.filter(p=>p.value>=0&&p.value<=scale.limit):all;
@@ -20,7 +21,7 @@ export function mountTimeline(container,{points,metric,devices,papers,colorBy,on
  const canvas=document.createElement('canvas');canvas.className='timeline-canvas';canvas.setAttribute('aria-hidden','true');surface.append(canvas);
  const ratio=Math.min(window.devicePixelRatio||1,2);canvas.width=Math.round(width*ratio);canvas.height=Math.round(height*ratio);
  const ctx=canvas.getContext('2d');
- const svg=d3.select(surface).append('svg').attr('viewBox',`0 0 ${width} ${height}`).attr('class','timeline-svg').attr('role','img').attr('aria-label',`${metric.label} versus paper year${scale.complement?'; logarithmic distance from perfect fidelity':''}; select points or draw a lasso`);
+ const svg=d3.select(surface).append('svg').attr('viewBox',`0 0 ${width} ${height}`).attr('preserveAspectRatio','none').attr('class','timeline-svg').attr('role','img').attr('aria-label',`${metric.label} versus paper year${scale.complement?'; logarithmic distance from perfect fidelity':''}; select points or draw a lasso`);
  svg.append('defs').append('clipPath').attr('id','plot-clip').append('rect').attr('x',margin.left).attr('y',margin.top).attr('width',width-margin.left-margin.right).attr('height',height-margin.top-margin.bottom);
  const axisX=svg.append('g').attr('class','axis x-axis').attr('transform',`translate(0,${height-margin.bottom})`),axisY=svg.append('g').attr('class','axis y-axis').attr('transform',`translate(${margin.left},0)`),grid=svg.append('g').attr('class','grid').attr('transform',`translate(${margin.left},0)`);
  svg.append('text').attr('class','axis-title').attr('x',width/2).attr('y',height-10).attr('text-anchor','middle').text('Paper year');
@@ -80,6 +81,19 @@ export function mountTimeline(container,{points,metric,devices,papers,colorBy,on
  svg.on('pointermove.lasso',event=>{if(!dragging)return;polygon.push(d3.pointer(event,svg.node()));lasso.attr('d',d3.line()(polygon)+'Z');});
  svg.on('pointerup.lasso',event=>{if(!dragging)return;if(polygon.length>2)for(const p of all)if(pointInPolygon(position(p),polygon))selected.add(p.id);lasso.attr('d',null);highlight();setTimeout(()=>dragging=false,0);if(svg.node().hasPointerCapture(event.pointerId))svg.node().releasePointerCapture(event.pointerId);});
  if(!all.length)svg.append('text').attr('x',width/2).attr('y',height/2).attr('text-anchor','middle').attr('class','empty-plot').text(omittedAtLimit?'No finite log gaps; switch to linear to show ideal-limit values.':'No reported values match these filters.');
+ const observer=new ResizeObserver(()=>{
+  const nextWidth=Math.max(280,container.clientWidth),nextHeight=Math.max(160,container.clientHeight||570);
+  if(disposed||nextWidth===width&&nextHeight===height)return;
+  width=nextWidth;height=nextHeight;surface.style.aspectRatio=`${width}/${height}`;
+  canvas.width=Math.round(width*ratio);canvas.height=Math.round(height*ratio);svg.attr('viewBox',`0 0 ${width} ${height}`);
+  svg.select('#plot-clip rect').attr('width',width-margin.left-margin.right).attr('height',height-margin.top-margin.bottom);
+  axisX.attr('transform',`translate(0,${height-margin.bottom})`);
+  svg.select('.axis-title:not(.value-axis-title)').attr('x',width/2).attr('y',height-10);svg.select('.value-axis-title').attr('x',-height/2);
+  x0.range([margin.left,width-margin.right]);y0.range(scale.complement?[margin.top,height-margin.bottom]:[height-margin.bottom,margin.top]);
+  tree.removeAll(projected);for(const q of projected){q.x=x0(q.p.year);q.y=y0(scale.axisValue(q.p.value));}tree.addAll(projected);
+  plotExtent[1]=[width-margin.right,height-margin.bottom];zoom.extent(plotExtent).translateExtent(plotExtent);
+  tip.hidden=true;schedule();
+ });observer.observe(container);
  draw();
  return {count:all.length,frontierCount:envelope.length,encoding:color,scale:{type:scale.type,limit:scale.limit,omittedAtLimit,omittedOther},scaleNote,
   setMode(value){mode=value;container.dataset.mode=mode;},
@@ -89,6 +103,6 @@ export function mountTimeline(container,{points,metric,devices,papers,colorBy,on
   all:()=>all,selected:()=>all.filter(p=>selected.has(p.id)),position,
   view:()=>({x:scales()[0].domain(),y:scales()[1].domain(),years,transform:{x:transform.x,y:transform.y,k:transform.k}}),
   export(){const subset=selected.size?all.filter(p=>selected.has(p.id)):all;download('sqbits-'+metric.id+'.csv',toCSV(subset.map(p=>{const d=devices[p.device],paper=papers[d.paper];return {device:d.label,device_id:d.id,paper:paper.label,year:d.year,doi:paper.doi,value:p.value,unit:metric.unit,reported:p.text,reported_name:p.name,configuration:p.configuration,conditions:p.conditions,origin:p.origin,nature:p.nature,review_flag:d.review,audit_status:p.audit?.action||'not_audited',original_value:p.rawValue??p.value,original_display_unit:metric.unit,original_origin:p.rawOrigin??p.origin,original_nature:p.rawNature??p.nature,original_attribution:d.attribution,source_metric:p.sourceMetric||metric.id,audit_reason:p.audit?.reason||'',audit_page:p.audit?.page??'',audit_quote:p.audit?.quote||'',source_url:paper.url};})));},
-  destroy(){disposed=true;if(frame)cancelAnimationFrame(frame);svg.on('.lasso',null).on('.zoom',null).on('.hover',null).on('.select',null);surface.remove();tip.remove();},
+  destroy(){disposed=true;observer.disconnect();if(frame)cancelAnimationFrame(frame);svg.on('.lasso',null).on('.zoom',null).on('.hover',null).on('.select',null);surface.remove();tip.remove();},
  };
 }

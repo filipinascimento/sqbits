@@ -1,16 +1,23 @@
 import HeliosNetwork,{AttributeType} from 'helios-network';
 import {Helios,EVENTS} from '../node_modules/helios-web/src/index.js';
 import {encoding,numeric,pretty,esc,fmt} from './data.js';
+import {networkFilterRules,communityRanks} from './network-model.js';
 
-export async function mountGraph(container,{nodes,edges,directed,colorBy,onSelection,onEdge,mode='2d',running=true,nodeSizeScale=1,edgeWidthScale=1.5,gravity=.001,onLayoutState}){
+export async function mountGraph(container,{nodes,edges,directed,colorBy,filters={},papers=[],onSelection,onEdge,mode='2d',running=true,nodeSizeScale=1,edgeWidthScale=1.5,gravity=.001,onLayoutState}){
  const network=await HeliosNetwork.create({directed,initialEdges:Math.max(1,edges.length)});
  if(!container.isConnected){network.dispose();return null;}
  const handles=network.addNodes(nodes.length),lookup=new Map(nodes.map((n,i)=>[n.id,Number(handles[i])])),byIndex=new Map(nodes.map((n,i)=>[Number(handles[i]),n]));
  const edgeHandles=network.addEdges(edges.map(e=>[lookup.get(e.source),lookup.get(e.target)]));
- const representatives=new Map();for(const n of nodes){if(n.community&&(!representatives.has(n.community)||representatives.get(n.community).degree<n.degree))representatives.set(n.community,n);}
+ const ranks=communityRanks(nodes,edges,directed),representatives=new Map([...ranks].map(([c,group])=>[c,group[0].node]));
+ let activeIds=new Set(byIndex.keys());
  const communityNodes=new Map();for(const [id,n] of byIndex){if(!communityNodes.has(n.community))communityNodes.set(n.community,[]);communityNodes.get(n.community).push(id);}
  network.nodeAttribute('label',(_,id,i)=>representatives.get(nodes[i].community)===nodes[i]?nodes[i].communityLabel:'')
   .nodeAttribute('score',(_,id,i)=>Math.log1p(nodes[i].degree),{type:AttributeType.Float});
+ for(const key of ['community','type','scope','realization','attribution','material','substrate','geometry'])network.nodeAttribute('sq_'+key,(_,id,i)=>String(nodes[i][key]??''),{type:AttributeType.String});
+ network.nodeAttribute('sq_review',(_,id,i)=>nodes[i].review?'flagged':'clear',{type:AttributeType.String})
+  .nodeAttribute('sq_year',(_,id,i)=>nodes[i].year??NaN,{type:AttributeType.Float})
+  .nodeAttribute('sq_degree',(_,id,i)=>nodes[i].degree,{type:AttributeType.Float})
+  .nodeAttribute('sq_search',(_,id,i)=>{const n=nodes[i];return (directed?[n.label,n.doi]:[n.label,n.type,n.material,n.substrate,n.junction,n.geometry,papers[n.paper]?.label]).join(' ').toLowerCase();},{type:AttributeType.String});
  let helios;
  try{
   // Helios owns initialization, forces, positions and dimensional transitions.
@@ -40,7 +47,7 @@ export async function mountGraph(container,{nodes,edges,directed,colorBy,onSelec
   // Use the same source-managed HIGHLIGHTED state path as native Helios
   // legend hover. This preserves selection and lets Helios dim other items.
   if(community==null)helios._clearHighlightSource('sqbits:community-label');
-  else helios._setHighlightSource('sqbits:community-label',{nodes:communityNodes.get(community)||[]});
+  else helios._setHighlightSource('sqbits:community-label',{nodes:(communityNodes.get(community)||[]).filter(id=>activeIds.has(id))});
  }
  const labelAt=target=>target?.closest?.('.helios-label[data-node-id]');
  const labelEnter=e=>{const label=labelAt(e.target);if(!label||label===labelAt(e.relatedTarget))return;const n=byIndex.get(Number(label.dataset.nodeId));if(n)highlightCommunity(n.community);};
@@ -69,6 +76,19 @@ export async function mountGraph(container,{nodes,edges,directed,colorBy,onSelec
  const perform=action=>{const result=pending.then(()=>{if(!disposed)return action();});pending=result.catch(()=>{});return result;};
  const controller={
   helios,
+  get representatives(){return [...representatives].map(([community,node])=>({community,id:node.id,centrality:ranks.get(community).find(r=>r.node===node).strength}));},
+  setFilters(next){
+   clearHighlight();tip.hidden=true;
+   // Render scope preserves the full layout topology, positions and engine.
+   // Helios owns node/edge selectors, picking, labels and rendering masks.
+   helios.behavior.filters.replaceRules({scope:'render',nodeRules:networkFilterRules(next)});
+   const stats=helios.getGraphFilter();if(stats.error)throw new Error(stats.error);
+   activeIds=network.withBufferAccess(()=>new Set(helios._getRenderNetwork().nodeIndices));
+   representatives.clear();for(const [community,group] of ranks){const first=group.find(r=>activeIds.has(lookup.get(r.node.id)));if(first)representatives.set(community,first.node);}
+   helios.behavior.labels.update({pinnedNodes:[...representatives.values()].map(n=>lookup.get(n.id))});
+   helios.labels().requestFullReselect?.('atlas-filter');
+   return stats;
+  },
   get running(){return !disposed&&isRunning();},
   setColor(key){const enc=encoding(nodes,key);if(enc.numeric){network.nodeAttribute('node_color',(_,id,i)=>Number.isFinite(numeric(nodes[i],key))?numeric(nodes[i],key):NaN,{type:AttributeType.Float});const values=nodes.map(n=>numeric(n,key)).filter(Number.isFinite);const lo=values.length?Math.min(...values):0,hi=values.length?Math.max(...values):1;helios.behavior.mappers.setChannelConfig('node','color',{type:'colormap',attributes:'node_color',colormap:'interpolateViridis',domain:[lo,hi===lo?lo+1:hi],defaultValue:'#a4ada9'});}
    else{const index=new Map(enc.domain.map((v,i)=>[v,i]));network.nodeAttribute('category_color',(_,id,i)=>index.get(enc.get(nodes[i])),{type:AttributeType.Category});network.setNodeAttributeCategoryDictionary('category_color',enc.domain.map((v,i)=>({id:i,label:pretty(v)})),{remapExisting:false});helios.behavior.mappers.setChannelConfig('node','color',{type:'categorical',attributes:'category_color',domain:enc.domain.map((_,i)=>i),range:enc.domain.map(v=>enc.color(nodes.find(n=>enc.get(n)===v))),defaultValue:'#a4ada9'});}
@@ -97,6 +117,6 @@ export async function mountGraph(container,{nodes,edges,directed,colorBy,onSelec
   edgeOpacity(v){helios.behavior.mappers.setChannelConfig('edge','opacity',{type:'constant',value:+v});},
   destroy(){if(disposed)return;disposed=true;clearHighlight();container.removeEventListener('pointerover',labelEnter);container.removeEventListener('pointerout',labelLeave);container.removeEventListener('pointerleave',clearHighlight);tip.remove();helios.behavior.layout.stop('destroy');helios.stopCameraTransition();pending.finally(()=>helios.destroy());},
  };
- controller.setColor(colorBy);notify();
+ try{controller.setColor(colorBy);controller.setFilters(filters);notify();}catch(error){controller.destroy();throw error;}
  return controller;
 }

@@ -7,7 +7,7 @@ An interactive atlas of superconducting-qubit papers, device designs and reporte
 - **Citation atlas:** directed paper citations, Leiden communities with automatic labels, search, date/review filters, 2D/3D navigation and source inspection.
 - **Device designs:** approximate nearest design neighbors, weighted communities, realization and entity-scope filters, material/substrate/geometry filters and outcome coloring.
 - **Performance:** one outcome versus paper year, a filter-dependent max/min frontier, click and lasso selection, zoom, source inspection and CSV export. The default is **own-work, measured individual qubits and measured observations**.
-- **Design trends:** categorical distributions, non-stacked shares/counts over time and reporting coverage across nine design families. Filter the population, count records or distinct papers, choose the denominator and inspect supporting devices.
+- **Design trends:** categorical and unit-specific numeric histograms, non-stacked shares/counts over time and reporting coverage across nine design families. Filter the population, count records or distinct papers, choose the denominator and inspect supporting devices.
 - **Design guide:** an interactive conceptual transmon schematic, fabrication guidance and methodological definitions.
 
 ## Run locally
@@ -30,6 +30,8 @@ node tests/audit-smoke.mjs
 node tests/selection-smoke.mjs
 node tests/design-trends-smoke.mjs
 node tests/year-range-smoke.mjs
+node tests/native-filter-smoke.mjs
+node tests/interface-layout-smoke.mjs
 SQBITS_TEST_HOVER_ONLY=1 node tests/network-controls-smoke.mjs
 python scripts/test_design_index.py
 ```
@@ -38,7 +40,7 @@ The browser check uses Playwright. It accepts `SQBITS_TEST_URL` and uses an inst
 
 Selections appear in a docked side panel, grouped by paper with the selected device records and observation values. Shift-click adds entries; lasso selection updates the same list. Paper and device cards open source details inside the panel, with a back button that preserves the selection. Long selections load more cards on demand, and CSV export includes the complete selection.
 
-A single selected device automatically opens its complete design section in the card. Multiple selections expose the same section in each card on demand, so a large lasso does not fetch every source shard. All reported design observations are grouped into the domain families, including `other_design_choice`, with the full reported text, quantities, origin, component, conditions, configurations and source evidence. Explicitly linked fabrication recipes retain every step and parameter. Search applies to the complete loaded record; the JSON download preserves the original record and linked recipes exactly. The full inspector puts designs before outcomes.
+A single selected device automatically opens its complete design section in the card. Multiple selections expose the same section in each card on demand, so a large lasso does not fetch every source shard. All reported design observations are grouped into the domain families, including `other_design_choice`, with the full reported text, quantities, origin, component, conditions, configurations and source evidence. Explicitly linked fabrication recipes retain every step and parameter. Search applies to the complete loaded record. All design observations expand directly into structured reported values, units, conditions and source evidence; there is no record-JSON download button. The full inspector puts designs before outcomes.
 
 All four data views use Helios Web's `TwoHandleRange` for publication years. Drag either endpoint to resize, or the selected band or middle grip to pan the whole interval without changing its width. The grip also works for overlapping handles and single-year selections. Values snap to whole years within the snapshot's observed bounds. Arrow keys move a focused endpoint; on the middle band, arrows move the interval, Shift+arrow moves five years, and Home/End pans to a boundary. “All years” clears the year restriction. The slider previews immediately, with expensive filtering committed once after release (100 ms coalescing for rapid changes). Navigation cancels pending updates and active drags. The leaf control is imported separately so performance and design-trends views do not load the Helios renderer or WASM. `SQBITS_NETWORK_YEARS=1 node tests/year-range-smoke.mjs` additionally checks year filtering in both real Helios graphs.
 
@@ -59,6 +61,12 @@ Citation links come from the existing Dimensions 2025-11-24 quantum-computing in
 Paper communities use unweighted Leiden modularity on the undirected citation projection. Community labels use distinctive source-title terms and are heuristic, not expert taxonomy. Both networks start with Helios Web’s native GPU force layout running, using WebGPU or WebGL2. Helios initializes and computes every displayed position; the dataset contains no precomputed coordinates. Pause/resume retains the same engine and positions. Dimension changes pause forces during the native position handoff, then restore the previous run state. The dimension and pause setting survive filtering. The native layout cools automatically; use Resume layout to reheat it.
 
 Both networks expose edge-width, node-size and gravity sliders, retaining separate settings through filters and view changes. Width and size use Helios's native scale controls; the gravity slider spans the GPU layout's logarithmic `kGravity` range, displayed relative to its default 0.001. Changing gravity reheats an active or naturally cooled layout and respects a manual pause. Width-aware edges use Helios's default node-to-edge mapper with gradients between source and destination colors. Forced/adaptive thin-line rendering is disabled so edge widths remain adjustable. Hovering a community label uses the same source-managed `HIGHLIGHTED` mechanism as native Helios legend hover, including connected edges and dimming other items; it preserves selection and clears on pointer leave, hidden labels or graph disposal. Run `node tests/network-controls-smoke.mjs` to check these interactions in the actual renderer.
+
+All network filters use `FilterBehavior.replaceRules` with native typed attributes and `scope: render`, including year, search, review, communities, device classifications and isolates. Each view mounts the complete graph once. Filter updates retain the same network, layout engine, camera, positions, color domains and selection; Helios owns the active node/edge selectors and picking. Reset and empty results use the same mechanism. Filter changes during initial loading are applied after that engine initializes.
+
+Community label representatives maximize **within-community degree centrality** on the complete graph (unweighted incident citation edges; similarity-weighted device edges). Global degree no longer promotes bridge nodes solely for external links. Rankings are computed once, with stable ID tie-breaking. A filtered view anchors each label to its highest-ranked visible member; it does not rerun community detection or centrality on a new subgraph.
+
+The header merges the small brand with the view tabs. Filters, center content and selected evidence have independent scrolling; network and timeline canvases fill their center pane. Dataset statistics are a footer disclosure. The timeline resizes its canvas, axes and spatial index together, preserving selections and zoom.
 
 ### Device-design graph
 
@@ -83,7 +91,7 @@ Device communities use weighted Leiden modularity. Labels are automatic distinct
 
 The displayed year comes from the frozen paper manifest; it is not independently resolved for a cited device or its first demonstration. Use original sources for historical priority claims.
 
-### Categorical design trends
+### Design distributions and trends
 
 The supplementary design index covers all 43,523 records and **235,479 original design-choice observations**. Fabrication counts are linked step occurrences per record, not unique recipes or fabrication runs. The original observation and detail payloads remain unchanged. `design-catalog.json` preserves the frozen domain's property families; unknown future properties stay visible under Other design choices in the inspector.
 
@@ -92,6 +100,24 @@ The default population is own-work measured individual qubits. Each record contr
 Type and geometry use the frozen standardized metadata. Material/substrate groups match explicit names in their named fields; compound matching precedes element matching, and qualified/comparative descriptions are kept separate. Reported materials can include electrodes, barriers, and housings: grouping a material name does not identify its role or establish that every component is superconducting. Full reported wording and component context are retained in the original records. Other categorical properties preserve reported wording with whitespace collapsed, rather than silently merging scientific descriptions. Process operations come only from recipes explicitly linked to the device.
 
 The category table is searchable and offers all categories through pagination. Up to 12 series can be plotted together; category and time-point clicks show all supporting records in the evidence panel. CSV exports include counts, denominators, reporting/missing coverage, counting unit and population filters. Family coverage counts an entry reporting at least one design observation in the family, including numeric parameters and standardized qubit/geometry metadata.
+
+Each design family has an interactive distribution card in Design trends and Design guide. Properties retain reported categorical wording or use separate numeric fields per canonical unit. Numeric histograms accept only finite converted exact/approximate/uncertainty-bearing scalar values. Ranges, bounds and unconverted quantities remain inspectable in the device record; no midpoint or shared unknown unit is invented. Distinct values from a record remain distinct, but a record (or paper in paper-counting mode) counts at most once per bin. Wide positive spans use logarithmic bins. Clicking a bar opens supporting device records in the side panel. Guide distributions use the default measured-own-work individual-qubit population; trends apply all its population and year filters.
+
+`design-numeric.json.gz` is a supplementary index with immutable shard hashes and record-order provenance. `coverage-report.json` distinguishes 9,623 records with linked fabrication steps (2,709 papers), 7,506 with structured process parameters, and 7,415 with specific process conditions (1,837 papers); equipment-only or unspecified process details do not establish a condition. Shared recipes count for every applicable record. Review flags cover 1,774 papers / 1,792 segments / 8,256 records; 8,206 of 8,829 flags concern configuration coverage, not confirmed measurement errors.
+
+`review-estimate.json` and `scripts/estimate_review.py` document a prospective Sol 6.1 review without making API calls. Full PDFs of the flagged papers span 35,808 pages / 1,930 segments, including unflagged segments of those papers for context. The planning scenario estimates 122M input and 5.8M output/reasoning tokens: approximately $228 Batch / $455 Standard including 25% contingency, at the official 2026-10-21 rates. Scenarios range $195–265 Batch / $390–530 Standard; planning budgets are $200–300 / $400–600. Batch ETA is 24–48h (repairs may extend to 72h); Standard is an assumed 2–6h at 50 concurrent requests with adequate rate limits. These scenarios emit targeted correction proposals, not complete re-extractions, and are not measured full-review throughput. Existing PDF token counts, approximate tokenization of compact extraction text and conservative 30-minute cache-write input rates are explicit in the report. No review was launched.
+
+Build the supplementary numeric index and coverage from immutable shards:
+
+```sh
+python scripts/build_design_distributions.py
+```
+
+The resource estimate additionally requires the local frozen extraction manifest, read-only SQLite receipts and recordsets:
+
+```sh
+python scripts/estimate_review.py
+```
 
 Rebuild the index from the website's published source shards without model calls or private inputs:
 

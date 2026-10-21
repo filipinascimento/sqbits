@@ -71,12 +71,12 @@ try{
   for(const view of ['papers','devices']){
    await page.locator(`[data-view=${view}]`).first().click();await page.waitForFunction(()=>window.sqbits.graph&&!document.querySelector('#graph-mode').disabled);
    await page.evaluate(()=>window.yearGraphInitial=window.sqbits.graph);
-   await setYearRange(page,2020,2024);await page.waitForFunction(()=>window.sqbits.graph&&window.sqbits.graph!==window.yearGraphInitial&&!document.querySelector('#graph-mode').disabled);
-   const checkCount=async(lo,hi)=>{const counts=await page.evaluate(([lo,hi])=>{const s=window.sqbits,nodes=s.state.view==='papers'?s.papers.nodes:s.devices.nodes;return {actual:s.graph.helios.network.nodeCount,expected:nodes.filter(n=>n.degree>0&&n.year>=lo&&n.year<=hi).length};},[lo,hi]);assert.ok(counts.expected>0);assert.equal(counts.actual,counts.expected);};
+   await setYearRange(page,2020,2024);await page.waitForFunction(()=>window.sqbits.graph&&window.sqbits.graph===window.yearGraphInitial&&window.sqbits.graph.helios.getGraphFilter().options?.nodeQuery?.includes('2024')&&!document.querySelector('#graph-mode').disabled);
+   const checkCount=async(lo,hi)=>{const counts=await page.evaluate(([lo,hi])=>{const s=window.sqbits,nodes=s.state.view==='papers'?s.papers.nodes:s.devices.nodes;return {actual:s.graph.helios.getGraphFilter().nodeCount,expected:nodes.filter(n=>n.degree>0&&n.year>=lo&&n.year<=hi).length};},[lo,hi]);assert.ok(counts.expected>0);assert.equal(counts.actual,counts.expected);};
    await checkCount(2020,2024);
    await page.evaluate(()=>window.yearGraphBefore=window.sqbits.graph);await startBandDrag('#year-range',1,true);await page.waitForTimeout(180);
    assert.equal(await page.evaluate(()=>window.sqbits.graph===window.yearGraphBefore),true,'Do not rebuild Helios during a drag');assert.deepEqual(await values('#year-range'),[2021,2025]);
-   await page.mouse.up();await page.waitForFunction(()=>window.sqbits.graph&&window.sqbits.graph!==window.yearGraphBefore&&!document.querySelector('#graph-mode').disabled);await checkCount(2021,2025);
+   await page.mouse.up();await page.waitForFunction(()=>window.sqbits.graph&&window.sqbits.graph===window.yearGraphBefore&&window.sqbits.graph.helios.getGraphFilter().options?.nodeQuery?.includes('2025')&&!document.querySelector('#graph-mode').disabled);await checkCount(2021,2025);
    console.log('YEAR_RANGE_NETWORK_PASSED',view);
   }
  }
