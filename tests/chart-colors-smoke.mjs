@@ -7,9 +7,9 @@ async function styles(){return page.locator('.design-share-line').evaluateAll(li
 async function check(){
  const series=await styles();assert.equal(new Set(series.map(s=>s.color)).size,series.length);
  const matches=await page.evaluate(()=>Array.from(document.querySelectorAll('.design-share-line')).every(line=>{
-  const category=line.dataset.category,legend=Array.from(document.querySelectorAll('#design-series-legend>span')).find(e=>e.dataset.category===category),row=Array.from(document.querySelectorAll('[data-plot-category]')).find(e=>e.dataset.plotCategory===category)?.closest('tr'),points=Array.from(document.querySelectorAll('.design-share-point')).filter(p=>p.dataset.category===category);
-  return legend?.querySelector('path').getAttribute('stroke')===line.getAttribute('stroke')&&(legend.querySelector('path').getAttribute('stroke-dasharray')||'')===(line.getAttribute('stroke-dasharray')||'')&&points.every(p=>p.getAttribute('fill')===line.getAttribute('stroke'))&&(!row||getComputedStyle(row.querySelector('.category-color')).backgroundColor===getComputedStyle(line).stroke);
- }));assert.ok(matches,'Plot, points, legend and table must agree');return series;
+  const category=line.dataset.category,legend=Array.from(document.querySelectorAll('#design-series-legend>span')).find(e=>e.dataset.category===category),row=Array.from(document.querySelectorAll('[data-plot-category]')).find(e=>e.dataset.plotCategory===category)?.closest('.design-category-row'),points=Array.from(document.querySelectorAll('.design-share-point')).filter(p=>p.dataset.category===category),bar=Array.from(document.querySelectorAll('.design-overall-bar')).find(e=>e.dataset.category===category);
+  return legend?.querySelector('path').getAttribute('stroke')===line.getAttribute('stroke')&&(legend.querySelector('path').getAttribute('stroke-dasharray')||'')===(line.getAttribute('stroke-dasharray')||'')&&points.every(p=>p.getAttribute('fill')===line.getAttribute('stroke'))&&(!row||getComputedStyle(row.querySelector('.category-color')).backgroundColor===getComputedStyle(line).stroke)&&getComputedStyle(bar.querySelector('i')).backgroundColor===getComputedStyle(line).stroke;
+ }));assert.ok(matches,'Lines, points, legend, category picker and overall bars must agree');return series;
 }
 try{
  await page.goto(base+'#trends');await page.waitForFunction(()=>window.sqbits?.trends?.aggregate);
