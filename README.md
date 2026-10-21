@@ -29,6 +29,7 @@ node tests/fidelity-scale-smoke.mjs
 node tests/audit-smoke.mjs
 node tests/selection-smoke.mjs
 node tests/design-trends-smoke.mjs
+node tests/chart-colors-smoke.mjs
 node tests/year-range-smoke.mjs
 node tests/native-filter-smoke.mjs
 node tests/interface-layout-smoke.mjs
@@ -99,7 +100,7 @@ The default population is own-work measured individual qubits. Each record contr
 
 Type and geometry use the frozen standardized metadata. Material/substrate groups match explicit names in their named fields; compound matching precedes element matching, and qualified/comparative descriptions are kept separate. Reported materials can include electrodes, barriers, and housings: grouping a material name does not identify its role or establish that every component is superconducting. Full reported wording and component context are retained in the original records. Other categorical properties preserve reported wording with whitespace collapsed, rather than silently merging scientific descriptions. Process operations come only from recipes explicitly linked to the device.
 
-The category table is searchable and offers all categories through pagination. Up to 12 series can be plotted together; category and time-point clicks show all supporting records in the evidence panel. CSV exports include counts, denominators, reporting/missing coverage, counting unit and population filters. Family coverage counts an entry reporting at least one design observation in the family, including numeric parameters and standardized qubit/geometry metadata.
+The category table is searchable and offers all categories through pagination. Up to 12 series can be plotted together; category and time-point clicks show all supporting records in the evidence panel. Series use a dark qualitative palette with distinct colors among the current selections. Matching line patterns in the plot and legend provide an additional visual distinction. Per-field assignments keep retained series stable through year/population filters, counting modes and selection changes; newly selected categories receive unused colors. Table swatches, points and legend samples share the same mapping. CSV exports include counts, denominators, reporting/missing coverage, counting unit and population filters. Family coverage counts an entry reporting at least one design observation in the family, including numeric parameters and standardized qubit/geometry metadata.
 
 Each design family has an interactive distribution card in Design trends and Design guide. Properties retain reported categorical wording or use separate numeric fields per canonical unit. Numeric histograms accept only finite converted exact/approximate/uncertainty-bearing scalar values. Ranges, bounds and unconverted quantities remain inspectable in the device record; no midpoint or shared unknown unit is invented. Distinct values from a record remain distinct, but a record (or paper in paper-counting mode) counts at most once per bin. Wide positive spans use logarithmic bins. Clicking a bar opens supporting device records in the side panel. Guide distributions use the default measured-own-work individual-qubit population; trends apply all its population and year filters.
 

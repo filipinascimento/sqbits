@@ -232,3 +232,5 @@ body[data-atlas-view=guide] #workspace{overflow:hidden}
 /* Let the center pane scroll natural panel heights instead of shrinking grid tracks. */
 .design-trend-panels{display:block}
 .design-trend-panels>section,.design-trend-panels>#part-distributions{margin-bottom:20px}
+.design-series-legend .series-swatch{width:32px;height:12px;flex:none;margin-top:1px;overflow:visible}
+.design-category-table .category-bar{opacity:.85}

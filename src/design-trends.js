@@ -1,11 +1,13 @@
 import {select,scaleLinear,axisBottom,axisLeft,line} from 'd3';
-import {esc,fmt,pretty,encoding,toCSV,download} from './data.js';
+import {esc,fmt,pretty,toCSV,download} from './data.js';
+import {createSeriesStyles} from './chart-colors.js';
 import {aggregateDesigns,supportingDesignRecords,designSeriesCSVRows} from './design-stats.js';
 import {mountDesignDistributions} from './design-distributions.js';
 import {mountYearRange} from './year-range.js';
 
 export function mountDesignTrends(container,{devices,papers,index,numeric,state,onSelect}){
  let distributions,aggregate,selected=new Set(),limit=30,search='',destroyed=false,selection=[];
+ const stylesByField=new Map();let seriesStyles;
  const defaults=()=>({scope:'individual_qubit',realization:'measured_device',attribution:'own_work'});
  state.filters??=defaults();state.field??='qubit_type';state.unit??='records';state.denominator??='all';state.bin??=1;state.mode??='share';
  const options=(values,value,all=false)=>(all?'<option value="">All</option>':'')+values.map(([v,l])=>`<option value="${esc(v)}" ${String(v)===String(value)?'selected':''}>${esc(l)}</option>`).join('');
@@ -31,7 +33,7 @@ export function mountDesignTrends(container,{devices,papers,index,numeric,state,
  <div id="part-distributions"></div><details class="design-method"><summary>How categories and shares are counted</summary><p>${esc(index.category_policy)}</p><p>Shares are presence per entry, not the number of extraction rows or experimental repetitions. Entries can report multiple categories, so shares need not sum to 100%. Missing reporting is separate from explicit absence. Zero-denominator periods are gaps. Undated entries are included in overall breakdowns and excluded from time plots. Years come from paper metadata, not independently established first demonstrations.</p><p>These plots summarize automated reported design statements; their coverage is not a survey of every superconducting device. Review flags and original source evidence remain available.</p></details>
  </div><aside id="selection-panel" class="selection-panel" aria-label="Selected papers and devices"></aside></div>`;
  const el=id=>container.querySelector('#'+id);
- const color=category=>encoding([{type:category}],'type').color({type:category});
+ const color=category=>seriesStyles.get(category).color;
  const unitLabel=()=>state.unit==='papers'?'papers':'device records';
  function choose(category,year=null){selection=supportingDesignRecords(aggregate,devices,index,category,year);onSelect(selection);}
  function categoriesTable(){
@@ -43,8 +45,10 @@ export function mountDesignTrends(container,{devices,papers,index,numeric,state,
  }
  function drawTime(){
   if(destroyed||!aggregate)return;const host=el('design-time-chart'),width=Math.max(300,host.clientWidth||700),height=330,margin={left:62,right:22,top:20,bottom:50},w=width-margin.left-margin.right,h=height-margin.top-margin.bottom,years=aggregate.years;
+  seriesStyles.sync(selected);
+  for(const box of el('design-category-table').querySelectorAll('[data-plot-category]')){const row=box.closest('tr'),c=color(box.dataset.plotCategory);row.querySelector('.category-color').style.background=c;row.querySelector('.category-bar').style.background=c;}
   host.innerHTML='';el('design-series-heading').textContent=(state.mode==='share'?'Category shares':'Category counts')+' · '+unitLabel();
-  el('design-series-legend').innerHTML=[...selected].map(c=>`<span><i style="background:${color(c)}"></i>${esc(pretty(c))}</span>`).join('');
+  el('design-series-legend').innerHTML=[...selected].map(c=>{const style=seriesStyles.get(c);return `<span data-category="${esc(c)}"><svg class="series-swatch" viewBox="0 0 32 12" aria-hidden="true"><path d="M1 6H31" stroke="${style.color}" stroke-width="2.5" stroke-dasharray="${style.dash}"/><circle cx="16" cy="6" r="2.7" fill="${style.color}" stroke="#fffefa" stroke-width="1"/></svg>${esc(pretty(c))}</span>`;}).join('');
   el('design-time-note').textContent=`${state.mode==='share'?'Denominator: '+(state.denominator==='all'?'all filtered entries':'entries reporting this field')+'. ':''}Hover a point for counts and coverage; click it to inspect supporting devices. Multiple categories can overlap. ${fmt(aggregate.unknownYear)} undated ${unitLabel()} are absent from this plot.`;
   el('export-design-series').disabled=!years.length||!selected.size;
   if(!years.length||!selected.size){host.innerHTML='<div class="empty-state"><p>'+(!years.length?'No dated entries in this population.':!aggregate.counts.length?'No reported categories for this field in the current population.':'Select at least one category to plot.')+'</p></div>';return;}
@@ -57,15 +61,17 @@ export function mountDesignTrends(container,{devices,papers,index,numeric,state,
   g.append('g').attr('transform',`translate(0,${h})`).call(axisBottom(x).tickValues(ticks).tickFormat(v=>{const year=byYear.get(v);return year.end===year.year?String(v):`${v}–${String(year.end).slice(-2)}`;}));
   svg.append('text').attr('x',margin.left+w/2).attr('y',height-8).attr('text-anchor','middle').attr('class','design-axis-label').text('Paper publication year');
   const tip=document.createElement('div');tip.className='design-chart-tooltip';tip.hidden=true;host.append(tip);
-  for(const category of selected){const points=years.map(year=>({...year,value:value(year,category)}));
-   g.append('path').datum(points).attr('class','design-share-line').attr('fill','none').attr('stroke',color(category)).attr('stroke-width',2).attr('d',line().defined(d=>d.value!=null).x(d=>x(d.year)).y(d=>y(d.value)));
-   g.selectAll(null).data(points.filter(d=>d.value!=null)).enter().append('circle').attr('class','design-share-point').attr('cx',d=>x(d.year)).attr('cy',d=>y(d.value)).attr('r',3.5).attr('fill',color(category)).attr('tabindex',0).attr('role','button').attr('aria-label',d=>`${pretty(category)}, ${d.year} to ${d.end}: ${d.counts[category]||0} ${unitLabel()}`)
+  for(const category of selected){const points=years.map(year=>({...year,value:value(year,category)})),style=seriesStyles.get(category);
+   g.append('path').datum(points).attr('class','design-share-line').attr('data-category',category).attr('fill','none').attr('stroke',style.color).attr('stroke-width',2.5).attr('stroke-dasharray',style.dash||null).attr('d',line().defined(d=>d.value!=null).x(d=>x(d.year)).y(d=>y(d.value)));
+   g.selectAll(null).data(points.filter(d=>d.value!=null)).enter().append('circle').attr('class','design-share-point').attr('data-category',category).attr('cx',d=>x(d.year)).attr('cy',d=>y(d.value)).attr('r',3.7).attr('fill',style.color).attr('tabindex',0).attr('role','button').attr('aria-label',d=>`${pretty(category)}, ${d.year} to ${d.end}: ${d.counts[category]||0} ${unitLabel()}`)
     .on('pointerenter focus',(event,d)=>{tip.innerHTML=`<strong>${esc(pretty(category))}</strong><span>${d.year}${d.end!==d.year?'–'+d.end:''} · ${fmt(d.counts[category]||0)} / ${fmt(d.denominator)} ${unitLabel()}</span><span>${d.denominator?fmt((d.counts[category]||0)/d.denominator*100)+'%':'Share undefined'} · ${fmt(d.reporting)} reporting / ${fmt(d.total)} total</span>`;tip.hidden=false;tip.style.left=Math.max(8,Math.min(width-260,margin.left+x(d.year)+10))+'px';tip.style.top=Math.max(8,margin.top+y(d.value)-70)+'px';})
     .on('pointerleave blur',()=>{tip.hidden=true;}).on('click',(_,d)=>choose(category,d.year)).on('keydown',(e,d)=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();choose(category,d.year);}});
   }
  }
  function update(resetSeries=false){
   aggregate=aggregateDesigns({devices,papers,index,...state});if(resetSeries||!selected.size)selected=new Set(aggregate.counts.slice(0,6).map(r=>r.category));
+  if(!stylesByField.has(state.field))stylesByField.set(state.field,createSeriesStyles(aggregate.counts.map(r=>r.category)));
+  seriesStyles=stylesByField.get(state.field);seriesStyles.sync(selected);
   const field=index.fields.find(f=>f.id===state.field);el('design-heading').textContent=field.label;
   el('export-design-breakdown').disabled=!aggregate.counts.length;
   el('design-coverage').innerHTML=[['Filtered '+unitLabel(),aggregate.total],['Reporting this field',aggregate.reporting],['Not reported',aggregate.missing]].map(([label,count])=>`<div><strong>${fmt(count)}</strong><span>${esc(label)}</span></div>`).join('');
