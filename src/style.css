@@ -293,3 +293,33 @@ body[data-atlas-view=guide] #workspace{overflow:hidden}
 @media(min-width:1800px){.design-trends-layout{grid-template-columns:300px minmax(0,1fr) 380px}}
 @media(max-width:1100px) and (min-width:721px){.design-trends-layout{grid-template-columns:230px minmax(0,1fr) 280px}}
 @media(max-width:720px){.filters-panel{border-right:0;border-bottom:1px solid var(--line)}.design-trends-layout{grid-template-columns:minmax(0,1fr)}.design-trends-layout .filter-body{display:flex}.design-picker,.design-population,.design-count-settings{gap:10px}.design-category-list{max-height:200px}.design-trends-layout .visual-heading{padding:10px 14px}.design-overall-chart{max-height:260px}}
+
+/* The selected property is always beside its distribution, without a card grid. */
+.categorical-only[hidden],.part-distribution[hidden],.design-property-groups [hidden]{display:none!important}
+#design-category-controls{display:flex;flex-direction:column;gap:12px}
+.design-comparison{grid-template-columns:minmax(180px,1fr) minmax(0,1.7fr)}
+.design-overall{border-left:0;border-right:1px solid var(--line)}
+.design-comparison.numeric-mode{grid-template-columns:minmax(0,1fr)}
+.distribution-focus{display:grid;grid-template-columns:220px minmax(0,1fr);gap:16px;align-items:start;margin:12px 0 20px}
+.distribution-single{display:block;margin:0}
+.focused-distribution{min-width:0}
+.design-property-selector{min-width:0;padding-right:14px;border-right:1px solid var(--line)}
+.design-property-selector>.field{margin-bottom:12px}
+.design-property-selector .field input{border:0;background:#edf1e9;border-radius:3px}
+.design-property-groups{max-height:420px;overflow-y:auto;overscroll-behavior:contain;scrollbar-gutter:stable}
+.design-property-groups details{padding:7px 0;border-top:1px solid var(--line)}
+.design-property-groups summary{cursor:pointer;font-size:11px;line-height:1.7;color:var(--green);font-weight:550}
+.design-property-groups button{display:block;width:100%;border:0;border-radius:3px;padding:7px 9px;margin:3px 0;text-align:left;background:transparent;font-size:10px;font-weight:450;line-height:1.6;overflow-wrap:anywhere}
+.design-property-groups button:hover{background:#edf2e9}
+.design-property-groups button[aria-pressed=true]{background:#e1ebe1;color:#24564c;font-weight:600}
+.design-property-groups small{font-size:9px;color:var(--muted)}
+.part-family-label{font-size:10px;color:var(--muted)}
+.focused-distribution .part-heading{gap:3px}
+.focused-distribution .part-focused{box-shadow:none}
+.distribution-single .part-distribution{border:0;border-radius:0}
+.distribution-single .part-heading{display:none}
+.distribution-single .part-chart{padding:10px 18px 18px}
+.distribution-single .part-coverage{font-size:10px}
+@container(max-width:640px){.design-comparison{grid-template-columns:minmax(0,1fr)}.design-overall{border-right:0;border-top:0;border-bottom:1px solid var(--line)}}
+@media(max-width:1100px){.distribution-focus{grid-template-columns:180px minmax(0,1fr)}}
+@media(max-width:720px){.distribution-focus{grid-template-columns:minmax(0,1fr);gap:12px}.design-property-selector{padding:0 0 10px;border-right:0;border-bottom:1px solid var(--line)}.design-property-groups{max-height:180px}.design-property-selector>.field{margin-bottom:8px}}

@@ -34,7 +34,7 @@ try{
  assert.equal(await page.locator('.filters-panel').evaluate(e=>getComputedStyle(e).borderRadius),'0px');
  assert.equal(await page.locator('#design-field').evaluate(e=>getComputedStyle(e).borderWidth),'0px');
  const time=await page.locator('#design-time-chart').boundingBox(),overall=await page.locator('#design-overall-chart').boundingBox();
- assert.ok(overall.x>time.x+time.width-2,'Overall bars must sit beside the yearly plot on desktop');assert.ok(Math.abs(overall.y-time.y)<2);
+ assert.ok(time.x>overall.x+overall.width-2,'The distribution must sit beside the sidebar, with the yearly plot to its right');assert.ok(Math.abs(overall.y-time.y)<2);
  const before=await page.evaluate(()=>window.sqbits.trends.aggregate.total);
  await page.locator('#category-search').fill('bandaid');await page.locator('[data-search-field="patch_bandaid"]').waitFor();
  assert.equal(await page.evaluate(()=>window.sqbits.trends.aggregate.total),before,'Searching fields does not filter the population');
@@ -65,7 +65,7 @@ try{
  await page.screenshot({path:'verification/design-comparison-desktop.png'});
  await page.setViewportSize({width:390,height:844});await page.waitForTimeout(150);
  assert.ok(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+2));
- const mobile=await page.locator('#design-overall-chart').boundingBox(),yearly=await page.locator('#design-time-chart').boundingBox();assert.ok(mobile.y>=yearly.y+yearly.height,'Narrow panes must stack the plots');
+ const mobile=await page.locator('#design-overall-chart').boundingBox(),yearly=await page.locator('#design-time-chart').boundingBox();assert.ok(yearly.y>=mobile.y+mobile.height,'Narrow panes must stack the plots, with the distribution first');
  await checkBars();await page.screenshot({path:'verification/design-comparison-mobile.png'});
  await page.setViewportSize({width:1600,height:1000});
  while(await page.locator('[data-plot-category]:checked').count())await page.locator('[data-plot-category]:checked').first().uncheck();

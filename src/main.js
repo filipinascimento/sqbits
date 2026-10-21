@@ -58,7 +58,7 @@ async function render(){const version=++renderVersion;networkRenderVersion=null;
   await ensureDevices();const [index,numeric,module]=await Promise.all([load('design-index.json.gz'),load('design-numeric.json.gz'),import('./design-trends.js')]);if(version!==renderVersion)return;
   if(index.source_manifest_sha256!==summary.provenance.sourceManifestSha256||index.records.length!==deviceData.nodes.length||index.records.some((r,i)=>r.id!==deviceData.nodes[i].id))throw new Error('Design trends do not match this device snapshot.');
   designTrends=module.mountDesignTrends($('workspace'),{devices:deviceData.nodes,papers:paperData.nodes,index,numeric,state:state.designTrends,onSelect:indices=>{inspectorVersion++;selectionPanel?.update({view:'devices',deviceIndices:indices});}});
-  selectionPanel=mountSelectionPanel($('selection-panel'),{papers:paperData.nodes,getDevices:()=>deviceData.nodes,getDeviceDetail,getMetric:()=>null,onClear:()=>designTrends.clearSelection(),onExport:()=>{},onBack:()=>{inspectorVersion++;},emptyHint:'Choose “View” beside a category, or click a time-plot point.'});
+  selectionPanel=mountSelectionPanel($('selection-panel'),{papers:paperData.nodes,getDevices:()=>deviceData.nodes,getDeviceDetail,getMetric:()=>null,onClear:()=>designTrends.clearSelection(),onExport:()=>{},onBack:()=>{inspectorVersion++;},emptyHint:'Choose a design property, then click a distribution bar or time-plot point.'});
   return;
  }
  if(state.view!=='papers')await ensureDevices();if(version!==renderVersion)return;

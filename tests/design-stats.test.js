@@ -24,3 +24,9 @@ test('population filters and chart drill-down use the same device observations',
  const empty=run({filters:{search:'nothing-matches'}});assert.equal(empty.total,0);assert.deepEqual(empty.years,[]);assert.deepEqual(empty.counts,[]);
  const one=run({filters:{yearMin:2022,yearMax:2022}});assert.deepEqual(one.years.map(y=>y.year),[2022]);
 });
+test('numeric coverage counts converted point values once per entry and keeps units distinct',()=>{
+ const numeric={fields:[{id:'numeric:film_thickness:m'},{id:'numeric:film_thickness:nm'}],records:[[[0,1e-8],[0,2e-8],[1,20]],[[0,1e-8]],[[1,30]],[],[[0,3e-8]]]};
+ const a=run({numeric,field:numeric.fields[0].id});assert.equal(a.total,5);assert.equal(a.reporting,3);assert.equal(a.missing,2);assert.deepEqual(a.counts,[]);
+ const papers=run({numeric,field:numeric.fields[0].id,unit:'papers',denominator:'reporting'});assert.equal(papers.total,4);assert.equal(papers.reporting,2);assert.equal(papers.denominator,2);assert.equal(papers.years[0].reporting,1);assert.equal(papers.years.at(-1).reporting,0);
+ const measured=run({numeric,field:numeric.fields[0].id,filters:{realization:'measured_device'}});assert.equal(measured.total,4);assert.equal(measured.reporting,2);
+});
