@@ -7,12 +7,13 @@ import {mountSelectionPanel} from './selection.js';
 import {deviceDesignHTML,bindDeviceDesigns,evidenceHTML,observationHTML} from './designs.js';
 import {mountYearRange} from './year-range.js';
 import {valueScale} from './value-scale.js';
+import {colorLegendHTML} from './color-legend.js';
 const app=document.querySelector('#app');
 const titles={papers:['The literature, connected.','Follow citation links and explore automatically labelled research communities.'],devices:['Find the design connections.','Explore device and component records linked by similarity of reported design choices.'],timeline:['Performance, over time.','Compare one reported outcome at a time, with conditions and source evidence close at hand.'],trends:['How device designs evolve.','Explore categorical design choices, reporting coverage and their shares over publication time.'],guide:['Inside a superconducting qubit.','A visual guide to the structures, materials and processes behind the measurements.']};
 let summary,paperData,deviceData,outcomeAudit,graph,chart,designTrends,guideDistributions,yearRange,filterTimer,selectionPanel,selectionVersion=0,networkRenderVersion=null,renderVersion=0,inspectorVersion=0,selectedPoints=[],timelinePoints=[],focusPaper=null,focusDevice=null;
 const viewFromHash=location.hash.slice(1);
 const networkDefaults=()=>({mode:'2d',running:true,nodeSizeScale:1,edgeWidthScale:1.5,gravity:.001});
-const state={view:titles[viewFromHash]?viewFromHash:'papers',metric:'t1',color:'community',log:true,interaction:'lasso',filters:{},networks:{papers:networkDefaults(),devices:networkDefaults()},timelineFilters:{attribution:'own_work',realization:'measured_device',scope:'individual_qubit'},designTrends:{}};
+const state={view:titles[viewFromHash]?viewFromHash:'papers',metric:'t1',color:'community',colorScale:'auto',log:true,interaction:'lasso',filters:{},networks:{papers:networkDefaults(),devices:networkDefaults()},timelineFilters:{attribution:'own_work',realization:'measured_device',scope:'individual_qubit'},designTrends:{}};
 const graphSliders=[
  {id:'edge-width',key:'edgeWidthScale',label:'Edge width',min:.25,max:6,step:.05,hint:'Scale the width of network links.'},
  {id:'node-size',key:'nodeSizeScale',label:'Node size',min:.25,max:4,step:.05,hint:'Scale node sizes while preserving their relative differences.'},
@@ -71,6 +72,7 @@ async function render(){const version=++renderVersion;networkRenderVersion=null;
  ${selectControl('review','Extraction review',[['clear','No automated flag'],['flagged','Review flagged']],filters.review)}
  <div id="year-range"></div>
  ${selectControl('color','Color by',[['community','Community'],['year','Paper year'],...(isPaper?[['devices','Record count'],['review','Review flag']]:[['type','Qubit type'],['realization','Realization'],['attribution','Attribution'],['scope','Entity scope'],['material','Superconductor'],['substrate','Substrate'],['junction','Junction stack'],['geometry','Geometry'],['t1','Best measured T₁'],['t2_ramsey','Best measured Ramsey T₂*'],['t2_echo','Best measured echo T₂'],...summary.metrics.filter(m=>!['t1','t2_ramsey','t2_echo'].includes(m.id)).map(m=>[m.id,'Measured '+m.label])])],state.color,null)}
+ <label class="field" id="color-scale-field" hidden>Color scale<select id="color-scale">${[['auto','Auto · by attribute'],['linear','Linear'],['log','Logarithmic']].map(([v,l])=>option(v,l,state.colorScale)).join('')}</select></label>
  ${!isTimeline?`<label class="check-field"><input id="include-isolates" type="checkbox" ${filters.includeIsolates?'checked':''}>Include entries without network links</label>`:''}
  ${isTimeline?`<label class="check-field"><input id="log-scale" type="checkbox" ${state.log?'checked':''}><span id="log-scale-label">Logarithmic value axis</span></label><label class="check-field"><input id="include-audit-excluded" type="checkbox" ${filters.includeAuditExcluded?'checked':''}>Include excluded or unresolved audit results</label>`:''}
  <button id="reset-filters" class="secondary-button">${isTimeline?'Reset to measured own-work qubits':'Reset filters'}</button>
@@ -86,13 +88,14 @@ async function render(){const version=++renderVersion;networkRenderVersion=null;
  const apply=()=>{clearTimeout(filterTimer);if(version===renderVersion)updateVisualization().catch(showError);};
  for(const key of ['search','community','type','scope','realization','attribution','material','substrate','geometry','review'])if($(key))$(key).addEventListener(key==='search'?'input':'change',()=>{filters[key]=$(key).value;clearTimeout(filterTimer);filterTimer=setTimeout(apply,key==='search'?300:0);});
  yearRange=mountYearRange($('year-range'),{nodes,filters,onCommit:range=>{Object.assign(filters,range);clearTimeout(filterTimer);filterTimer=setTimeout(apply,100);}});
- $('color').onchange=()=>{state.color=$('color').value;if(isTimeline)apply();else if(graph)renderLegend(graph.setColor(state.color));};
+ const applyColor=()=>{if(isTimeline)apply();else if(graph)renderLegend(graph.setColor(state.color,state.colorScale));};
+ $('color').onchange=()=>{state.color=$('color').value;applyColor();};$('color-scale').onchange=()=>{state.colorScale=$('color-scale').value;applyColor();};
  if($('include-isolates'))$('include-isolates').onchange=()=>{filters.includeIsolates=$('include-isolates').checked;apply();};
  $('reset-filters').onclick=()=>{if(isTimeline){state.timelineFilters={attribution:'own_work',realization:'measured_device',scope:'individual_qubit'};render().catch(showError);}else{for(const key of Object.keys(filters))delete filters[key];for(const key of ['search','community','type','scope','realization','attribution','material','substrate','geometry','review'])if($(key))$(key).value='';$('include-isolates').checked=false;yearRange.set(filters);apply();}};
  if(isTimeline){$('include-audit-excluded').onchange=()=>{filters.includeAuditExcluded=$('include-audit-excluded').checked;apply();};$('metric').onchange=()=>{state.metric=$('metric').value;apply();};$('log-scale').onchange=()=>{state.log=$('log-scale').checked;apply();};}
  await updateVisualization();
 }
-function renderLegend(enc){$('legend').innerHTML=enc.legend.slice(0,12).map(l=>`<span title="${esc(l.label)}"><i style="background:${l.color}"></i>${esc(l.label)}</span>`).join('')+(enc.legend.length>12?`<span class="muted">+ ${enc.legend.length-12} categories; use the filters to explore</span>`:'');}
+function renderLegend(enc){$('legend').innerHTML=colorLegendHTML(enc);$('legend').classList.toggle('has-colorbar',enc.numeric);if($('color-scale-field')){$('color-scale-field').hidden=!enc.numeric;$('color-scale').querySelector('[value=log]').textContent=enc.controlLabel||'Logarithmic';}}
 let updateVersion=0;
 function filterNetwork(){const stats=graph.setFilters(state.filters);$('visual-count').textContent=`${fmt(stats.nodeCount)} ${state.view==='papers'?'papers':'records'} · ${fmt(stats.edgeCount)} links`;}
 async function updateVisualization(){
@@ -108,7 +111,7 @@ async function updateVisualization(){
  if(view==='timeline'){
   const metric=summary.metrics.find(m=>m.id===state.metric);const rows=await load(`outcomes/${state.metric}.json.gz`);if(version!==updateVersion||state.view!==view)return;
   timelinePoints=auditedRows(rows,state.metric,outcomeAudit).filter(p=>state.timelineFilters.includeAuditExcluded||(!p.excluded&&!p.quarantined)).filter(p=>matchesDevice(p.attribution?{...deviceData.nodes[p.device],attribution:p.attribution}:deviceData.nodes[p.device],state.timelineFilters,paperData.nodes)).filter(p=>state.timelineFilters.realization!=='measured_device'||p.origin==='measured');
-  $('chart').innerHTML='';chart=mountTimeline($('chart'),{points:timelinePoints,metric,devices:deviceData.nodes,papers:paperData.nodes,colorBy:state.color,log:state.log,onSelect:()=>{},onSelection:p=>{inspectorVersion++;selectedPoints=p;renderSelectionPanel();}});
+  $('chart').innerHTML='';chart=mountTimeline($('chart'),{points:timelinePoints,metric,devices:deviceData.nodes,papers:paperData.nodes,colorBy:state.color,colorScale:state.colorScale,metrics:summary.metrics,log:state.log,onSelect:()=>{},onSelection:p=>{inspectorVersion++;selectedPoints=p;renderSelectionPanel();}});
   $('log-scale-label').textContent=valueScale(metric,true).controlLabel;$('scale-explanation').textContent=chart.scaleNote;
   $('visual-count').textContent=`${fmt(chart.count)} observations · ${metric.label}`;$('frontier-label').textContent=metric.direction==='envelope'?'Upper envelope (not a performance ranking)':`Observed ${metric.direction==='min'?'lower':'upper'} frontier · ${chart.frontierCount} improvements`;
   renderLegend(chart.encoding);selectedPoints=[];state.interaction='lasso';chart.setMode('lasso');
@@ -118,7 +121,7 @@ async function updateVisualization(){
   const isPaper=view==='papers',data=isPaper?paperData:deviceData,filters=state.filters;
   const indexed=data.nodes.map((n,i)=>({...n,_index:i}));
   const edges=data.edges.map(e=>({source:data.nodes[e[0]].id,target:data.nodes[e[1]].id,weight:e[2]}));
-  $('chart').innerHTML='';renderLegend(encoding(indexed,state.color));
+  $('chart').innerHTML='';renderLegend(encoding(indexed,state.color,{metrics:summary.metrics,mode:state.colorScale}));
   const {mountGraph}=await import('./graph.js');if(version!==updateVersion||state.view!==view)return;
   const networkState=state.networks[view];
   const syncControls=({running,mode})=>{
@@ -126,8 +129,8 @@ async function updateVisualization(){
    networkState.mode=mode;
    const toggle=$('layout-toggle');toggle.textContent=running?'Pause layout':'Resume layout';toggle.classList.toggle('active',running);toggle.setAttribute('aria-pressed',String(running));$('graph-mode').value=mode;
   };
-  const mounted=await mountGraph($('chart'),{nodes:indexed,edges,directed:isPaper,filters,papers:paperData.nodes,colorBy:state.color,...networkState,onLayoutState:syncControls,onSelection:async nodes=>{const ticket=++selectionVersion;inspectorVersion++;if(isPaper&&nodes.length)await ensureDevices();if(ticket!==selectionVersion||version!==updateVersion||state.view!==view)return;selectionPanel.update({view,paperIndices:isPaper?nodes.map(n=>n._index):[],deviceIndices:isPaper?[]:nodes.map(n=>n._index)});},onEdge:e=>inspectEdge(e,isPaper)});
-  if(version!==updateVersion||state.view!==view){mounted?.destroy();return;}graph=mounted;if(!graph)return;filterNetwork();
+  const mounted=await mountGraph($('chart'),{nodes:indexed,edges,directed:isPaper,filters,papers:paperData.nodes,colorBy:state.color,colorScale:state.colorScale,metrics:summary.metrics,...networkState,onLayoutState:syncControls,onSelection:async nodes=>{const ticket=++selectionVersion;inspectorVersion++;if(isPaper&&nodes.length)await ensureDevices();if(ticket!==selectionVersion||version!==updateVersion||state.view!==view)return;selectionPanel.update({view,paperIndices:isPaper?nodes.map(n=>n._index):[],deviceIndices:isPaper?[]:nodes.map(n=>n._index)});},onEdge:e=>inspectEdge(e,isPaper)});
+  if(version!==updateVersion||state.view!==view){mounted?.destroy();return;}graph=mounted;if(!graph)return;filterNetwork();renderLegend(graph.setColor(state.color,state.colorScale));
   $('chart').dataset.engine='helios';for(const id of ['fit-view','labels-toggle','layout-toggle','graph-mode'])$(id).disabled=false;
   for(const control of graphSliders){
    const input=$(control.id);input.disabled=false;

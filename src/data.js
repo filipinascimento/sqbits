@@ -1,4 +1,5 @@
-import {interpolateViridis,schemeTableau10,schemeSet3} from 'd3';
+import {schemeTableau10,schemeSet3} from 'd3';
+import {numericColorScale} from './color-scale.js';
 export const pretty=s=>String(s??'Unknown').replaceAll('_',' ');
 export const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 export const fmt=n=>{const v=Number(n);return v!==0&&(Math.abs(v)<.001||Math.abs(v)>=1e8)?v.toExponential(3):v.toLocaleString('en-US',{maximumFractionDigits:3});};
@@ -6,12 +7,13 @@ const cache=new Map();
 export async function load(path){if(!cache.has(path))cache.set(path,(async()=>{const r=await fetch((import.meta.env?.BASE_URL||'/sqbits/')+'data/'+path);if(!r.ok)throw new Error(`Unable to load ${path} (${r.status})`);if(!path.endsWith('.gz'))return r.json();const bytes=new Uint8Array(await r.arrayBuffer());if(bytes[0]!==31||bytes[1]!==139)return JSON.parse(new TextDecoder().decode(bytes));if(!globalThis.DecompressionStream)throw new Error('Please use a current browser with gzip DecompressionStream support.');return new Response(new Blob([bytes]).stream().pipeThrough(new DecompressionStream('gzip'))).json();})());try{return await cache.get(path);}catch(e){cache.delete(path);throw e;}}
 export const palette=[...schemeTableau10,...schemeSet3];
 export function numeric(n,key){return key==='year'?n.year:key==='degree'?n.degree:key==='devices'?n.devices:n.best?.[key];}
-export function encoding(nodes,key){
+export function encoding(nodes,key,{metrics=[],mode='auto'}={}){
  const isNumeric=!['community','type','realization','attribution','scope','material','substrate','junction','geometry','review'].includes(key);
  const get=n=>key==='community'?n.communityLabel:key==='review'?(n.review?'Review flagged':'No automated flag'):n[key]||'Unknown';
- if(isNumeric){const values=nodes.map(n=>numeric(n,key)).filter(Number.isFinite);const lo=values.length?Math.min(...values):0,hi=values.length?Math.max(...values):1;
+ if(isNumeric){const values=nodes.map(n=>numeric(n,key));
   const unit=['t1','t2_ramsey','t2_echo','t2_other','tphi'].includes(key)?' µs':key.endsWith('_time')?' ns':key.includes('fidelity')||key.includes('gate_error')||key==='readout_error'?' %':key.endsWith('_frequency')?' GHz':key==='resonator_linewidth'?' MHz':'';
-  return {numeric:true,color:n=>{const v=numeric(n,key);return Number.isFinite(v)?interpolateViridis((v-lo)/(hi-lo||1)):'#a4ada9';},legend:[...(values.length?[{label:`${fmt(lo)} → ${fmt(hi)}${unit}`,color:interpolateViridis(.6)}]:[]),{label:'Not reported',color:'#a4ada9'}]};}
+  const metric=metrics.find(m=>m.id===key)||{id:key,label:({year:'Paper year',degree:'Connections',devices:'Device records'})[key]||pretty(key),unit:unit.trim()||'1'},scale=numericColorScale(values,metric,mode);
+  return {...scale,numeric:true,color:n=>scale.color(numeric(n,key)),mapperValue:n=>scale.mapperValue(numeric(n,key))};}
  const values=[...new Set(nodes.map(get))].sort();
  const categoryColor=v=>{if(['Unknown','No indexed connections','Insufficient shared design evidence'].includes(v))return '#b9c4b5';if(key==='review')return v==='Review flagged'?'#be944d':'#588373';const community=String(v).match(/^C(\d+) ·/);let hash=2166136261;for(const c of String(v))hash=Math.imul(hash^c.charCodeAt(0),16777619);return palette[(community?+community[1]-1:hash>>>0)%palette.length];};
  const colors=new Map(values.map(v=>[v,categoryColor(v)]));

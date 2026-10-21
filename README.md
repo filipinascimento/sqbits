@@ -30,6 +30,7 @@ node tests/audit-smoke.mjs
 node tests/selection-smoke.mjs
 node tests/design-trends-smoke.mjs
 node tests/chart-colors-smoke.mjs
+node tests/colorbar-smoke.mjs
 node tests/year-range-smoke.mjs
 node tests/native-filter-smoke.mjs
 node tests/interface-layout-smoke.mjs
@@ -64,6 +65,8 @@ Paper communities use unweighted Leiden modularity on the undirected citation pr
 Both networks expose edge-width, node-size and gravity sliders, retaining separate settings through filters and view changes. Width and size use Helios's native scale controls; the gravity slider spans the GPU layout's logarithmic `kGravity` range, displayed relative to its default 0.001. Changing gravity reheats an active or naturally cooled layout and respects a manual pause. Width-aware edges use Helios's default node-to-edge mapper with gradients between source and destination colors. Forced/adaptive thin-line rendering is disabled so edge widths remain adjustable. Hovering a community label uses the same source-managed `HIGHLIGHTED` mechanism as native Helios legend hover, including connected edges and dimming other items; it preserves selection and clears on pointer leave, hidden labels or graph disposal. Run `node tests/network-controls-smoke.mjs` to check these interactions in the actual renderer.
 
 Wheel gestures over SVG community labels are forwarded to the Helios canvas with their original coordinates, deltas and modifier keys. This preserves native cursor-centered zoom in 2D, dolly zoom in 3D and picking gesture handling while retaining label hover. `SQBITS_TEST_LABEL_WHEEL_ONLY=1 node tests/network-controls-smoke.mjs` checks real wheel gestures over labels in both dimensions and networks.
+
+Numeric colors have a continuous colorbar with ticks in the attribute's original display units. Auto uses a logarithmic scale for coherence, durations, frequencies, Q factors and errors/losses; years stay linear, counts use log(1 + count), and fidelities use the fractional gap to perfection, log(1 − F), with higher fidelity at the bright end. Color scale controls allow linear or logarithmic overrides. Exact ideal values (100% fidelity or zero error) have separately labelled endpoint colors rather than an invented finite log coordinate; missing values remain grey. The colorbar, scatterplot colors and native Helios mapper share one scale definition. Network filtering retains the full-data color domain and layout engine. `node tests/colorbar-smoke.mjs` checks the real node-color buffers against the legend, scale changes, filtering and mobile rendering.
 
 All network filters use `FilterBehavior.replaceRules` with native typed attributes and `scope: render`, including year, search, review, communities, device classifications and isolates. Each view mounts the complete graph once. Filter updates retain the same network, layout engine, camera, positions, color domains and selection; Helios owns the active node/edge selectors and picking. Reset and empty results use the same mechanism. Filter changes during initial loading are applied after that engine initializes.
 

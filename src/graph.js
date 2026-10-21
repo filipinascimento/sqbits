@@ -1,9 +1,10 @@
 import HeliosNetwork,{AttributeType} from 'helios-network';
 import {Helios,EVENTS} from '../node_modules/helios-web/src/index.js';
-import {encoding,numeric,pretty,esc,fmt} from './data.js';
+import {encoding,pretty,esc,fmt} from './data.js';
 import {networkFilterRules,communityRanks} from './network-model.js';
+import {buildMapperRulePredicate} from '../node_modules/helios-web/src/behaviors/mapperBehaviorShared.js';
 
-export async function mountGraph(container,{nodes,edges,directed,colorBy,filters={},papers=[],onSelection,onEdge,mode='2d',running=true,nodeSizeScale=1,edgeWidthScale=1.5,gravity=.001,onLayoutState}){
+export async function mountGraph(container,{nodes,edges,directed,colorBy,colorScale='auto',metrics=[],filters={},papers=[],onSelection,onEdge,mode='2d',running=true,nodeSizeScale=1,edgeWidthScale=1.5,gravity=.001,onLayoutState}){
  const network=await HeliosNetwork.create({directed,initialEdges:Math.max(1,edges.length)});
  if(!container.isConnected){network.dispose();return null;}
  const handles=network.addNodes(nodes.length),lookup=new Map(nodes.map((n,i)=>[n.id,Number(handles[i])])),byIndex=new Map(nodes.map((n,i)=>[Number(handles[i]),n]));
@@ -64,7 +65,7 @@ export async function mountGraph(container,{nodes,edges,directed,colorBy,filters
  const edgeByIndex=new Map(Array.from(edgeHandles,(id,i)=>[Number(id),edges[i]]));
  helios.on(EVENTS.EDGE_CLICK,e=>{const edge=edgeByIndex.get(e.detail?.index);queueMicrotask(()=>{if(!disposed&&edge)onEdge?.(edge);});});
  helios.on(EVENTS.NODE_HOVER,e=>{const d=e.detail||{},n=byIndex.get(d.index);if(d.state==='out'||!n||highlightedCommunity!=null){tip.hidden=true;return;}tip.innerHTML=`<strong>${esc(n.label)}</strong><span>${esc(n.year||'Year unknown')} · ${esc(n.communityLabel)}<br>${fmt(n.degree)} connections${n.review?' · Review flagged':''}</span>`;tip.hidden=false;const r=container.getBoundingClientRect();tip.style.left=Math.max(8,Math.min(r.width-300,d.clientX-r.left+14))+'px';tip.style.top=Math.max(8,Math.min(r.height-130,d.clientY-r.top+14))+'px';});
- let disposed=false,transitioning=false,pending=Promise.resolve();
+ let disposed=false,transitioning=false,pending=Promise.resolve(),colorEncoding;
  let selectionQueued=false,selectionKey='';
  helios.behavior.selection.on('change',()=>{
   if(selectionQueued||disposed)return;selectionQueued=true;
@@ -83,6 +84,7 @@ export async function mountGraph(container,{nodes,edges,directed,colorBy,filters
  const perform=action=>{const result=pending.then(()=>{if(!disposed)return action();});pending=result.catch(()=>{});return result;};
  const controller={
   helios,
+  get encoding(){return colorEncoding;},
   get representatives(){return [...representatives].map(([community,node])=>({community,id:node.id,centrality:ranks.get(community).find(r=>r.node===node).strength}));},
   setFilters(next){
    clearHighlight();tip.hidden=true;
@@ -97,9 +99,9 @@ export async function mountGraph(container,{nodes,edges,directed,colorBy,filters
    return stats;
   },
   get running(){return !disposed&&isRunning();},
-  setColor(key){const enc=encoding(nodes,key);if(enc.numeric){network.nodeAttribute('node_color',(_,id,i)=>Number.isFinite(numeric(nodes[i],key))?numeric(nodes[i],key):NaN,{type:AttributeType.Float});const values=nodes.map(n=>numeric(n,key)).filter(Number.isFinite);const lo=values.length?Math.min(...values):0,hi=values.length?Math.max(...values):1;helios.behavior.mappers.setChannelConfig('node','color',{type:'colormap',attributes:'node_color',colormap:'interpolateViridis',domain:[lo,hi===lo?lo+1:hi],defaultValue:'#a4ada9'});}
+  setColor(key,scale=colorScale){colorScale=scale;const enc=encoding(nodes,key,{metrics,mode:scale});if(enc.numeric){network.nodeAttribute('node_color',(_,id,i)=>enc.mapperValue(nodes[i]),{type:AttributeType.Float});const zeroRule={op:'eq',rhs:0};helios.behavior.mappers.setChannelConfig('node','color',{type:'colormap',attributes:'node_color',colormap:'interpolateViridis',domain:enc.domain,transformType:enc.nativeType,defaultValue:'#a4ada9',rules:enc.boundaryColor?[{__ui:zeroRule,when:buildMapperRulePredicate(zeroRule),value:enc.boundaryColor}]:[]});}
    else{const index=new Map(enc.domain.map((v,i)=>[v,i]));network.nodeAttribute('category_color',(_,id,i)=>index.get(enc.get(nodes[i])),{type:AttributeType.Category});network.setNodeAttributeCategoryDictionary('category_color',enc.domain.map((v,i)=>({id:i,label:pretty(v)})),{remapExisting:false});helios.behavior.mappers.setChannelConfig('node','color',{type:'categorical',attributes:'category_color',domain:enc.domain.map((_,i)=>i),range:enc.domain.map(v=>enc.color(nodes.find(n=>enc.get(n)===v))),defaultValue:'#a4ada9'});}
-   helios.behavior.legends.enabled(false);return enc;
+   helios.behavior.legends.enabled(false);colorEncoding=enc;return enc;
   },
   fit(){helios.frameNetwork({animate:true,durationMs:350,paddingRatio:.09});},
   labels(on){if(!on)clearHighlight();helios.behavior.labels.enabled(on);},

@@ -3,7 +3,7 @@ import {auditLabel} from './audit.js';
 import {encoding,frontier,pointInPolygon,fmt,esc,pretty,toCSV,download} from './data.js';
 import {valueScale,frontierTrace} from './value-scale.js';
 
-export function mountTimeline(container,{points,metric,devices,papers,colorBy,onSelect,onSelection,log=true}){
+export function mountTimeline(container,{points,metric,devices,papers,colorBy,colorScale='auto',metrics=[],onSelect,onSelection,log=true}){
  let selected=new Set(),mode='lasso',transform=d3.zoomIdentity,polygon=[],dragging=false,disposed=false,frame=0;
  const surface=document.createElement('div');surface.className='timeline-surface';container.append(surface);
  let width=Math.max(280,container.clientWidth),height=Math.max(160,container.clientHeight||570);
@@ -12,7 +12,7 @@ export function mountTimeline(container,{points,metric,devices,papers,colorBy,on
  const all=dated.filter(p=>scale.plottable(p.value));
  const frontierInputs=scale.complement?dated.filter(p=>p.value>=0&&p.value<=scale.limit):all;
  const omittedAtLimit=scale.complement?dated.filter(p=>p.value===scale.limit).length:0,omittedOther=dated.length-all.length-omittedAtLimit;
- const color=encoding([...new Set(all.map(p=>p.device))].map(i=>devices[i]),colorBy);
+ const color=encoding([...new Set(all.map(p=>p.device))].map(i=>devices[i]),colorBy,{metrics,mode:colorScale});
  const years=d3.extent(frontierInputs,d=>d.year),hasYears=Number.isFinite(years[0]);
  const x0=d3.scaleLinear().domain(hasYears?[years[0]-.4,years[1]+.4]:[0,1]).range([margin.left,width-margin.right]);
  let extent=d3.extent(all,d=>scale.axisValue(d.value));if(!all.length)extent=scale.complement?[.001,1]:[1,10];if(extent[0]===extent[1])extent=[extent[0]*.8||.1,extent[1]*1.2||1];
