@@ -71,10 +71,10 @@ try{
  await page.locator('#color').selectOption('year');await page.locator('#color').selectOption('community');
  mkdirSync('verification',{recursive:true});await capture('citations.png');
  await page.locator('[data-view="timeline"]').first().click();
- await page.waitForSelector('.outcome-dot',{timeout:60000});
+ await page.waitForFunction(()=>window.sqbits.chart?.count>0,{timeout:60000});
  assert.equal(await page.locator('#attribution').inputValue(),'own_work');assert.equal(await page.locator('#realization').inputValue(),'measured_device');assert.equal(await page.locator('#scope').inputValue(),'individual_qubit');
  console.log('TIMELINE',await page.locator('#visual-count').innerText());
- const dot=page.locator('.outcome-dot').first();await dot.dispatchEvent('click');
+ const xy=await page.evaluate(()=>{const c=window.sqbits.chart,s=document.querySelector('.timeline-svg'),p=c.all()[0],a=c.position(p),t=new DOMPoint(...a).matrixTransform(s.getScreenCTM());return {x:t.x,y:t.y};});await page.mouse.click(xy.x,xy.y);
  await page.locator('#selection-list .selected-device-title').first().click();
  await page.waitForSelector('#inspector .observation',{timeout:30000});assert.ok(await page.locator('#selection-count').innerText());
  await page.locator('#close-inspector').click();await page.locator('#clear-selection').click();
@@ -84,7 +84,7 @@ try{
  await page.mouse.up();assert.match(await page.locator('#selection-count').innerText(),/selected/);
  console.log('LASSO',await page.locator('#selection-count').innerText());
  const dl=page.waitForEvent('download');await page.locator('#export-selection').click();assert.match((await dl).suggestedFilename(),/t1/);
- await page.locator('#metric').selectOption('t2_echo');await page.waitForFunction(()=>document.querySelector('#visual-count')?.textContent.includes('Echo coherence'));assert.ok(await page.locator('.outcome-dot').count()>0);
+ await page.locator('#metric').selectOption('t2_echo');await page.waitForFunction(()=>document.querySelector('#visual-count')?.textContent.includes('Echo coherence'));assert.ok(await page.evaluate(()=>window.sqbits.chart.count)>0);
  await capture('performance.png');
  await page.locator('[data-view="devices"]').first().click();await page.waitForSelector('#chart[data-engine="helios"]',{timeout:90000});
  }

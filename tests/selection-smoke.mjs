@@ -13,13 +13,16 @@ try{
  await page.goto(url+'#timeline');await page.waitForFunction(()=>window.sqbits?.chart);
  assert.equal(await page.locator('#selection-list .selected-paper').count(),0);
  assert.equal(await page.locator('.selection-table,.browse-panel').count(),0);
- const ids=await page.evaluate(()=>{const rows=window.sqbits.chart.all(),first=rows[0],second=rows.find(p=>window.sqbits.devices.nodes[p.device].paper!==window.sqbits.devices.nodes[first.device].paper);return [first.id,second.id];});
- await page.locator(`.outcome-dot[data-id="${ids[0]}"]`).dispatchEvent('click');
+ const positions=await page.evaluate(()=>{const chart=window.sqbits.chart,svg=document.querySelector('.timeline-svg'),matrix=svg.getScreenCTM();let first,second;
+ const candidates=chart.all().filter(p=>p.eligible).sort((a,b)=>a.value-b.value);
+ for(const p of candidates){const [x,y]=chart.position(p),others=candidates.filter(q=>{if(q===p)return false;const [a,b]=chart.position(q);return Math.hypot(x-a,y-b)<9;});if(others.length)continue;const pt=new DOMPoint(x,y).matrixTransform(matrix),item={x:pt.x,y:pt.y,paper:window.sqbits.devices.nodes[p.device].paper};if(!first)first=item;else if(item.paper!==first.paper){second=item;break;}}
+ if(!second)throw Error('Need two independently pickable source papers');return [first,second];});
+ await page.mouse.click(positions[0].x,positions[0].y);
  assert.equal(await page.locator('#selection-list .selected-paper').count(),1);assert.equal(await page.locator('#selection-list .selected-device').count(),1);
  assert.match(await page.locator('#selection-count').innerText(),/1 observation selected/);
  assert.equal(await page.locator('#inspector.open').count(),0,'Selecting a point must show the list first');
  const pane=await page.locator('#selection-panel').boundingBox(),plot=await page.locator('.visual-column').boundingBox();assert.ok(pane.x>=plot.x+plot.width-1,'Selection must be beside the chart');
- await page.locator(`.outcome-dot[data-id="${ids[1]}"]`).dispatchEvent('click',{shiftKey:true});
+ await page.keyboard.down('Shift');await page.mouse.click(positions[1].x,positions[1].y);await page.keyboard.up('Shift');
  assert.equal(await page.locator('#selection-list .selected-paper').count(),2);assert.equal(await page.locator('#selection-list .selected-device').count(),2);
  mkdirSync('verification',{recursive:true});await page.locator('.explorer-layout').screenshot({path:'verification/selection-layout.png'});
  await page.locator('#selection-list .selected-device-title').first().click();await page.waitForSelector('#inspector .observation');
@@ -31,7 +34,7 @@ try{
  await page.mouse.move(box.x+box.width*.22,box.y+box.height*.15);await page.mouse.down();
  for(const [x,y] of [[.85,.15],[.85,.8],[.22,.8],[.22,.15]])await page.mouse.move(box.x+box.width*x,box.y+box.height*y,{steps:8});
  await page.mouse.up();assert.ok(await page.locator('#selection-list .selected-paper').count()>1);assert.equal(await page.locator('#inspector.open').count(),0);
- const actual=await page.evaluate(()=>{const all=window.sqbits.chart.all(),selected=all.filter(p=>+document.querySelector(`.outcome-dot[data-id="${p.id}"]`).getAttribute('r')===5),dev=new Set(selected.map(p=>p.device)),papers=new Set([...dev].map(i=>window.sqbits.devices.nodes[i].paper));return {observations:selected.length,devices:dev.size,papers:papers.size};});
+ const actual=await page.evaluate(()=>{const all=window.sqbits.chart.all(),selected=window.sqbits.chart.selected(),dev=new Set(selected.map(p=>p.device)),papers=new Set([...dev].map(i=>window.sqbits.devices.nodes[i].paper));return {observations:selected.length,devices:dev.size,papers:papers.size};});
  assert.match(await page.locator('#selection-count').innerText(),new RegExp(actual.observations.toLocaleString('en-US')+' observations'));
  assert.match(await page.locator('#selection-totals').innerText(),new RegExp(actual.papers.toLocaleString('en-US')+' papers'));
  if(await page.locator('#more-selected-papers').count()){const count=await page.locator('.selected-paper').count();await page.locator('#more-selected-papers').click();assert.ok(await page.locator('.selected-paper').count()>count);}
@@ -42,6 +45,7 @@ try{
  await page.setViewportSize({width:1500,height:1100});await page.locator('#metric').selectOption('t2_echo');await page.waitForFunction(()=>document.querySelector('#visual-count').textContent.includes('Echo coherence'));
  assert.equal(await page.locator('#selection-list .selected-paper').count(),0,'Changing the metric must clear stale selections');
  console.log('TIMELINE_SELECTION_PASSED',actual);
+ if(process.env.SQBITS_TIMELINE_ONLY==='1'){assert.deepEqual(errors,[]);process.exitCode=0;}else{
  // Pause physics to exercise the real Helios selection API without a live
  // layout competing with software rendering during these interaction checks.
  await page.evaluate(()=>{window.sqbits.state.networks.devices.running=false;window.sqbits.state.networks.papers.running=false;});
@@ -62,5 +66,5 @@ try{
  await page.waitForFunction(()=>document.querySelector('#selection-count').textContent==='2 papers selected');
  assert.equal(await page.locator('#selection-list .selected-paper').count(),2);
  await page.locator('#clear-panel-selection').click();await page.waitForFunction(()=>document.querySelector('#selection-count').textContent==='No entries selected');
- assert.deepEqual(errors,[]);console.log('NETWORK_SELECTION_CHECKS_PASSED');
+ assert.deepEqual(errors,[]);console.log('NETWORK_SELECTION_CHECKS_PASSED');}
 }catch(error){console.error(error);await page.screenshot({path:'verification/selection-failure.png'}).catch(()=>{});process.exitCode=1;}finally{await browser.close();}

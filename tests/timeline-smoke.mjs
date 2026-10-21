@@ -13,10 +13,8 @@ const url=process.env.SQBITS_TEST_URL||'http://127.0.0.1:5194/sqbits/';
 page.setDefaultTimeout(30000);
 async function readAxis(){
  return page.evaluate(()=>{
-  const dots=[...document.querySelectorAll('.outcome-dot')],years=dots.map(d=>d.__data__.year),ticks=[...document.querySelectorAll('.x-axis .tick text')].map(n=>Number(n.textContent));
-  const first=dots[0],other=dots.find(d=>d.__data__.year!==first?.__data__.year),rect=document.querySelector('#plot-clip rect');let visible;
-  if(other){const year=first.__data__.year,x=+first.getAttribute('cx'),slope=(+other.getAttribute('cx')-x)/(other.__data__.year-year),left=+rect.getAttribute('x');visible=[year+(left-x)/slope,year+(left+ +rect.getAttribute('width')-x)/slope];}
-  return {min:Math.min(...years),max:Math.max(...years),ticks,visible,head:dots.slice(0,10).map(d=>+d.getAttribute('cx')),count:dots.length};
+  const chart=window.sqbits.chart,rows=chart.all(),years=rows.map(p=>p.year),ticks=[...document.querySelectorAll('.x-axis .tick text')].map(n=>Number(n.textContent));
+  return {min:Math.min(...years),max:Math.max(...years),ticks,visible:rows.length?chart.view().x:null,head:rows.slice(0,10).map(p=>chart.position(p)[0]),count:rows.length};
  });
 }
 async function checkBounds(stage){
@@ -32,7 +30,7 @@ async function dragAcross(reverse=false){
 }
 try{
  await page.goto(url.split('#')[0]+'#timeline',{waitUntil:'domcontentloaded'});
- await page.waitForFunction(()=>window.sqbits?.chart&&document.querySelectorAll('.outcome-dot').length>0);
+ await page.waitForFunction(()=>window.sqbits?.chart&&window.sqbits.chart.count>0);
  const initial=await checkBounds('Initial view');assert.equal(initial.max,2025);assert.equal(initial.ticks.at(-1),initial.max,'The latest data year must be labelled');
  const box=await page.locator('.timeline-svg').boundingBox();await page.mouse.move(box.x+box.width*.6,box.y+box.height*.5);
  await page.mouse.wheel(0,2000);await page.waitForTimeout(250);
@@ -41,7 +39,7 @@ try{
  await page.mouse.wheel(0,-1000);await page.waitForTimeout(250);assert.notDeepEqual((await readAxis()).head,initial.head,'Zoom in must still work');
  await dragAcross();await dragAcross();await checkBounds('Pan toward later years');
  await dragAcross(true);await dragAcross(true);await checkBounds('Pan toward earlier years');
- await page.locator('#fit-view').click();assert.deepEqual((await readAxis()).head,initial.head);
+ await page.locator('#fit-view').click();await page.waitForTimeout(50);assert.deepEqual((await readAxis()).head,initial.head);
  await page.locator('#lasso-mode').click();const b=await page.locator('.timeline-svg').boundingBox();
  await page.mouse.move(b.x+b.width*.12,b.y+b.height*.15);await page.mouse.down();
  for(const [x,y] of [[.85,.15],[.85,.8],[.12,.8],[.12,.15]])await page.mouse.move(b.x+b.width*x,b.y+b.height*y,{steps:8});

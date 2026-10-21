@@ -1,0 +1,20 @@
+{
+  "version": "2026-10-21",
+  "source_manifest_sha256": "b8005ae2634bc258ab0f94291370190c95fc6b47a7f4f72cb0541008893a1ab4",
+  "selection_rule": "Per outcome/year: max(5,ceil(5% of distinct device records)), ranked by maximum observation; all scopes plus default measured own-work individual qubits. Also minimum observations for minimizing SOTA outcomes.",
+  "counts": {
+    "correct": 1300,
+    "unresolved": 1509,
+    "exclude": 1125,
+    "confirm": 7900
+  },
+  "selected_observations": 5652,
+  "configuration_observations": 6176,
+  "frontier_closure_observations": 1,
+  "audited_observations": 11834,
+  "pending": 0,
+  "numeric_review_claims": 236,
+  "numeric_review_pending": 0,
+  "papers": 2745,
+  "usd_conservative": 25.941847
+}

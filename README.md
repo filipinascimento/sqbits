@@ -24,6 +24,7 @@ The local path is `/sqbits/`. Build the static site with `npm run build`; `dist/
 npm test
 node tests/browser-smoke.mjs
 node tests/timeline-smoke.mjs
+node tests/audit-smoke.mjs
 node tests/selection-smoke.mjs
 ```
 
@@ -84,3 +85,11 @@ Source is in `main`; the production build is on `gh-pages`, configured as the Gi
 ## Credits
 
 Networks are rendered with [Helios](https://heliosweb.io/). Interface references include the SciSciForge evidence atlas and the archived superconducting-qubit metrics visualizations. The scientific diagram is a conceptual planar transmon, not an engineering drawing or a representation of every qubit family. Background: [Krantz et al., *A quantum engineer's guide to superconducting qubits*](https://doi.org/10.1063/1.5089550).
+
+### Source audits and plot rendering
+
+The scatterplot uses a Canvas point layer with cached colors/projections and a quadtree for picking. Axes, SOTA paths and lasso remain SVG; zoom events are coalesced with `requestAnimationFrame`. `node tests/timeline-performance.mjs` measures real wheel interaction and frame times; `SQBITS_TIMELINE_ONLY=1 node tests/selection-smoke.mjs` checks mouse picking, Shift selection, lasso, evidence and export without loading network layouts.
+
+A separate source-PDF audit layer corrects the yearly outcome tails while preserving every original extraction value. Excluded and unresolved claims can be revealed with the Performance filter; source-backed reclassifications appear under the correct outcome. The inspector and CSV preserve audit reasons and original values. See [audit methods and reproduction](docs/outcome-audit.md).
+
+The 2026-10-21 source audit covers **11,834 observations across 2,745 papers and all 22 plotted outcomes**. It records 1,300 corrections (including origin, attribution and reported-form changes), 1,125 exclusions and 1,509 unresolved claims. The latter remain available with the audit filter and do not establish frontiers. The audit includes 67 extreme observations independently checked by Sol 6.1 in 50 papers and 236 substantive scalar-correction candidates given an independent Luna source check. Original reported approximations are retained when a proposal would only substitute a more precise value. Raw extraction and baseline website payloads remain intact.
