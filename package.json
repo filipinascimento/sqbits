@@ -1,0 +1,26 @@
+{
+  "name": "sqbits",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite --host 127.0.0.1",
+    "build": "node scripts/helios-assets.mjs && vite build",
+    "preview": "vite preview --host 127.0.0.1",
+    "test": "node --test tests/*.test.js"
+  },
+  "dependencies": {
+    "helios-network": "0.10.4",
+    "helios-web": "0.10.9",
+    "d3": "7.9.0"
+  },
+  "devDependencies": {
+    "vite": "5.4.19",
+    "playwright": "^1.61.0"
+  },
+  "overrides": {
+    "helios-web": {
+      "d3-force-3d": "3.0.6"
+    }
+  }
+}
