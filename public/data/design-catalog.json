@@ -1,0 +1,414 @@
+{
+  "families": [
+    {
+      "id": "qubit",
+      "label": "Qubit family & variant"
+    },
+    {
+      "id": "materials",
+      "label": "Materials"
+    },
+    {
+      "id": "junction",
+      "label": "Josephson junction"
+    },
+    {
+      "id": "interfaces",
+      "label": "Substrate & interfaces"
+    },
+    {
+      "id": "geometry",
+      "label": "Device geometry"
+    },
+    {
+      "id": "circuit",
+      "label": "Circuit parameters"
+    },
+    {
+      "id": "architecture",
+      "label": "Coupling & architecture"
+    },
+    {
+      "id": "fabrication",
+      "label": "Fabrication process"
+    },
+    {
+      "id": "design",
+      "label": "Other design choices"
+    }
+  ],
+  "properties": {
+    "superconductor_composition": {
+      "family": "materials",
+      "dimension": "text",
+      "label": "Superconductor composition",
+      "description": "Al, Nb, NbTiN, Ta, TiN, NbN, Pb or reported composition; identify layer/component."
+    },
+    "superconducting_gap": {
+      "family": "materials",
+      "dimension": "energy",
+      "label": "Superconducting gap",
+      "description": "Reported Delta, including Delta/h where explicit. Do not infer from material or Tc."
+    },
+    "critical_temperature": {
+      "family": "materials",
+      "dimension": "temperature",
+      "label": "Critical temperature",
+      "description": "Reported superconducting Tc for the identified film/material."
+    },
+    "film_crystallinity": {
+      "family": "materials",
+      "dimension": "text",
+      "label": "Film crystallinity",
+      "description": "Verbatim epitaxial/single-crystal/polycrystalline/textured/disordered description."
+    },
+    "film_crystallinity_measurement": {
+      "family": "materials",
+      "dimension": "reported",
+      "label": "Film crystallinity measurement",
+      "description": "Named quantitative crystallinity/disorder metric and method; no universal metric assumption."
+    },
+    "film_thickness": {
+      "family": "materials",
+      "dimension": "length",
+      "label": "Film thickness",
+      "description": "Thickness of a named superconducting or other film; identify layer."
+    },
+    "surface_oxide_composition": {
+      "family": "materials",
+      "dimension": "text",
+      "label": "Surface oxide composition",
+      "description": "Reported surface oxide chemistry; do not infer stoichiometry from the metal."
+    },
+    "surface_oxide_thickness": {
+      "family": "materials",
+      "dimension": "length",
+      "label": "Surface oxide thickness",
+      "description": "Reported surface oxide thickness and measurement method."
+    },
+    "surface_oxide_properties": {
+      "family": "materials",
+      "dimension": "reported",
+      "label": "Surface oxide properties",
+      "description": "Other reported oxide properties, each with exact definition."
+    },
+    "mean_free_path": {
+      "family": "materials",
+      "dimension": "length",
+      "label": "Mean free path",
+      "description": "Reported mean free path; do not calculate from resistivity or purity."
+    },
+    "purity": {
+      "family": "materials",
+      "dimension": "reported",
+      "label": "Purity",
+      "description": "Reported numeric purity or qualitative clean/dirty limit description."
+    },
+    "junction_stack": {
+      "family": "junction",
+      "dimension": "text",
+      "label": "Junction stack",
+      "description": "Ordered junction material stack, preserving the paper's layer names."
+    },
+    "junction_barrier_thickness": {
+      "family": "junction",
+      "dimension": "length",
+      "label": "Junction barrier thickness",
+      "description": "Barrier thickness, distinct from electrode/native surface-oxide thickness."
+    },
+    "junction_barrier_uniformity": {
+      "family": "junction",
+      "dimension": "reported",
+      "label": "Junction barrier uniformity",
+      "description": "Named uniformity statistic or qualitative description, not an assumed metric."
+    },
+    "junction_area": {
+      "family": "junction",
+      "dimension": "area",
+      "label": "Junction area",
+      "description": "Reported area; do not multiply dimensions into an unreported area."
+    },
+    "junction_critical_current": {
+      "family": "junction",
+      "dimension": "current",
+      "label": "Junction critical current",
+      "description": "Reported Ic for this junction/device, not inferred from EJ or resistance."
+    },
+    "junction_oxidation_method": {
+      "family": "junction",
+      "dimension": "text",
+      "label": "Junction oxidation method",
+      "description": "Static/dynamic/plasma/temperature-assisted/ozone-assisted or explicitly reported method."
+    },
+    "junction_fabrication_method": {
+      "family": "junction",
+      "dimension": "text",
+      "label": "Junction fabrication method",
+      "description": "Shadow evaporation or reported alternative; process conditions belong in fabrication steps too."
+    },
+    "junction_geometry": {
+      "family": "junction",
+      "dimension": "text",
+      "label": "Junction geometry",
+      "description": "Dolan bridge/Manhattan or another explicitly named junction geometry."
+    },
+    "patch_bandaid": {
+      "family": "junction",
+      "dimension": "text",
+      "label": "Patch bandaid",
+      "description": "Explicit use, absence, material and implementation of patch/bandaid; silence is Unknown."
+    },
+    "substrate_material": {
+      "family": "interfaces",
+      "dimension": "text",
+      "label": "Substrate material",
+      "description": "Silicon, sapphire or reported substrate; identify the component."
+    },
+    "substrate_orientation": {
+      "family": "interfaces",
+      "dimension": "text",
+      "label": "Substrate orientation",
+      "description": "Si(100), Si(111), c-plane/a-plane sapphire or original reported orientation."
+    },
+    "surface_roughness": {
+      "family": "interfaces",
+      "dimension": "length",
+      "label": "Surface roughness",
+      "description": "Reported roughness; retain RMS/Ra/method/scan size rather than equating definitions."
+    },
+    "interface_chemistry": {
+      "family": "interfaces",
+      "dimension": "text",
+      "label": "Interface chemistry",
+      "description": "Explicit metal-substrate/interface chemistry and interfacial oxides."
+    },
+    "interface_thickness": {
+      "family": "interfaces",
+      "dimension": "length",
+      "label": "Interface thickness",
+      "description": "Thickness of the identified interface/layer."
+    },
+    "surface_treatment": {
+      "family": "interfaces",
+      "dimension": "text",
+      "label": "Surface treatment",
+      "description": "HF dip/anneal/plasma or reported protocol; also preserve ordered process conditions."
+    },
+    "tls_density": {
+      "family": "interfaces",
+      "dimension": "density",
+      "label": "Tls density",
+      "description": "Reported TLS density with energy/area/volume basis; never substitute loss tangent."
+    },
+    "device_geometry": {
+      "family": "geometry",
+      "dimension": "text",
+      "label": "Device geometry",
+      "description": "2D planar, 3D cavity or explicitly reported geometry; don't infer from qubit type."
+    },
+    "capacitor_geometry": {
+      "family": "geometry",
+      "dimension": "text",
+      "label": "Capacitor geometry",
+      "description": "Interdigitated/pads or other reported layout."
+    },
+    "cavity_geometry": {
+      "family": "geometry",
+      "dimension": "text",
+      "label": "Cavity geometry",
+      "description": "Reported cavity shape/material/configuration."
+    },
+    "cavity_dimension": {
+      "family": "geometry",
+      "dimension": "length",
+      "label": "Cavity dimension",
+      "description": "Each named cavity dimension separately, retaining axis/component label."
+    },
+    "participation_ratio": {
+      "family": "geometry",
+      "dimension": "dimensionless",
+      "label": "Participation ratio",
+      "description": "Electric-field energy fraction; name the lossy region and measured/simulated basis."
+    },
+    "resonator_dimension": {
+      "family": "geometry",
+      "dimension": "length",
+      "label": "Resonator dimension",
+      "description": "Each resonator length/width/gap separately with a precise label."
+    },
+    "capacitor_pad_dimension": {
+      "family": "geometry",
+      "dimension": "length",
+      "label": "Capacitor pad dimension",
+      "description": "Each pad length/width separately with a precise label."
+    },
+    "capacitor_pad_separation": {
+      "family": "geometry",
+      "dimension": "length",
+      "label": "Capacitor pad separation",
+      "description": "Pad gap/separation, with component pair identified."
+    },
+    "feature_dimension": {
+      "family": "geometry",
+      "dimension": "length",
+      "label": "Feature dimension",
+      "description": "Another reported feature size or spacing; retain its physical identity."
+    },
+    "vortex_pinning": {
+      "family": "geometry",
+      "dimension": "text",
+      "label": "Vortex pinning",
+      "description": "Explicit patterned holes or other pinning features; silence is Unknown."
+    },
+    "josephson_energy": {
+      "family": "circuit",
+      "dimension": "energy",
+      "label": "Josephson energy",
+      "description": "EJ, EJ/h or EJ/hbar; keep their representation explicit."
+    },
+    "charging_energy": {
+      "family": "circuit",
+      "dimension": "energy",
+      "label": "Charging energy",
+      "description": "EC, EC/h or EC/hbar; keep their representation explicit."
+    },
+    "ej_over_ec": {
+      "family": "circuit",
+      "dimension": "dimensionless",
+      "label": "Ej over ec",
+      "description": "Reported EJ/EC only; never divide two separately extracted values to invent a result."
+    },
+    "design_frequency": {
+      "family": "circuit",
+      "dimension": "frequency",
+      "label": "Design frequency",
+      "description": "Target/design frequency range, distinct from a measured transition."
+    },
+    "anharmonicity": {
+      "family": "circuit",
+      "dimension": "frequency",
+      "label": "Anharmonicity",
+      "description": "Reported signed anharmonicity and convention; negative values are valid."
+    },
+    "capacitance": {
+      "family": "circuit",
+      "dimension": "capacitance",
+      "label": "Capacitance",
+      "description": "Reported capacitance of the labelled element."
+    },
+    "inductance": {
+      "family": "circuit",
+      "dimension": "inductance",
+      "label": "Inductance",
+      "description": "Reported inductance of the labelled element."
+    },
+    "coupling_mechanism": {
+      "family": "architecture",
+      "dimension": "text",
+      "label": "Coupling mechanism",
+      "description": "Capacitive/inductive or explicitly named mechanism."
+    },
+    "coupler_design": {
+      "family": "architecture",
+      "dimension": "text",
+      "label": "Coupler design",
+      "description": "Reported coupler circuit/implementation, with connected devices identified."
+    },
+    "coupling_tunability": {
+      "family": "architecture",
+      "dimension": "text",
+      "label": "Coupling tunability",
+      "description": "Fixed/tunable only when stated; do not infer from a SQUID alone."
+    },
+    "coupling_strength": {
+      "family": "architecture",
+      "dimension": "frequency",
+      "label": "Coupling strength",
+      "description": "Reported g, J, g/(2pi) etc.; retain representation and device pair."
+    },
+    "bus_resonator": {
+      "family": "architecture",
+      "dimension": "text",
+      "label": "Bus resonator",
+      "description": "Reported bus configuration and connectivity."
+    },
+    "frequency_allocation": {
+      "family": "architecture",
+      "dimension": "text",
+      "label": "Frequency allocation",
+      "description": "Reported frequency planning/collision avoidance strategy."
+    },
+    "layout_topology": {
+      "family": "architecture",
+      "dimension": "text",
+      "label": "Layout topology",
+      "description": "Grid/heavy-hex/modular or exact topology; don't infer from vendor."
+    },
+    "other_design_choice": {
+      "family": "design",
+      "dimension": "reported",
+      "label": "Other design choice",
+      "description": "Another explicitly named design decision, with no guessed default."
+    },
+    "process_duration": {
+      "family": "fabrication",
+      "dimension": "time",
+      "label": "Process duration",
+      "description": "Duration of this specific process step."
+    },
+    "process_temperature": {
+      "family": "fabrication",
+      "dimension": "temperature",
+      "label": "Process temperature",
+      "description": "Temperature of this step, not device operating temperature."
+    },
+    "process_pressure": {
+      "family": "fabrication",
+      "dimension": "pressure",
+      "label": "Process pressure",
+      "description": "Pressure with gas identity, static/dynamic mode and context retained."
+    },
+    "process_gas": {
+      "family": "fabrication",
+      "dimension": "text",
+      "label": "Process gas",
+      "description": "Gas composition, flow and purity as reported; quantitative flow may use other_process_parameter."
+    },
+    "process_deposition_rate": {
+      "family": "fabrication",
+      "dimension": "speed",
+      "label": "Process deposition rate",
+      "description": "Reported deposition rate for the named layer."
+    },
+    "process_angle": {
+      "family": "fabrication",
+      "dimension": "angle",
+      "label": "Process angle",
+      "description": "Evaporation/tilt/rotation angle with stated reference axis."
+    },
+    "process_layer_thickness": {
+      "family": "fabrication",
+      "dimension": "length",
+      "label": "Process layer thickness",
+      "description": "Thickness deposited/etched in this step."
+    },
+    "process_chemistry": {
+      "family": "fabrication",
+      "dimension": "reported",
+      "label": "Process chemistry",
+      "description": "Chemicals, concentrations and resist/developer/etch recipes; preserve original basis."
+    },
+    "process_equipment": {
+      "family": "fabrication",
+      "dimension": "text",
+      "label": "Process equipment",
+      "description": "Explicit tool/chamber/lithography/deposition method."
+    },
+    "other_process_parameter": {
+      "family": "fabrication",
+      "dimension": "reported",
+      "label": "Other process parameter",
+      "description": "Other explicitly named process parameter, with original units."
+    }
+  }
+}

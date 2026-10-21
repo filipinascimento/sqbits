@@ -1,5 +1,6 @@
 import {esc,fmt,pretty} from './data.js';
 import {auditLabel} from './audit.js';
+import {deviceDesignHTML,bindDeviceDesigns} from './designs.js';
 
 // Group record IDs rather than names: two devices named Q1 stay distinct.
 export function groupSelection({paperIndices=[],deviceIndices=[],points=[],papers,devices}){
@@ -13,7 +14,7 @@ export function groupSelection({paperIndices=[],deviceIndices=[],points=[],paper
  return [...groups.values()].sort((a,b)=>(b.paper.year||0)-(a.paper.year||0)||a.paper.label.localeCompare(b.paper.label));
 }
 
-export function mountSelectionPanel(container,{getDevices,papers,getMetric,onClear,onExport,onBack}){
+export function mountSelectionPanel(container,{getDevices,papers,getMetric,getDeviceDetail,onClear,onExport,onBack,emptyHint}){
  let groups=[],limit=20,mode='timeline',pointCount=0,recordCount=0;
  const deviceLimits=new Map();
  container.innerHTML=`<div class="selection-heading"><div><span class="eyebrow">SELECTED EVIDENCE</span><h3>Selected papers & devices</h3></div><button id="clear-panel-selection" aria-label="Clear selected papers and devices">Clear</button></div>
@@ -43,13 +44,14 @@ export function mountSelectionPanel(container,{getDevices,papers,getMetric,onCle
   return `<article class="selected-device" data-device-index="${index}"><button class="selected-device-title" data-device="${index}"${points[0]?` data-point="${esc(points[0].id)}"`:''}>${esc(device.label)} <span aria-hidden="true">↗</span></button>
    <div class="selected-device-meta">${esc(pretty(device.type))} · ${esc(pretty(device.scope))}<br>${esc(pretty(device.realization))} · ${esc(pretty(device.attribution))}</div>
    ${device.review?'<span class="review-badge">Review flagged</span>':''}
+   <details class="selected-device-designs" data-design-device="${index}" ${recordCount===1?'open':''}><summary>All design choices & fabrication</summary><div class="selected-design-body">Open to load the complete reported design.</div></details>
    ${values.slice(0,3).join('')}${values.length>3?`<details class="more-values"><summary>${fmt(values.length-3)} more selected observations</summary>${values.slice(3).join('')}</details>`:''}</article>`;
  }
  function render(){
   const count=mode==='timeline'?pointCount:mode==='papers'?groups.length:recordCount;
   const noun=mode==='timeline'?(count===1?'observation':'observations'):mode==='papers'?(count===1?'paper':'papers'):(count===1?'device record':'device records');
   el('selection-count').textContent=count?`${fmt(count)} ${noun} selected`:'No entries selected';
-  el('selection-totals').textContent=count?`${fmt(groups.length)} ${groups.length===1?'paper':'papers'} · ${fmt(recordCount)} device ${recordCount===1?'record':'records'}`:mode==='timeline'?'Click a point or draw a lasso to build your selection.':'Click a node to select it. Shift-click to add more.';
+  el('selection-totals').textContent=count?`${fmt(groups.length)} ${groups.length===1?'paper':'papers'} · ${fmt(recordCount)} device ${recordCount===1?'record':'records'}`:emptyHint||(mode==='timeline'?'Click a point or draw a lasso to build your selection.':'Click a node to select it. Shift-click to add more.');
   el('clear-panel-selection').disabled=!count;
   el('export-selection').parentElement.hidden=mode!=='timeline';el('export-selection').textContent=pointCount?'Export selection CSV ↓':'Export filtered data CSV ↓';
   el('selection-list').innerHTML=groups.length?groups.slice(0,limit).map(g=>{
@@ -61,6 +63,14 @@ export function mountSelectionPanel(container,{getDevices,papers,getMetric,onCle
     ${g.devices.length>shown?`<button class="selection-more" data-more-devices="${g.index}">Show more devices (${fmt(g.devices.length-shown)} remaining)</button>`:''}</section>`;
   }).join('')+(groups.length>limit?`<button class="selection-more" id="more-selected-papers">Show more papers (${fmt(groups.length-limit)} remaining)</button>`:''):'<div class="selection-empty"><span aria-hidden="true">↖</span><p>Your selected papers and devices will appear here.</p><small>Open a paper or device card to inspect its source evidence and design choices.</small></div>';
   container.querySelectorAll('[data-more-devices]').forEach(button=>button.onclick=()=>{const index=+button.dataset.moreDevices;deviceLimits.set(index,(deviceLimits.get(index)||5)+10);render();});
+  for(const box of container.querySelectorAll('.selected-device-designs')){
+   const hydrate=async()=>{
+    if(!box.open||box.dataset.loading||box.dataset.loaded)return;box.dataset.loading='true';const body=box.querySelector('.selected-design-body');body.textContent='Loading all reported design choices…';
+    try{const detail=await getDeviceDetail(+box.dataset.designDevice);if(!box.isConnected)return;body.innerHTML=deviceDesignHTML(detail);bindDeviceDesigns(body,detail);box.dataset.loaded='true';box.querySelector('summary').textContent=`All design choices (${detail.record.design_choices.length}) · fabrication steps (${detail.fabrication_processes.flatMap(f=>f.steps).length})`;}
+    catch(error){if(!box.isConnected)return;body.innerHTML=`<p>${esc(error.message)}</p><button class="retry-device-designs">Retry loading design choices</button>`;body.querySelector('button').onclick=()=>{delete box.dataset.loading;hydrate();};}
+   };
+   box.addEventListener('toggle',hydrate);if(box.open)hydrate();
+  }
   if(el('more-selected-papers'))el('more-selected-papers').onclick=()=>{limit+=20;render();};
  }
  const controller={

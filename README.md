@@ -7,6 +7,7 @@ An interactive atlas of superconducting-qubit papers, device designs and reporte
 - **Citation atlas:** directed paper citations, Leiden communities with automatic labels, search, date/review filters, 2D/3D navigation and source inspection.
 - **Device designs:** approximate nearest design neighbors, weighted communities, realization and entity-scope filters, material/substrate/geometry filters and outcome coloring.
 - **Performance:** one outcome versus paper year, a filter-dependent max/min frontier, click and lasso selection, zoom, source inspection and CSV export. The default is **own-work, measured individual qubits and measured observations**.
+- **Design trends:** categorical distributions, non-stacked shares/counts over time and reporting coverage across nine design families. Filter the population, count records or distinct papers, choose the denominator and inspect supporting devices.
 - **Design guide:** an interactive conceptual transmon schematic, fabrication guidance and methodological definitions.
 
 ## Run locally
@@ -26,11 +27,15 @@ node tests/browser-smoke.mjs
 node tests/timeline-smoke.mjs
 node tests/audit-smoke.mjs
 node tests/selection-smoke.mjs
+node tests/design-trends-smoke.mjs
+python scripts/test_design_index.py
 ```
 
 The browser check uses Playwright. It accepts `SQBITS_TEST_URL` and uses an installed Chromium or the normal Playwright browser. It checks native force-layout motion, repeated 2D/3D transitions, pause/resume and dimension preservation after filtering, network rendering, the measured/own-work defaults, evidence inspection, lasso selection, CSV download, metric switching, filtering, the schematic and a mobile viewport. `SQBITS_TEST_LIFECYCLE=1 node tests/browser-smoke.mjs` runs the focused cooling, resume, queued-switch and teardown checks. `verification/` is local-only.
 
 Selections appear in a docked side panel, grouped by paper with the selected device records and observation values. Shift-click adds entries; lasso selection updates the same list. Paper and device cards open source details inside the panel, with a back button that preserves the selection. Long selections load more cards on demand, and CSV export includes the complete selection.
+
+A single selected device automatically opens its complete design section in the card. Multiple selections expose the same section in each card on demand, so a large lasso does not fetch every source shard. All reported design observations are grouped into the domain families, including `other_design_choice`, with the full reported text, quantities, origin, component, conditions, configurations and source evidence. Explicitly linked fabrication recipes retain every step and parameter. Search applies to the complete loaded record; the JSON download preserves the original record and linked recipes exactly. The full inspector puts designs before outcomes.
 
 ## Data and interpretation
 
@@ -68,6 +73,24 @@ Device communities use weighted Leiden modularity. Labels are automatic distinct
 - Protocols, statistics, temperatures, bias and configurations may differ. This is an observed frontier of the extraction, not a certified world-record database.
 
 The displayed year comes from the frozen paper manifest; it is not independently resolved for a cited device or its first demonstration. Use original sources for historical priority claims.
+
+### Categorical design trends
+
+The supplementary design index covers all 43,523 records and **235,479 original design-choice observations**. Fabrication counts are linked step occurrences per record, not unique recipes or fabrication runs. The original observation and detail payloads remain unchanged. `design-catalog.json` preserves the frozen domain's property families; unknown future properties stay visible under Other design choices in the inspector.
+
+The default population is own-work measured individual qubits. Each record contributes once to a category, regardless of repeated observations or configurations. The paper counting option unions categories across that paper's matching records. Categories may overlap, so lines are not stacked and shares may sum above 100%. The denominator selector distinguishes all filtered entries from entries reporting the field. Missing reporting is not evidence of absence; explicit negative descriptions remain reported categories. Annual zero-denominator periods are gaps. Undated entries stay in overall breakdowns and are disclosed separately from the time plots. Time bins end at the latest observed year, including partial final periods.
+
+Type and geometry use the frozen standardized metadata. Material/substrate groups match explicit names in their named fields; compound matching precedes element matching, and qualified/comparative descriptions are kept separate. Reported materials can include electrodes, barriers, and housings: grouping a material name does not identify its role or establish that every component is superconducting. Full reported wording and component context are retained in the original records. Other categorical properties preserve reported wording with whitespace collapsed, rather than silently merging scientific descriptions. Process operations come only from recipes explicitly linked to the device.
+
+The category table is searchable and offers all categories through pagination. Up to 12 series can be plotted together; category and time-point clicks show all supporting records in the evidence panel. CSV exports include counts, denominators, reporting/missing coverage, counting unit and population filters. Family coverage counts an entry reporting at least one design observation in the family, including numeric parameters and standardized qubit/geometry metadata.
+
+Rebuild the index from the website's published source shards without model calls or private inputs:
+
+```sh
+python scripts/build_design_index.py
+```
+
+The index records source-manifest, baseline-device and detail-shard hashes. Rebuilding the underlying extraction requires rebuilding the index too; a source/record mismatch is rejected by the application. These distributions summarize automated extraction coverage and reported choices, not independently validated industry adoption rates.
 
 ## Rebuild derived data
 
