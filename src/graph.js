@@ -18,14 +18,15 @@ export async function mountGraph(container,{nodes,edges,directed,colorBy,colorSc
  network.nodeAttribute('sq_review',(_,id,i)=>nodes[i].review?'flagged':'clear',{type:AttributeType.String})
   .nodeAttribute('sq_year',(_,id,i)=>nodes[i].year??NaN,{type:AttributeType.Float})
   .nodeAttribute('sq_degree',(_,id,i)=>nodes[i].degree,{type:AttributeType.Float})
-  .nodeAttribute('sq_search',(_,id,i)=>{const n=nodes[i];return (directed?[n.label,n.doi]:[n.label,n.type,n.material,n.substrate,n.junction,n.geometry,papers[n.paper]?.label]).join(' ').toLowerCase();},{type:AttributeType.String});
+  .nodeAttribute('sq_search',(_,id,i)=>{const n=nodes[i];return (directed?[n.label,n.doi]:[n.label,n.type,n.material,n.materialReported,n.substrate,n.substrateReported,n.junction,n.geometry,papers[n.paper]?.label]).join(' ').toLowerCase();},{type:AttributeType.String});
  let helios;
  try{
   // Helios owns initialization, forces, positions and dimensional transitions.
   // In particular, do not replace the engine when resuming a paused layout.
-  // Cool in about 342 force steps rather than the default 2,300. Apply this
+  // Allow about 1,148 force steps: a compromise between the too-short 342
+  // step cycle and the native default of 2,300 steps. Apply this
   // to the native engine so it also governs reheats and dimension changes.
-  helios=new Helios(network,{container,mode,layout:{type:'gpu-force',options:{alphaDecay:.02}},storage:false,session:false,fileDrop:false,ui:false,quickControls:false,autoCleanup:false,disposeNetworkOnDestroy:true,
+  helios=new Helios(network,{container,mode,layout:{type:'gpu-force',options:{alphaDecay:.006}},storage:false,session:false,fileDrop:false,ui:false,quickControls:false,autoCleanup:false,disposeNetworkOnDestroy:true,
    density:false,legends:false,edgeFastRendering:false,edgeAdaptiveQuality:{enabled:false},interactionRenderOrder:true,
    behaviors:{layout:{running,parameters:{kGravity:gravity}},
     labels:{enabled:true,source:'label',selectionMode:'ranked',maxVisible:28,maxChars:44,minScreenRadiusPx:0,fontSizeScale:.95,outlineWidth:4,fill:'#22413d',outlineColor:'#f8f8f3'},

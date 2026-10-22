@@ -41,7 +41,7 @@ async function pause(){
  assert.equal(await page.locator('#layout-toggle').innerText(),'Resume layout');
 }
 async function checkNativeLayout(name){
- assert.equal(await page.evaluate(()=>window.sqbits.graph.helios.behavior.layout.parameter('alphaDecay')),.02);
+ assert.equal(await page.evaluate(()=>window.sqbits.graph.helios.behavior.layout.parameter('alphaDecay')),.006);
  const first=await positions();assert.equal(first.type,'gpu-force');assert.equal(first.running,true);assert.equal(first.mode,'2d');assert.equal(first.z,0);assert.ok(first.count>1000);
  await page.evaluate(()=>{window.layoutUnderTest=window.sqbits.graph.helios.layout();});
  await page.waitForFunction(async before=>{
@@ -90,11 +90,11 @@ try{
  await page.locator('[data-view="devices"]').first().click();await page.waitForSelector('#chart[data-engine="helios"]',{timeout:90000});
  }
  console.log('DEVICES',await page.locator('#visual-count').innerText());
- assert.equal(await page.evaluate(()=>window.sqbits.graph.helios.behavior.layout.parameter('alphaDecay')),.02);
- if(!lifecycleOnly)await checkNativeLayout('devices');
+ assert.equal(await page.evaluate(()=>window.sqbits.graph.helios.behavior.layout.parameter('alphaDecay')),.006);
+ if(!lifecycleOnly||process.env.SQBITS_TEST_LAYOUT_MOTION==='1')await checkNativeLayout('devices');
  // Natural cooling updates the button without turning the user's preference
  // into a manual pause for every subsequent filtered graph.
- await page.evaluate(()=>window.sqbits.graph.helios.stopLayout('alpha-min'));
+ await page.evaluate(()=>{window.sqbits.graph.helios.stopLayout('alpha-min');});
  await page.waitForFunction(()=>!window.sqbits.graph.running&&document.querySelector('#layout-toggle').textContent==='Resume layout');
  assert.equal(await page.locator('#layout-toggle').innerText(),'Resume layout');
  assert.equal(await page.evaluate(()=>window.sqbits.state.networks.devices.running),true);
@@ -107,7 +107,7 @@ try{
  await page.evaluate(async()=>{const g=window.sqbits.graph;await Promise.all([g.mode('2d'),g.mode('3d'),g.mode('2d')]);});
  assert.equal(await page.evaluate(()=>window.sqbits.graph.helios.mode()),'2d');
  assert.equal(await page.evaluate(()=>window.sqbits.graph.running),false);
- assert.equal(await page.evaluate(()=>window.sqbits.graph.helios.behavior.layout.parameter('alphaDecay')),.02,'Cooling must persist through pause/resume, filters and dimension changes');
+ assert.equal(await page.evaluate(()=>window.sqbits.graph.helios.behavior.layout.parameter('alphaDecay')),.006,'Cooling must persist through pause/resume, filters and dimension changes');
  await page.evaluate(async()=>{const changing=window.sqbits.graph.mode('3d');await Promise.resolve();document.querySelector('[data-view="guide"]').click();await changing;});
  await page.waitForSelector('.schematic svg');
  await page.locator('.topic-button[data-topic="6"]').click();assert.match(await page.locator('#anatomy-detail').innerText(),/Fabrication process/);
