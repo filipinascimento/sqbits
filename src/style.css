@@ -337,3 +337,44 @@ body[data-atlas-view=guide] #workspace{overflow:hidden}
 .category-normalization{margin:1rem 0;padding:.75rem 0;border-block:1px solid var(--border,#dbe2d8)}
 .category-normalization summary{cursor:pointer;font-weight:600}
 .category-normalization dd{overflow-wrap:anywhere}.category-normalization dd small{display:block;color:var(--muted,#65776e);margin-top:.3rem}
+
+/* Compare a compact schematic with its selected design distribution. */
+.guide-content{container:guide-content / inline-size}
+.guide-content .guide-intro{display:block;padding:4px 0 14px}
+.guide-content .guide-intro h2{font-family:'DM Sans',Arial,sans-serif;font-size:20px;font-weight:550;line-height:1.3;margin:0 0 5px}
+.guide-content .guide-intro p{max-width:none;font-size:11px;line-height:1.7;margin:0}
+.guide-design-workspace{display:grid;grid-template-columns:minmax(250px,.85fr) minmax(0,1.65fr);gap:18px;align-items:start;margin-bottom:24px}
+.guide-anatomy,.guide-distributions{min-width:0}
+.guide-anatomy .anatomy{display:block;border-radius:7px}
+.guide-anatomy .schematic{max-width:440px;margin:auto}
+.guide-anatomy .schematic svg{height:auto;min-height:0;aspect-ratio:1000 / 590}
+.guide-anatomy .diagram-hotspot>text:not(.diagram-caption){font-size:26px}
+.guide-anatomy .diagram-hotspot>circle{stroke-width:2}
+.guide-anatomy .diagram-caption,.guide-anatomy .diagram-small{display:none}
+.guide-anatomy .diagram-label{font-size:24px;letter-spacing:1px}
+.schematic-caption{padding:0 12px;font-size:9px;line-height:1.65;color:var(--muted);margin:0 0 12px}
+.guide-anatomy .topic-tabs{grid-template-columns:1fr 1fr;gap:5px;padding:10px;margin:0;border-block:1px solid var(--line)}
+.guide-anatomy .topic-button{font-size:10px;line-height:1.5;padding:7px;gap:6px;min-width:0}
+.guide-anatomy .anatomy-detail{padding:14px;border:0}
+.guide-anatomy .anatomy-detail h3{font-family:'DM Sans',Arial,sans-serif;font-size:15px;font-weight:550;margin:8px 0}
+.guide-anatomy .anatomy-detail h4{font-size:11px;margin:0 0 8px}
+.guide-anatomy .anatomy-detail p{font-size:10px;line-height:1.8;margin:0 0 10px}
+.guide-anatomy .feature-terms{font-size:9px;padding-top:8px}
+.guide-distributions .design-plot-note{margin:0 0 10px;font-size:9px;line-height:1.7}
+.guide-distributions .distribution-focus{grid-template-columns:160px minmax(0,1fr);gap:12px;margin:0}
+.guide-distributions .design-property-selector{padding-right:10px}
+@container guide-content (max-width:860px){
+ .guide-design-workspace{grid-template-columns:240px minmax(0,1fr);gap:14px}
+ .guide-distributions .distribution-focus{grid-template-columns:120px minmax(0,1fr);gap:10px}
+ .guide-anatomy .diagram-hotspot>text:not(.diagram-caption){font-size:36px}
+ .guide-anatomy .diagram-hotspot>circle{r:38px}
+}
+@container guide-content (max-width:640px){
+ .guide-design-workspace{grid-template-columns:minmax(0,1fr)}
+ .guide-anatomy .schematic{max-width:360px}
+ .guide-anatomy .anatomy-detail{padding:12px}
+ .guide-anatomy .topic-tabs{grid-template-columns:repeat(2,minmax(0,1fr))}
+ .guide-distributions .distribution-focus{grid-template-columns:minmax(0,1fr)}
+ .guide-distributions .design-property-selector{padding:0 0 10px;border-right:0;border-bottom:1px solid var(--line)}
+ .guide-distributions .design-property-groups{max-height:135px}
+}
