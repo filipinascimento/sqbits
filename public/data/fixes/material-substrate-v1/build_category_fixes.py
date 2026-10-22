@@ -59,7 +59,7 @@ def build():
     overlay={'package_id':manifest['package_id'],'source_manifest_sha256':manifest['source_manifest_sha256'],'devices_sha256':manifest['devices_sha256'],'design_index_sha256':manifest['design_index_sha256'],'device_count':len(devices),'rules':RULES,'aliases':aliases,'dictionary_maps':dictionary_maps,'devices':updates}
     dump(OUT/'overlay.json.gz',overlay);dump(OUT/'changes.json.gz',fixes);dump(OUT/'review.json.gz',pending)
     with (OUT/'aliases.csv').open('w',newline='') as f:
-        w=csv.writer(f);w.writerow(['property','before','after','rule','reason','observations','device_records'])
+        w=csv.writer(f,lineterminator="\n");w.writerow(['property','before','after','rule','reason','observations','device_records'])
         for (prop,raw),where in sorted(seen.items()):
             r=aliases[prop][raw];w.writerow([prop,raw,r['value'],r['rule'],RULES[r['rule']],len(where),len({i for i,o in where})])
     for name in ['material_normalization.py','build_category_fixes.py']:(OUT/name).write_bytes((SITE/'scripts'/name).read_bytes())
