@@ -13,7 +13,7 @@ const app=document.querySelector('#app');
 const titles={papers:['The literature, connected.','Follow citation links and explore automatically labelled research communities.'],devices:['Find the design connections.','Explore device and component records linked by similarity of reported design choices.'],timeline:['Performance, over time.','Compare one reported outcome at a time, with conditions and source evidence close at hand.'],trends:['How device designs evolve.','Explore categorical design choices, reporting coverage and their shares over publication time.'],guide:['Inside a superconducting qubit.','A visual guide to the structures, materials and processes behind the measurements.']};
 let summary,paperData,deviceData,outcomeAudit,categoryFixes,graph,chart,designTrends,guideDistributions,yearRange,filterTimer,selectionPanel,selectionVersion=0,networkRenderVersion=null,renderVersion=0,inspectorVersion=0,selectedPoints=[],timelinePoints=[],focusPaper=null,focusDevice=null;
 const viewFromHash=location.hash.slice(1);
-const networkDefaults=()=>({mode:'2d',running:true,nodeSizeScale:1,edgeWidthScale:1.5,edgeOpacityScale:.2,gravity:.001});
+const networkDefaults=()=>({mode:'2d',running:true,nodeSizeScale:1,edgeWidthScale:1.5,edgeOpacityScale:.2,gravity:1e-5});
 const state={view:titles[viewFromHash]?viewFromHash:'papers',metric:'t1',color:'community',colorScale:'auto',log:true,interaction:'lasso',filters:{},networks:{papers:networkDefaults(),devices:networkDefaults()},timelineFilters:{attribution:'own_work',realization:'measured_device',scope:'individual_qubit'},designTrends:{}};
 const graphSliders=[
  {id:'edge-width',key:'edgeWidthScale',label:'Edge width',min:.25,max:6,step:.05,hint:'Scale the width of network links.'},

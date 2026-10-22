@@ -4,7 +4,7 @@ import {encoding,pretty,esc,fmt} from './data.js';
 import {networkFilterRules,communityRanks} from './network-model.js';
 import {buildMapperRulePredicate} from '../node_modules/helios-web/src/behaviors/mapperBehaviorShared.js';
 
-export async function mountGraph(container,{nodes,edges,directed,colorBy,colorScale='auto',metrics=[],filters={},papers=[],onSelection,onEdge,mode='2d',running=true,nodeSizeScale=1,edgeWidthScale=1.5,edgeOpacityScale=.2,gravity=.001,onLayoutState}){
+export async function mountGraph(container,{nodes,edges,directed,colorBy,colorScale='auto',metrics=[],filters={},papers=[],onSelection,onEdge,mode='2d',running=true,nodeSizeScale=1,edgeWidthScale=1.5,edgeOpacityScale=.2,gravity=1e-5,onLayoutState}){
  const network=await HeliosNetwork.create({directed,initialEdges:Math.max(1,edges.length)});
  if(!container.isConnected){network.dispose();return null;}
  const handles=network.addNodes(nodes.length),lookup=new Map(nodes.map((n,i)=>[n.id,Number(handles[i])])),byIndex=new Map(nodes.map((n,i)=>[Number(handles[i]),n]));

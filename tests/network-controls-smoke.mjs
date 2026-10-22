@@ -36,7 +36,7 @@ async function checkNetwork(view){
  }
  await page.evaluate(()=>{window.controlTestLayout=window.sqbits.graph.helios.layout();});
  const initial=await page.evaluate(()=>{const h=window.sqbits.graph.helios;return {width:h.edgeWidthScale(),opacity:h.edgeOpacityScale(),size:h.nodeSizeScale(),gravity:h.behavior.layout.parameter('kGravity'),edgeColor:h.behavior.mappers.getSerializedChannelConfig('edge','color'),renderMode:h.renderer.graphLayer.getEffectiveEdgeRenderingMode()};});
- assert.equal(initial.width,1.5);assert.equal(initial.opacity,.2);assert.equal(initial.size,1);assert.equal(initial.gravity,.001);assert.equal(initial.renderMode,'quad');
+ assert.equal(initial.width,1.5);assert.equal(initial.opacity,.2);assert.equal(initial.size,1);assert.equal(initial.gravity,1e-5);assert.equal(initial.renderMode,'quad');
  assert.equal(initial.edgeColor.type,'nodeToEdge');assert.equal(initial.edgeColor.attributes,'@node.color');assert.equal(initial.edgeColor.endpoints,'both');
  if(await page.evaluate(()=>window.sqbits.graph.running))await page.locator('#layout-toggle').click();
  await page.waitForFunction(()=>!window.sqbits.graph.running&&!document.querySelector('#layout-toggle').disabled);
