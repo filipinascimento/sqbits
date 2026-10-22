@@ -1,0 +1,52 @@
+{
+  "source_manifest_sha256": "b8005ae2634bc258ab0f94291370190c95fc6b47a7f4f72cb0541008893a1ab4",
+  "population": {
+    "papers": 11746,
+    "records": 43523
+  },
+  "review": {
+    "papers": 1774,
+    "recordsInFlaggedSegments": 8256,
+    "flaggedSegments": 1792,
+    "flags": 8829,
+    "issues": {
+      "configuration_coverage": 8206,
+      "qubit_type_conflicts_with_reported_fluxonium": 66,
+      "printed_multiplier_missing_from_dimensionless_unit": 75,
+      "model_declared_incomplete_extraction": 119,
+      "dangling_configuration": 79,
+      "evidence_page_out_of_bounds": 96,
+      "qubit_type_conflicts_with_reported_gatemon": 10,
+      "dangling_process": 142,
+      "duplicate_id": 35,
+      "qubit_type_conflicts_with_reported_mergemon": 1
+    },
+    "flaggedPaperPages": 35808,
+    "flaggedSegmentPages": 27426,
+    "allSegmentsOfFlaggedPapers": 1930
+  },
+  "fabrication": {
+    "records": 43523,
+    "linkedStepOccurrences": 54430,
+    "linkedParameterOccurrences": 97040,
+    "numericNonPointOmitted": 16552,
+    "numericUnconvertedOmitted": 50550,
+    "withSteps": 9623,
+    "withFabricationChoices": 9780,
+    "withProcessParameters": 7506,
+    "withProcessConditions": 7415,
+    "papers": {
+      "withSteps": 2709,
+      "withFabricationChoices": 2807,
+      "withProcessParameters": 1874,
+      "withProcessConditions": 1837
+    }
+  },
+  "definitions": {
+    "withSteps": "Device/component records with at least one explicitly linked fabrication step. Shared recipes count for each applicable record.",
+    "withProcessParameters": "Records with at least one structured process parameter, including equipment and other process details.",
+    "withProcessConditions": "Records with a reported structured process parameter other than equipment or process_other (time, temperature, pressure, chemistry, rate, angle, etc.). Narrative-only conditions are not inferred.",
+    "numeric": "Converted finite point quantities only, retaining canonical units; bounds, ranges and reported-only quantities are omitted. A record can have several distinct values.",
+    "review": "Flags are per PDF segment, inherited by its device records; flag counts are not independent device errors."
+  }
+}

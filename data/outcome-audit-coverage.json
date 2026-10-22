@@ -1,0 +1,9373 @@
+{
+  "rule": "Per outcome/year: max(5,ceil(5% of distinct device records)), ranked by maximum observation; all scopes plus default measured own-work individual qubits. Also minimum observations for minimizing SOTA outcomes.",
+  "groups": [
+    {
+      "metric": "t1",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2009,
+      "population": 76,
+      "selected": 5
+    },
+    {
+      "metric": "t1",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2010,
+      "population": 98,
+      "selected": 5
+    },
+    {
+      "metric": "t1",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2018,
+      "population": 214,
+      "selected": 11
+    },
+    {
+      "metric": "t1",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2025,
+      "population": 1241,
+      "selected": 63
+    },
+    {
+      "metric": "t1",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2023,
+      "population": 779,
+      "selected": 39
+    },
+    {
+      "metric": "t1",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2021,
+      "population": 585,
+      "selected": 30
+    },
+    {
+      "metric": "t1",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2022,
+      "population": 612,
+      "selected": 31
+    },
+    {
+      "metric": "t1",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2019,
+      "population": 302,
+      "selected": 16
+    },
+    {
+      "metric": "t1",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2024,
+      "population": 1040,
+      "selected": 52
+    },
+    {
+      "metric": "t1",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2005,
+      "population": 51,
+      "selected": 5
+    },
+    {
+      "metric": "t1",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2015,
+      "population": 134,
+      "selected": 7
+    },
+    {
+      "metric": "t1",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2003,
+      "population": 33,
+      "selected": 5
+    },
+    {
+      "metric": "t1",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2008,
+      "population": 54,
+      "selected": 5
+    },
+    {
+      "metric": "t1",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2017,
+      "population": 148,
+      "selected": 8
+    },
+    {
+      "metric": "t1",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2020,
+      "population": 371,
+      "selected": 19
+    },
+    {
+      "metric": "t1",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2012,
+      "population": 90,
+      "selected": 5
+    },
+    {
+      "metric": "t1",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2016,
+      "population": 133,
+      "selected": 7
+    },
+    {
+      "metric": "t1",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2013,
+      "population": 123,
+      "selected": 7
+    },
+    {
+      "metric": "t1",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2007,
+      "population": 42,
+      "selected": 5
+    },
+    {
+      "metric": "t1",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2006,
+      "population": 23,
+      "selected": 5
+    },
+    {
+      "metric": "t1",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2002,
+      "population": 11,
+      "selected": 5
+    },
+    {
+      "metric": "t1",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2011,
+      "population": 89,
+      "selected": 5
+    },
+    {
+      "metric": "t1",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2014,
+      "population": 94,
+      "selected": 5
+    },
+    {
+      "metric": "t1",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2004,
+      "population": 22,
+      "selected": 5
+    },
+    {
+      "metric": "t1",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2001,
+      "population": 4,
+      "selected": 4
+    },
+    {
+      "metric": "t1",
+      "scope": "default",
+      "tail": "upper",
+      "year": 2023,
+      "population": 434,
+      "selected": 22
+    },
+    {
+      "metric": "t1",
+      "scope": "default",
+      "tail": "upper",
+      "year": 2021,
+      "population": 411,
+      "selected": 21
+    },
+    {
+      "metric": "t1",
+      "scope": "default",
+      "tail": "upper",
+      "year": 2022,
+      "population": 414,
+      "selected": 21
+    },
+    {
+      "metric": "t1",
+      "scope": "default",
+      "tail": "upper",
+      "year": 2018,
+      "population": 125,
+      "selected": 7
+    },
+    {
+      "metric": "t1",
+      "scope": "default",
+      "tail": "upper",
+      "year": 2025,
+      "population": 782,
+      "selected": 40
+    },
+    {
+      "metric": "t1",
+      "scope": "default",
+      "tail": "upper",
+      "year": 2010,
+      "population": 45,
+      "selected": 5
+    },
+    {
+      "metric": "t1",
+      "scope": "default",
+      "tail": "upper",
+      "year": 2005,
+      "population": 25,
+      "selected": 5
+    },
+    {
+      "metric": "t1",
+      "scope": "default",
+      "tail": "upper",
+      "year": 2015,
+      "population": 68,
+      "selected": 5
+    },
+    {
+      "metric": "t1",
+      "scope": "default",
+      "tail": "upper",
+      "year": 2024,
+      "population": 677,
+      "selected": 34
+    },
+    {
+      "metric": "t1",
+      "scope": "default",
+      "tail": "upper",
+      "year": 2008,
+      "population": 22,
+      "selected": 5
+    },
+    {
+      "metric": "t1",
+      "scope": "default",
+      "tail": "upper",
+      "year": 2012,
+      "population": 54,
+      "selected": 5
+    },
+    {
+      "metric": "t1",
+      "scope": "default",
+      "tail": "upper",
+      "year": 2016,
+      "population": 64,
+      "selected": 5
+    },
+    {
+      "metric": "t1",
+      "scope": "default",
+      "tail": "upper",
+      "year": 2013,
+      "population": 54,
+      "selected": 5
+    },
+    {
+      "metric": "t1",
+      "scope": "default",
+      "tail": "upper",
+      "year": 2019,
+      "population": 185,
+      "selected": 10
+    },
+    {
+      "metric": "t1",
+      "scope": "default",
+      "tail": "upper",
+      "year": 2020,
+      "population": 241,
+      "selected": 13
+    },
+    {
+      "metric": "t1",
+      "scope": "default",
+      "tail": "upper",
+      "year": 2017,
+      "population": 91,
+      "selected": 5
+    },
+    {
+      "metric": "t1",
+      "scope": "default",
+      "tail": "upper",
+      "year": 2014,
+      "population": 40,
+      "selected": 5
+    },
+    {
+      "metric": "t1",
+      "scope": "default",
+      "tail": "upper",
+      "year": 2007,
+      "population": 15,
+      "selected": 5
+    },
+    {
+      "metric": "t1",
+      "scope": "default",
+      "tail": "upper",
+      "year": 2009,
+      "population": 24,
+      "selected": 5
+    },
+    {
+      "metric": "t1",
+      "scope": "default",
+      "tail": "upper",
+      "year": 2011,
+      "population": 45,
+      "selected": 5
+    },
+    {
+      "metric": "t1",
+      "scope": "default",
+      "tail": "upper",
+      "year": 2004,
+      "population": 6,
+      "selected": 5
+    },
+    {
+      "metric": "t1",
+      "scope": "default",
+      "tail": "upper",
+      "year": 2003,
+      "population": 7,
+      "selected": 5
+    },
+    {
+      "metric": "t1",
+      "scope": "default",
+      "tail": "upper",
+      "year": 2006,
+      "population": 11,
+      "selected": 5
+    },
+    {
+      "metric": "t1",
+      "scope": "default",
+      "tail": "upper",
+      "year": 2002,
+      "population": 1,
+      "selected": 1
+    },
+    {
+      "metric": "t2_ramsey",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2023,
+      "population": 171,
+      "selected": 9
+    },
+    {
+      "metric": "t2_ramsey",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2010,
+      "population": 18,
+      "selected": 5
+    },
+    {
+      "metric": "t2_ramsey",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2022,
+      "population": 179,
+      "selected": 9
+    },
+    {
+      "metric": "t2_ramsey",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2024,
+      "population": 210,
+      "selected": 11
+    },
+    {
+      "metric": "t2_ramsey",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2025,
+      "population": 382,
+      "selected": 20
+    },
+    {
+      "metric": "t2_ramsey",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2008,
+      "population": 11,
+      "selected": 5
+    },
+    {
+      "metric": "t2_ramsey",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2012,
+      "population": 20,
+      "selected": 5
+    },
+    {
+      "metric": "t2_ramsey",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2021,
+      "population": 108,
+      "selected": 6
+    },
+    {
+      "metric": "t2_ramsey",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2013,
+      "population": 26,
+      "selected": 5
+    },
+    {
+      "metric": "t2_ramsey",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2020,
+      "population": 91,
+      "selected": 5
+    },
+    {
+      "metric": "t2_ramsey",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2014,
+      "population": 19,
+      "selected": 5
+    },
+    {
+      "metric": "t2_ramsey",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2017,
+      "population": 36,
+      "selected": 5
+    },
+    {
+      "metric": "t2_ramsey",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2016,
+      "population": 39,
+      "selected": 5
+    },
+    {
+      "metric": "t2_ramsey",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2005,
+      "population": 10,
+      "selected": 5
+    },
+    {
+      "metric": "t2_ramsey",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2018,
+      "population": 36,
+      "selected": 5
+    },
+    {
+      "metric": "t2_ramsey",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2007,
+      "population": 11,
+      "selected": 5
+    },
+    {
+      "metric": "t2_ramsey",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2003,
+      "population": 4,
+      "selected": 4
+    },
+    {
+      "metric": "t2_ramsey",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2009,
+      "population": 10,
+      "selected": 5
+    },
+    {
+      "metric": "t2_ramsey",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2011,
+      "population": 14,
+      "selected": 5
+    },
+    {
+      "metric": "t2_ramsey",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2019,
+      "population": 119,
+      "selected": 6
+    },
+    {
+      "metric": "t2_ramsey",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2015,
+      "population": 35,
+      "selected": 5
+    },
+    {
+      "metric": "t2_ramsey",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2004,
+      "population": 5,
+      "selected": 5
+    },
+    {
+      "metric": "t2_ramsey",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2006,
+      "population": 3,
+      "selected": 3
+    },
+    {
+      "metric": "t2_ramsey",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2002,
+      "population": 2,
+      "selected": 2
+    },
+    {
+      "metric": "t2_ramsey",
+      "scope": "default",
+      "tail": "upper",
+      "year": 2023,
+      "population": 118,
+      "selected": 6
+    },
+    {
+      "metric": "t2_ramsey",
+      "scope": "default",
+      "tail": "upper",
+      "year": 2010,
+      "population": 12,
+      "selected": 5
+    },
+    {
+      "metric": "t2_ramsey",
+      "scope": "default",
+      "tail": "upper",
+      "year": 2022,
+      "population": 166,
+      "selected": 9
+    },
+    {
+      "metric": "t2_ramsey",
+      "scope": "default",
+      "tail": "upper",
+      "year": 2024,
+      "population": 176,
+      "selected": 9
+    },
+    {
+      "metric": "t2_ramsey",
+      "scope": "default",
+      "tail": "upper",
+      "year": 2025,
+      "population": 327,
+      "selected": 17
+    },
+    {
+      "metric": "t2_ramsey",
+      "scope": "default",
+      "tail": "upper",
+      "year": 2012,
+      "population": 18,
+      "selected": 5
+    },
+    {
+      "metric": "t2_ramsey",
+      "scope": "default",
+      "tail": "upper",
+      "year": 2021,
+      "population": 92,
+      "selected": 5
+    },
+    {
+      "metric": "t2_ramsey",
+      "scope": "default",
+      "tail": "upper",
+      "year": 2013,
+      "population": 18,
+      "selected": 5
+    },
+    {
+      "metric": "t2_ramsey",
+      "scope": "default",
+      "tail": "upper",
+      "year": 2020,
+      "population": 80,
+      "selected": 5
+    },
+    {
+      "metric": "t2_ramsey",
+      "scope": "default",
+      "tail": "upper",
+      "year": 2014,
+      "population": 14,
+      "selected": 5
+    },
+    {
+      "metric": "t2_ramsey",
+      "scope": "default",
+      "tail": "upper",
+      "year": 2017,
+      "population": 30,
+      "selected": 5
+    },
+    {
+      "metric": "t2_ramsey",
+      "scope": "default",
+      "tail": "upper",
+      "year": 2016,
+      "population": 20,
+      "selected": 5
+    },
+    {
+      "metric": "t2_ramsey",
+      "scope": "default",
+      "tail": "upper",
+      "year": 2005,
+      "population": 6,
+      "selected": 5
+    },
+    {
+      "metric": "t2_ramsey",
+      "scope": "default",
+      "tail": "upper",
+      "year": 2018,
+      "population": 24,
+      "selected": 5
+    },
+    {
+      "metric": "t2_ramsey",
+      "scope": "default",
+      "tail": "upper",
+      "year": 2007,
+      "population": 8,
+      "selected": 5
+    },
+    {
+      "metric": "t2_ramsey",
+      "scope": "default",
+      "tail": "upper",
+      "year": 2011,
+      "population": 10,
+      "selected": 5
+    },
+    {
+      "metric": "t2_ramsey",
+      "scope": "default",
+      "tail": "upper",
+      "year": 2019,
+      "population": 111,
+      "selected": 6
+    },
+    {
+      "metric": "t2_ramsey",
+      "scope": "default",
+      "tail": "upper",
+      "year": 2015,
+      "population": 27,
+      "selected": 5
+    },
+    {
+      "metric": "t2_ramsey",
+      "scope": "default",
+      "tail": "upper",
+      "year": 2004,
+      "population": 3,
+      "selected": 3
+    },
+    {
+      "metric": "t2_ramsey",
+      "scope": "default",
+      "tail": "upper",
+      "year": 2008,
+      "population": 3,
+      "selected": 3
+    },
+    {
+      "metric": "t2_ramsey",
+      "scope": "default",
+      "tail": "upper",
+      "year": 2006,
+      "population": 3,
+      "selected": 3
+    },
+    {
+      "metric": "t2_ramsey",
+      "scope": "default",
+      "tail": "upper",
+      "year": 2003,
+      "population": 2,
+      "selected": 2
+    },
+    {
+      "metric": "t2_ramsey",
+      "scope": "default",
+      "tail": "upper",
+      "year": 2009,
+      "population": 2,
+      "selected": 2
+    },
+    {
+      "metric": "t2_ramsey",
+      "scope": "default",
+      "tail": "upper",
+      "year": 2002,
+      "population": 1,
+      "selected": 1
+    },
+    {
+      "metric": "t2_echo",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2023,
+      "population": 127,
+      "selected": 7
+    },
+    {
+      "metric": "t2_echo",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2019,
+      "population": 81,
+      "selected": 5
+    },
+    {
+      "metric": "t2_echo",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2022,
+      "population": 116,
+      "selected": 6
+    },
+    {
+      "metric": "t2_echo",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2024,
+      "population": 205,
+      "selected": 11
+    },
+    {
+      "metric": "t2_echo",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2021,
+      "population": 126,
+      "selected": 7
+    },
+    {
+      "metric": "t2_echo",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2025,
+      "population": 323,
+      "selected": 17
+    },
+    {
+      "metric": "t2_echo",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2017,
+      "population": 51,
+      "selected": 5
+    },
+    {
+      "metric": "t2_echo",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2020,
+      "population": 67,
+      "selected": 5
+    },
+    {
+      "metric": "t2_echo",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2018,
+      "population": 44,
+      "selected": 5
+    },
+    {
+      "metric": "t2_echo",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2010,
+      "population": 15,
+      "selected": 5
+    },
+    {
+      "metric": "t2_echo",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2013,
+      "population": 16,
+      "selected": 5
+    },
+    {
+      "metric": "t2_echo",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2011,
+      "population": 11,
+      "selected": 5
+    },
+    {
+      "metric": "t2_echo",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2007,
+      "population": 5,
+      "selected": 5
+    },
+    {
+      "metric": "t2_echo",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2014,
+      "population": 21,
+      "selected": 5
+    },
+    {
+      "metric": "t2_echo",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2012,
+      "population": 13,
+      "selected": 5
+    },
+    {
+      "metric": "t2_echo",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2016,
+      "population": 32,
+      "selected": 5
+    },
+    {
+      "metric": "t2_echo",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2006,
+      "population": 6,
+      "selected": 5
+    },
+    {
+      "metric": "t2_echo",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2005,
+      "population": 7,
+      "selected": 5
+    },
+    {
+      "metric": "t2_echo",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2015,
+      "population": 21,
+      "selected": 5
+    },
+    {
+      "metric": "t2_echo",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2009,
+      "population": 2,
+      "selected": 2
+    },
+    {
+      "metric": "t2_echo",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2008,
+      "population": 7,
+      "selected": 5
+    },
+    {
+      "metric": "t2_echo",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2004,
+      "population": 2,
+      "selected": 2
+    },
+    {
+      "metric": "t2_echo",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2003,
+      "population": 1,
+      "selected": 1
+    },
+    {
+      "metric": "t2_echo",
+      "scope": "default",
+      "tail": "upper",
+      "year": 2023,
+      "population": 106,
+      "selected": 6
+    },
+    {
+      "metric": "t2_echo",
+      "scope": "default",
+      "tail": "upper",
+      "year": 2022,
+      "population": 97,
+      "selected": 5
+    },
+    {
+      "metric": "t2_echo",
+      "scope": "default",
+      "tail": "upper",
+      "year": 2024,
+      "population": 162,
+      "selected": 9
+    },
+    {
+      "metric": "t2_echo",
+      "scope": "default",
+      "tail": "upper",
+      "year": 2021,
+      "population": 102,
+      "selected": 6
+    },
+    {
+      "metric": "t2_echo",
+      "scope": "default",
+      "tail": "upper",
+      "year": 2025,
+      "population": 257,
+      "selected": 13
+    },
+    {
+      "metric": "t2_echo",
+      "scope": "default",
+      "tail": "upper",
+      "year": 2019,
+      "population": 70,
+      "selected": 5
+    },
+    {
+      "metric": "t2_echo",
+      "scope": "default",
+      "tail": "upper",
+      "year": 2020,
+      "population": 59,
+      "selected": 5
+    },
+    {
+      "metric": "t2_echo",
+      "scope": "default",
+      "tail": "upper",
+      "year": 2018,
+      "population": 34,
+      "selected": 5
+    },
+    {
+      "metric": "t2_echo",
+      "scope": "default",
+      "tail": "upper",
+      "year": 2010,
+      "population": 4,
+      "selected": 4
+    },
+    {
+      "metric": "t2_echo",
+      "scope": "default",
+      "tail": "upper",
+      "year": 2013,
+      "population": 14,
+      "selected": 5
+    },
+    {
+      "metric": "t2_echo",
+      "scope": "default",
+      "tail": "upper",
+      "year": 2011,
+      "population": 9,
+      "selected": 5
+    },
+    {
+      "metric": "t2_echo",
+      "scope": "default",
+      "tail": "upper",
+      "year": 2007,
+      "population": 1,
+      "selected": 1
+    },
+    {
+      "metric": "t2_echo",
+      "scope": "default",
+      "tail": "upper",
+      "year": 2017,
+      "population": 43,
+      "selected": 5
+    },
+    {
+      "metric": "t2_echo",
+      "scope": "default",
+      "tail": "upper",
+      "year": 2014,
+      "population": 19,
+      "selected": 5
+    },
+    {
+      "metric": "t2_echo",
+      "scope": "default",
+      "tail": "upper",
+      "year": 2016,
+      "population": 14,
+      "selected": 5
+    },
+    {
+      "metric": "t2_echo",
+      "scope": "default",
+      "tail": "upper",
+      "year": 2006,
+      "population": 4,
+      "selected": 4
+    },
+    {
+      "metric": "t2_echo",
+      "scope": "default",
+      "tail": "upper",
+      "year": 2012,
+      "population": 9,
+      "selected": 5
+    },
+    {
+      "metric": "t2_echo",
+      "scope": "default",
+      "tail": "upper",
+      "year": 2005,
+      "population": 3,
+      "selected": 3
+    },
+    {
+      "metric": "t2_echo",
+      "scope": "default",
+      "tail": "upper",
+      "year": 2015,
+      "population": 16,
+      "selected": 5
+    },
+    {
+      "metric": "t2_echo",
+      "scope": "default",
+      "tail": "upper",
+      "year": 2009,
+      "population": 1,
+      "selected": 1
+    },
+    {
+      "metric": "t2_echo",
+      "scope": "default",
+      "tail": "upper",
+      "year": 2004,
+      "population": 2,
+      "selected": 2
+    },
+    {
+      "metric": "t2_echo",
+      "scope": "default",
+      "tail": "upper",
+      "year": 2003,
+      "population": 1,
+      "selected": 1
+    },
+    {
+      "metric": "t2_echo",
+      "scope": "default",
+      "tail": "upper",
+      "year": 2008,
+      "population": 1,
+      "selected": 1
+    },
+    {
+      "metric": "t2_other",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2010,
+      "population": 55,
+      "selected": 5
+    },
+    {
+      "metric": "t2_other",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2018,
+      "population": 100,
+      "selected": 5
+    },
+    {
+      "metric": "t2_other",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2025,
+      "population": 538,
+      "selected": 27
+    },
+    {
+      "metric": "t2_other",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2023,
+      "population": 377,
+      "selected": 19
+    },
+    {
+      "metric": "t2_other",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2021,
+      "population": 273,
+      "selected": 14
+    },
+    {
+      "metric": "t2_other",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2022,
+      "population": 340,
+      "selected": 17
+    },
+    {
+      "metric": "t2_other",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2019,
+      "population": 115,
+      "selected": 6
+    },
+    {
+      "metric": "t2_other",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2024,
+      "population": 546,
+      "selected": 28
+    },
+    {
+      "metric": "t2_other",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2014,
+      "population": 51,
+      "selected": 5
+    },
+    {
+      "metric": "t2_other",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2015,
+      "population": 72,
+      "selected": 5
+    },
+    {
+      "metric": "t2_other",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2012,
+      "population": 45,
+      "selected": 5
+    },
+    {
+      "metric": "t2_other",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2020,
+      "population": 183,
+      "selected": 10
+    },
+    {
+      "metric": "t2_other",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2013,
+      "population": 70,
+      "selected": 5
+    },
+    {
+      "metric": "t2_other",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2016,
+      "population": 57,
+      "selected": 5
+    },
+    {
+      "metric": "t2_other",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2009,
+      "population": 35,
+      "selected": 5
+    },
+    {
+      "metric": "t2_other",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2005,
+      "population": 31,
+      "selected": 5
+    },
+    {
+      "metric": "t2_other",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2002,
+      "population": 10,
+      "selected": 5
+    },
+    {
+      "metric": "t2_other",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2011,
+      "population": 45,
+      "selected": 5
+    },
+    {
+      "metric": "t2_other",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2003,
+      "population": 27,
+      "selected": 5
+    },
+    {
+      "metric": "t2_other",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2017,
+      "population": 87,
+      "selected": 5
+    },
+    {
+      "metric": "t2_other",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2008,
+      "population": 34,
+      "selected": 5
+    },
+    {
+      "metric": "t2_other",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2007,
+      "population": 19,
+      "selected": 5
+    },
+    {
+      "metric": "t2_other",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2006,
+      "population": 27,
+      "selected": 5
+    },
+    {
+      "metric": "t2_other",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2004,
+      "population": 18,
+      "selected": 5
+    },
+    {
+      "metric": "t2_other",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2000,
+      "population": 2,
+      "selected": 2
+    },
+    {
+      "metric": "t2_other",
+      "scope": "all",
+      "tail": "upper",
+      "year": 1999,
+      "population": 2,
+      "selected": 2
+    },
+    {
+      "metric": "t2_other",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2001,
+      "population": 3,
+      "selected": 3
+    },
+    {
+      "metric": "t2_other",
+      "scope": "default",
+      "tail": "upper",
+      "year": 2021,
+      "population": 165,
+      "selected": 9
+    },
+    {
+      "metric": "t2_other",
+      "scope": "default",
+      "tail": "upper",
+      "year": 2022,
+      "population": 188,
+      "selected": 10
+    },
+    {
+      "metric": "t2_other",
+      "scope": "default",
+      "tail": "upper",
+      "year": 2023,
+      "population": 216,
+      "selected": 11
+    },
+    {
+      "metric": "t2_other",
+      "scope": "default",
+      "tail": "upper",
+      "year": 2024,
+      "population": 351,
+      "selected": 18
+    },
+    {
+      "metric": "t2_other",
+      "scope": "default",
+      "tail": "upper",
+      "year": 2010,
+      "population": 13,
+      "selected": 5
+    },
+    {
+      "metric": "t2_other",
+      "scope": "default",
+      "tail": "upper",
+      "year": 2012,
+      "population": 17,
+      "selected": 5
+    },
+    {
+      "metric": "t2_other",
+      "scope": "default",
+      "tail": "upper",
+      "year": 2020,
+      "population": 115,
+      "selected": 6
+    },
+    {
+      "metric": "t2_other",
+      "scope": "default",
+      "tail": "upper",
+      "year": 2013,
+      "population": 18,
+      "selected": 5
+    },
+    {
+      "metric": "t2_other",
+      "scope": "default",
+      "tail": "upper",
+      "year": 2016,
+      "population": 19,
+      "selected": 5
+    },
+    {
+      "metric": "t2_other",
+      "scope": "default",
+      "tail": "upper",
+      "year": 2025,
+      "population": 296,
+      "selected": 15
+    },
+    {
+      "metric": "t2_other",
+      "scope": "default",
+      "tail": "upper",
+      "year": 2019,
+      "population": 51,
+      "selected": 5
+    },
+    {
+      "metric": "t2_other",
+      "scope": "default",
+      "tail": "upper",
+      "year": 2014,
+      "population": 12,
+      "selected": 5
+    },
+    {
+      "metric": "t2_other",
+      "scope": "default",
+      "tail": "upper",
+      "year": 2018,
+      "population": 46,
+      "selected": 5
+    },
+    {
+      "metric": "t2_other",
+      "scope": "default",
+      "tail": "upper",
+      "year": 2015,
+      "population": 15,
+      "selected": 5
+    },
+    {
+      "metric": "t2_other",
+      "scope": "default",
+      "tail": "upper",
+      "year": 2011,
+      "population": 20,
+      "selected": 5
+    },
+    {
+      "metric": "t2_other",
+      "scope": "default",
+      "tail": "upper",
+      "year": 2008,
+      "population": 9,
+      "selected": 5
+    },
+    {
+      "metric": "t2_other",
+      "scope": "default",
+      "tail": "upper",
+      "year": 2005,
+      "population": 14,
+      "selected": 5
+    },
+    {
+      "metric": "t2_other",
+      "scope": "default",
+      "tail": "upper",
+      "year": 2003,
+      "population": 5,
+      "selected": 5
+    },
+    {
+      "metric": "t2_other",
+      "scope": "default",
+      "tail": "upper",
+      "year": 2007,
+      "population": 4,
+      "selected": 4
+    },
+    {
+      "metric": "t2_other",
+      "scope": "default",
+      "tail": "upper",
+      "year": 2017,
+      "population": 37,
+      "selected": 5
+    },
+    {
+      "metric": "t2_other",
+      "scope": "default",
+      "tail": "upper",
+      "year": 2009,
+      "population": 13,
+      "selected": 5
+    },
+    {
+      "metric": "t2_other",
+      "scope": "default",
+      "tail": "upper",
+      "year": 2006,
+      "population": 4,
+      "selected": 4
+    },
+    {
+      "metric": "t2_other",
+      "scope": "default",
+      "tail": "upper",
+      "year": 2004,
+      "population": 3,
+      "selected": 3
+    },
+    {
+      "metric": "tphi",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2024,
+      "population": 68,
+      "selected": 5
+    },
+    {
+      "metric": "tphi",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2018,
+      "population": 27,
+      "selected": 5
+    },
+    {
+      "metric": "tphi",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2023,
+      "population": 47,
+      "selected": 5
+    },
+    {
+      "metric": "tphi",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2003,
+      "population": 12,
+      "selected": 5
+    },
+    {
+      "metric": "tphi",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2008,
+      "population": 9,
+      "selected": 5
+    },
+    {
+      "metric": "tphi",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2020,
+      "population": 14,
+      "selected": 5
+    },
+    {
+      "metric": "tphi",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2015,
+      "population": 13,
+      "selected": 5
+    },
+    {
+      "metric": "tphi",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2021,
+      "population": 49,
+      "selected": 5
+    },
+    {
+      "metric": "tphi",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2014,
+      "population": 13,
+      "selected": 5
+    },
+    {
+      "metric": "tphi",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2007,
+      "population": 10,
+      "selected": 5
+    },
+    {
+      "metric": "tphi",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2011,
+      "population": 9,
+      "selected": 5
+    },
+    {
+      "metric": "tphi",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2012,
+      "population": 14,
+      "selected": 5
+    },
+    {
+      "metric": "tphi",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2025,
+      "population": 76,
+      "selected": 5
+    },
+    {
+      "metric": "tphi",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2004,
+      "population": 3,
+      "selected": 3
+    },
+    {
+      "metric": "tphi",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2022,
+      "population": 37,
+      "selected": 5
+    },
+    {
+      "metric": "tphi",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2010,
+      "population": 2,
+      "selected": 2
+    },
+    {
+      "metric": "tphi",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2019,
+      "population": 31,
+      "selected": 5
+    },
+    {
+      "metric": "tphi",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2006,
+      "population": 12,
+      "selected": 5
+    },
+    {
+      "metric": "tphi",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2016,
+      "population": 11,
+      "selected": 5
+    },
+    {
+      "metric": "tphi",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2009,
+      "population": 5,
+      "selected": 5
+    },
+    {
+      "metric": "tphi",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2013,
+      "population": 12,
+      "selected": 5
+    },
+    {
+      "metric": "tphi",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2017,
+      "population": 14,
+      "selected": 5
+    },
+    {
+      "metric": "tphi",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2001,
+      "population": 3,
+      "selected": 3
+    },
+    {
+      "metric": "tphi",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2002,
+      "population": 7,
+      "selected": 5
+    },
+    {
+      "metric": "tphi",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2005,
+      "population": 7,
+      "selected": 5
+    },
+    {
+      "metric": "tphi",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2000,
+      "population": 1,
+      "selected": 1
+    },
+    {
+      "metric": "tphi",
+      "scope": "default",
+      "tail": "upper",
+      "year": 2018,
+      "population": 9,
+      "selected": 5
+    },
+    {
+      "metric": "tphi",
+      "scope": "default",
+      "tail": "upper",
+      "year": 2015,
+      "population": 5,
+      "selected": 5
+    },
+    {
+      "metric": "tphi",
+      "scope": "default",
+      "tail": "upper",
+      "year": 2021,
+      "population": 28,
+      "selected": 5
+    },
+    {
+      "metric": "tphi",
+      "scope": "default",
+      "tail": "upper",
+      "year": 2014,
+      "population": 8,
+      "selected": 5
+    },
+    {
+      "metric": "tphi",
+      "scope": "default",
+      "tail": "upper",
+      "year": 2011,
+      "population": 6,
+      "selected": 5
+    },
+    {
+      "metric": "tphi",
+      "scope": "default",
+      "tail": "upper",
+      "year": 2023,
+      "population": 12,
+      "selected": 5
+    },
+    {
+      "metric": "tphi",
+      "scope": "default",
+      "tail": "upper",
+      "year": 2022,
+      "population": 16,
+      "selected": 5
+    },
+    {
+      "metric": "tphi",
+      "scope": "default",
+      "tail": "upper",
+      "year": 2007,
+      "population": 2,
+      "selected": 2
+    },
+    {
+      "metric": "tphi",
+      "scope": "default",
+      "tail": "upper",
+      "year": 2024,
+      "population": 32,
+      "selected": 5
+    },
+    {
+      "metric": "tphi",
+      "scope": "default",
+      "tail": "upper",
+      "year": 2025,
+      "population": 43,
+      "selected": 5
+    },
+    {
+      "metric": "tphi",
+      "scope": "default",
+      "tail": "upper",
+      "year": 2019,
+      "population": 14,
+      "selected": 5
+    },
+    {
+      "metric": "tphi",
+      "scope": "default",
+      "tail": "upper",
+      "year": 2009,
+      "population": 2,
+      "selected": 2
+    },
+    {
+      "metric": "tphi",
+      "scope": "default",
+      "tail": "upper",
+      "year": 2013,
+      "population": 6,
+      "selected": 5
+    },
+    {
+      "metric": "tphi",
+      "scope": "default",
+      "tail": "upper",
+      "year": 2012,
+      "population": 8,
+      "selected": 5
+    },
+    {
+      "metric": "tphi",
+      "scope": "default",
+      "tail": "upper",
+      "year": 2017,
+      "population": 4,
+      "selected": 4
+    },
+    {
+      "metric": "tphi",
+      "scope": "default",
+      "tail": "upper",
+      "year": 2016,
+      "population": 4,
+      "selected": 4
+    },
+    {
+      "metric": "tphi",
+      "scope": "default",
+      "tail": "upper",
+      "year": 2020,
+      "population": 6,
+      "selected": 5
+    },
+    {
+      "metric": "tphi",
+      "scope": "default",
+      "tail": "upper",
+      "year": 2005,
+      "population": 1,
+      "selected": 1
+    },
+    {
+      "metric": "tphi",
+      "scope": "default",
+      "tail": "upper",
+      "year": 2004,
+      "population": 1,
+      "selected": 1
+    },
+    {
+      "metric": "single_qubit_gate_fidelity",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2024,
+      "population": 214,
+      "selected": 11
+    },
+    {
+      "metric": "single_qubit_gate_fidelity",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2023,
+      "population": 97,
+      "selected": 5
+    },
+    {
+      "metric": "single_qubit_gate_fidelity",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2021,
+      "population": 105,
+      "selected": 6
+    },
+    {
+      "metric": "single_qubit_gate_fidelity",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2016,
+      "population": 27,
+      "selected": 5
+    },
+    {
+      "metric": "single_qubit_gate_fidelity",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2019,
+      "population": 73,
+      "selected": 5
+    },
+    {
+      "metric": "single_qubit_gate_fidelity",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2022,
+      "population": 104,
+      "selected": 6
+    },
+    {
+      "metric": "single_qubit_gate_fidelity",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2025,
+      "population": 313,
+      "selected": 16
+    },
+    {
+      "metric": "single_qubit_gate_fidelity",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2018,
+      "population": 36,
+      "selected": 5
+    },
+    {
+      "metric": "single_qubit_gate_fidelity",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2020,
+      "population": 69,
+      "selected": 5
+    },
+    {
+      "metric": "single_qubit_gate_fidelity",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2017,
+      "population": 28,
+      "selected": 5
+    },
+    {
+      "metric": "single_qubit_gate_fidelity",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2009,
+      "population": 4,
+      "selected": 4
+    },
+    {
+      "metric": "single_qubit_gate_fidelity",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2006,
+      "population": 2,
+      "selected": 2
+    },
+    {
+      "metric": "single_qubit_gate_fidelity",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2015,
+      "population": 32,
+      "selected": 5
+    },
+    {
+      "metric": "single_qubit_gate_fidelity",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2008,
+      "population": 7,
+      "selected": 5
+    },
+    {
+      "metric": "single_qubit_gate_fidelity",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2003,
+      "population": 1,
+      "selected": 1
+    },
+    {
+      "metric": "single_qubit_gate_fidelity",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2014,
+      "population": 11,
+      "selected": 5
+    },
+    {
+      "metric": "single_qubit_gate_fidelity",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2011,
+      "population": 5,
+      "selected": 5
+    },
+    {
+      "metric": "single_qubit_gate_fidelity",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2001,
+      "population": 1,
+      "selected": 1
+    },
+    {
+      "metric": "single_qubit_gate_fidelity",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2010,
+      "population": 2,
+      "selected": 2
+    },
+    {
+      "metric": "single_qubit_gate_fidelity",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2007,
+      "population": 2,
+      "selected": 2
+    },
+    {
+      "metric": "single_qubit_gate_fidelity",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2012,
+      "population": 4,
+      "selected": 4
+    },
+    {
+      "metric": "single_qubit_gate_fidelity",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2013,
+      "population": 5,
+      "selected": 5
+    },
+    {
+      "metric": "single_qubit_gate_fidelity",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2005,
+      "population": 2,
+      "selected": 2
+    },
+    {
+      "metric": "single_qubit_gate_fidelity",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2004,
+      "population": 2,
+      "selected": 2
+    },
+    {
+      "metric": "single_qubit_gate_fidelity",
+      "scope": "default",
+      "tail": "upper",
+      "year": 2024,
+      "population": 100,
+      "selected": 5
+    },
+    {
+      "metric": "single_qubit_gate_fidelity",
+      "scope": "default",
+      "tail": "upper",
+      "year": 2021,
+      "population": 62,
+      "selected": 5
+    },
+    {
+      "metric": "single_qubit_gate_fidelity",
+      "scope": "default",
+      "tail": "upper",
+      "year": 2019,
+      "population": 40,
+      "selected": 5
+    },
+    {
+      "metric": "single_qubit_gate_fidelity",
+      "scope": "default",
+      "tail": "upper",
+      "year": 2022,
+      "population": 55,
+      "selected": 5
+    },
+    {
+      "metric": "single_qubit_gate_fidelity",
+      "scope": "default",
+      "tail": "upper",
+      "year": 2018,
+      "population": 15,
+      "selected": 5
+    },
+    {
+      "metric": "single_qubit_gate_fidelity",
+      "scope": "default",
+      "tail": "upper",
+      "year": 2017,
+      "population": 7,
+      "selected": 5
+    },
+    {
+      "metric": "single_qubit_gate_fidelity",
+      "scope": "default",
+      "tail": "upper",
+      "year": 2023,
+      "population": 33,
+      "selected": 5
+    },
+    {
+      "metric": "single_qubit_gate_fidelity",
+      "scope": "default",
+      "tail": "upper",
+      "year": 2025,
+      "population": 162,
+      "selected": 9
+    },
+    {
+      "metric": "single_qubit_gate_fidelity",
+      "scope": "default",
+      "tail": "upper",
+      "year": 2020,
+      "population": 29,
+      "selected": 5
+    },
+    {
+      "metric": "single_qubit_gate_fidelity",
+      "scope": "default",
+      "tail": "upper",
+      "year": 2008,
+      "population": 2,
+      "selected": 2
+    },
+    {
+      "metric": "single_qubit_gate_fidelity",
+      "scope": "default",
+      "tail": "upper",
+      "year": 2014,
+      "population": 5,
+      "selected": 5
+    },
+    {
+      "metric": "single_qubit_gate_fidelity",
+      "scope": "default",
+      "tail": "upper",
+      "year": 2015,
+      "population": 14,
+      "selected": 5
+    },
+    {
+      "metric": "single_qubit_gate_fidelity",
+      "scope": "default",
+      "tail": "upper",
+      "year": 2012,
+      "population": 4,
+      "selected": 4
+    },
+    {
+      "metric": "single_qubit_gate_fidelity",
+      "scope": "default",
+      "tail": "upper",
+      "year": 2013,
+      "population": 1,
+      "selected": 1
+    },
+    {
+      "metric": "single_qubit_gate_fidelity",
+      "scope": "default",
+      "tail": "upper",
+      "year": 2016,
+      "population": 7,
+      "selected": 5
+    },
+    {
+      "metric": "two_qubit_gate_fidelity",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2016,
+      "population": 30,
+      "selected": 5
+    },
+    {
+      "metric": "two_qubit_gate_fidelity",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2021,
+      "population": 103,
+      "selected": 6
+    },
+    {
+      "metric": "two_qubit_gate_fidelity",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2025,
+      "population": 230,
+      "selected": 12
+    },
+    {
+      "metric": "two_qubit_gate_fidelity",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2019,
+      "population": 54,
+      "selected": 5
+    },
+    {
+      "metric": "two_qubit_gate_fidelity",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2018,
+      "population": 36,
+      "selected": 5
+    },
+    {
+      "metric": "two_qubit_gate_fidelity",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2024,
+      "population": 134,
+      "selected": 7
+    },
+    {
+      "metric": "two_qubit_gate_fidelity",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2023,
+      "population": 84,
+      "selected": 5
+    },
+    {
+      "metric": "two_qubit_gate_fidelity",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2020,
+      "population": 79,
+      "selected": 5
+    },
+    {
+      "metric": "two_qubit_gate_fidelity",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2017,
+      "population": 34,
+      "selected": 5
+    },
+    {
+      "metric": "two_qubit_gate_fidelity",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2014,
+      "population": 21,
+      "selected": 5
+    },
+    {
+      "metric": "two_qubit_gate_fidelity",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2009,
+      "population": 6,
+      "selected": 5
+    },
+    {
+      "metric": "two_qubit_gate_fidelity",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2022,
+      "population": 119,
+      "selected": 6
+    },
+    {
+      "metric": "two_qubit_gate_fidelity",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2013,
+      "population": 18,
+      "selected": 5
+    },
+    {
+      "metric": "two_qubit_gate_fidelity",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2010,
+      "population": 8,
+      "selected": 5
+    },
+    {
+      "metric": "two_qubit_gate_fidelity",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2008,
+      "population": 6,
+      "selected": 5
+    },
+    {
+      "metric": "two_qubit_gate_fidelity",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2015,
+      "population": 17,
+      "selected": 5
+    },
+    {
+      "metric": "two_qubit_gate_fidelity",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2011,
+      "population": 7,
+      "selected": 5
+    },
+    {
+      "metric": "two_qubit_gate_fidelity",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2006,
+      "population": 5,
+      "selected": 5
+    },
+    {
+      "metric": "two_qubit_gate_fidelity",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2005,
+      "population": 4,
+      "selected": 4
+    },
+    {
+      "metric": "two_qubit_gate_fidelity",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2012,
+      "population": 18,
+      "selected": 5
+    },
+    {
+      "metric": "two_qubit_gate_fidelity",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2007,
+      "population": 4,
+      "selected": 4
+    },
+    {
+      "metric": "two_qubit_gate_fidelity",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2003,
+      "population": 3,
+      "selected": 3
+    },
+    {
+      "metric": "two_qubit_gate_fidelity",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2001,
+      "population": 1,
+      "selected": 1
+    },
+    {
+      "metric": "two_qubit_gate_fidelity",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2004,
+      "population": 2,
+      "selected": 2
+    },
+    {
+      "metric": "two_qubit_gate_fidelity",
+      "scope": "default",
+      "tail": "upper",
+      "year": 2020,
+      "population": 1,
+      "selected": 1
+    },
+    {
+      "metric": "two_qubit_gate_fidelity",
+      "scope": "default",
+      "tail": "upper",
+      "year": 2025,
+      "population": 7,
+      "selected": 5
+    },
+    {
+      "metric": "two_qubit_gate_fidelity",
+      "scope": "default",
+      "tail": "upper",
+      "year": 2023,
+      "population": 2,
+      "selected": 2
+    },
+    {
+      "metric": "single_qubit_gate_error",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2024,
+      "population": 244,
+      "selected": 13
+    },
+    {
+      "metric": "single_qubit_gate_error",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2021,
+      "population": 121,
+      "selected": 7
+    },
+    {
+      "metric": "single_qubit_gate_error",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2008,
+      "population": 6,
+      "selected": 5
+    },
+    {
+      "metric": "single_qubit_gate_error",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2016,
+      "population": 9,
+      "selected": 5
+    },
+    {
+      "metric": "single_qubit_gate_error",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2025,
+      "population": 278,
+      "selected": 14
+    },
+    {
+      "metric": "single_qubit_gate_error",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2022,
+      "population": 198,
+      "selected": 10
+    },
+    {
+      "metric": "single_qubit_gate_error",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2020,
+      "population": 84,
+      "selected": 5
+    },
+    {
+      "metric": "single_qubit_gate_error",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2023,
+      "population": 159,
+      "selected": 8
+    },
+    {
+      "metric": "single_qubit_gate_error",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2009,
+      "population": 7,
+      "selected": 5
+    },
+    {
+      "metric": "single_qubit_gate_error",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2017,
+      "population": 39,
+      "selected": 5
+    },
+    {
+      "metric": "single_qubit_gate_error",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2019,
+      "population": 42,
+      "selected": 5
+    },
+    {
+      "metric": "single_qubit_gate_error",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2012,
+      "population": 4,
+      "selected": 4
+    },
+    {
+      "metric": "single_qubit_gate_error",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2018,
+      "population": 16,
+      "selected": 5
+    },
+    {
+      "metric": "single_qubit_gate_error",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2014,
+      "population": 9,
+      "selected": 5
+    },
+    {
+      "metric": "single_qubit_gate_error",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2015,
+      "population": 9,
+      "selected": 5
+    },
+    {
+      "metric": "single_qubit_gate_error",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2010,
+      "population": 5,
+      "selected": 5
+    },
+    {
+      "metric": "single_qubit_gate_error",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2001,
+      "population": 1,
+      "selected": 1
+    },
+    {
+      "metric": "single_qubit_gate_error",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2013,
+      "population": 6,
+      "selected": 5
+    },
+    {
+      "metric": "single_qubit_gate_error",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2002,
+      "population": 1,
+      "selected": 1
+    },
+    {
+      "metric": "single_qubit_gate_error",
+      "scope": "all",
+      "tail": "lower",
+      "year": 2024,
+      "population": 244,
+      "selected": 13
+    },
+    {
+      "metric": "single_qubit_gate_error",
+      "scope": "all",
+      "tail": "lower",
+      "year": 2021,
+      "population": 121,
+      "selected": 7
+    },
+    {
+      "metric": "single_qubit_gate_error",
+      "scope": "all",
+      "tail": "lower",
+      "year": 2008,
+      "population": 6,
+      "selected": 5
+    },
+    {
+      "metric": "single_qubit_gate_error",
+      "scope": "all",
+      "tail": "lower",
+      "year": 2016,
+      "population": 9,
+      "selected": 5
+    },
+    {
+      "metric": "single_qubit_gate_error",
+      "scope": "all",
+      "tail": "lower",
+      "year": 2025,
+      "population": 278,
+      "selected": 14
+    },
+    {
+      "metric": "single_qubit_gate_error",
+      "scope": "all",
+      "tail": "lower",
+      "year": 2022,
+      "population": 198,
+      "selected": 10
+    },
+    {
+      "metric": "single_qubit_gate_error",
+      "scope": "all",
+      "tail": "lower",
+      "year": 2020,
+      "population": 84,
+      "selected": 5
+    },
+    {
+      "metric": "single_qubit_gate_error",
+      "scope": "all",
+      "tail": "lower",
+      "year": 2023,
+      "population": 159,
+      "selected": 8
+    },
+    {
+      "metric": "single_qubit_gate_error",
+      "scope": "all",
+      "tail": "lower",
+      "year": 2009,
+      "population": 7,
+      "selected": 5
+    },
+    {
+      "metric": "single_qubit_gate_error",
+      "scope": "all",
+      "tail": "lower",
+      "year": 2017,
+      "population": 39,
+      "selected": 5
+    },
+    {
+      "metric": "single_qubit_gate_error",
+      "scope": "all",
+      "tail": "lower",
+      "year": 2019,
+      "population": 42,
+      "selected": 5
+    },
+    {
+      "metric": "single_qubit_gate_error",
+      "scope": "all",
+      "tail": "lower",
+      "year": 2012,
+      "population": 4,
+      "selected": 4
+    },
+    {
+      "metric": "single_qubit_gate_error",
+      "scope": "all",
+      "tail": "lower",
+      "year": 2018,
+      "population": 16,
+      "selected": 5
+    },
+    {
+      "metric": "single_qubit_gate_error",
+      "scope": "all",
+      "tail": "lower",
+      "year": 2014,
+      "population": 9,
+      "selected": 5
+    },
+    {
+      "metric": "single_qubit_gate_error",
+      "scope": "all",
+      "tail": "lower",
+      "year": 2015,
+      "population": 9,
+      "selected": 5
+    },
+    {
+      "metric": "single_qubit_gate_error",
+      "scope": "all",
+      "tail": "lower",
+      "year": 2010,
+      "population": 5,
+      "selected": 5
+    },
+    {
+      "metric": "single_qubit_gate_error",
+      "scope": "all",
+      "tail": "lower",
+      "year": 2001,
+      "population": 1,
+      "selected": 1
+    },
+    {
+      "metric": "single_qubit_gate_error",
+      "scope": "all",
+      "tail": "lower",
+      "year": 2013,
+      "population": 6,
+      "selected": 5
+    },
+    {
+      "metric": "single_qubit_gate_error",
+      "scope": "all",
+      "tail": "lower",
+      "year": 2002,
+      "population": 1,
+      "selected": 1
+    },
+    {
+      "metric": "single_qubit_gate_error",
+      "scope": "default",
+      "tail": "upper",
+      "year": 2021,
+      "population": 54,
+      "selected": 5
+    },
+    {
+      "metric": "single_qubit_gate_error",
+      "scope": "default",
+      "tail": "upper",
+      "year": 2022,
+      "population": 125,
+      "selected": 7
+    },
+    {
+      "metric": "single_qubit_gate_error",
+      "scope": "default",
+      "tail": "upper",
+      "year": 2024,
+      "population": 130,
+      "selected": 7
+    },
+    {
+      "metric": "single_qubit_gate_error",
+      "scope": "default",
+      "tail": "upper",
+      "year": 2023,
+      "population": 96,
+      "selected": 5
+    },
+    {
+      "metric": "single_qubit_gate_error",
+      "scope": "default",
+      "tail": "upper",
+      "year": 2008,
+      "population": 2,
+      "selected": 2
+    },
+    {
+      "metric": "single_qubit_gate_error",
+      "scope": "default",
+      "tail": "upper",
+      "year": 2025,
+      "population": 119,
+      "selected": 6
+    },
+    {
+      "metric": "single_qubit_gate_error",
+      "scope": "default",
+      "tail": "upper",
+      "year": 2020,
+      "population": 50,
+      "selected": 5
+    },
+    {
+      "metric": "single_qubit_gate_error",
+      "scope": "default",
+      "tail": "upper",
+      "year": 2017,
+      "population": 28,
+      "selected": 5
+    },
+    {
+      "metric": "single_qubit_gate_error",
+      "scope": "default",
+      "tail": "upper",
+      "year": 2019,
+      "population": 18,
+      "selected": 5
+    },
+    {
+      "metric": "single_qubit_gate_error",
+      "scope": "default",
+      "tail": "upper",
+      "year": 2014,
+      "population": 4,
+      "selected": 4
+    },
+    {
+      "metric": "single_qubit_gate_error",
+      "scope": "default",
+      "tail": "upper",
+      "year": 2015,
+      "population": 3,
+      "selected": 3
+    },
+    {
+      "metric": "single_qubit_gate_error",
+      "scope": "default",
+      "tail": "upper",
+      "year": 2012,
+      "population": 2,
+      "selected": 2
+    },
+    {
+      "metric": "single_qubit_gate_error",
+      "scope": "default",
+      "tail": "upper",
+      "year": 2018,
+      "population": 8,
+      "selected": 5
+    },
+    {
+      "metric": "single_qubit_gate_error",
+      "scope": "default",
+      "tail": "upper",
+      "year": 2010,
+      "population": 1,
+      "selected": 1
+    },
+    {
+      "metric": "single_qubit_gate_error",
+      "scope": "default",
+      "tail": "upper",
+      "year": 2016,
+      "population": 1,
+      "selected": 1
+    },
+    {
+      "metric": "single_qubit_gate_error",
+      "scope": "default",
+      "tail": "upper",
+      "year": 2013,
+      "population": 3,
+      "selected": 3
+    },
+    {
+      "metric": "single_qubit_gate_error",
+      "scope": "default",
+      "tail": "lower",
+      "year": 2021,
+      "population": 54,
+      "selected": 5
+    },
+    {
+      "metric": "single_qubit_gate_error",
+      "scope": "default",
+      "tail": "lower",
+      "year": 2022,
+      "population": 125,
+      "selected": 7
+    },
+    {
+      "metric": "single_qubit_gate_error",
+      "scope": "default",
+      "tail": "lower",
+      "year": 2024,
+      "population": 130,
+      "selected": 7
+    },
+    {
+      "metric": "single_qubit_gate_error",
+      "scope": "default",
+      "tail": "lower",
+      "year": 2023,
+      "population": 96,
+      "selected": 5
+    },
+    {
+      "metric": "single_qubit_gate_error",
+      "scope": "default",
+      "tail": "lower",
+      "year": 2008,
+      "population": 2,
+      "selected": 2
+    },
+    {
+      "metric": "single_qubit_gate_error",
+      "scope": "default",
+      "tail": "lower",
+      "year": 2025,
+      "population": 119,
+      "selected": 6
+    },
+    {
+      "metric": "single_qubit_gate_error",
+      "scope": "default",
+      "tail": "lower",
+      "year": 2020,
+      "population": 50,
+      "selected": 5
+    },
+    {
+      "metric": "single_qubit_gate_error",
+      "scope": "default",
+      "tail": "lower",
+      "year": 2017,
+      "population": 28,
+      "selected": 5
+    },
+    {
+      "metric": "single_qubit_gate_error",
+      "scope": "default",
+      "tail": "lower",
+      "year": 2019,
+      "population": 18,
+      "selected": 5
+    },
+    {
+      "metric": "single_qubit_gate_error",
+      "scope": "default",
+      "tail": "lower",
+      "year": 2014,
+      "population": 4,
+      "selected": 4
+    },
+    {
+      "metric": "single_qubit_gate_error",
+      "scope": "default",
+      "tail": "lower",
+      "year": 2015,
+      "population": 3,
+      "selected": 3
+    },
+    {
+      "metric": "single_qubit_gate_error",
+      "scope": "default",
+      "tail": "lower",
+      "year": 2012,
+      "population": 2,
+      "selected": 2
+    },
+    {
+      "metric": "single_qubit_gate_error",
+      "scope": "default",
+      "tail": "lower",
+      "year": 2018,
+      "population": 8,
+      "selected": 5
+    },
+    {
+      "metric": "single_qubit_gate_error",
+      "scope": "default",
+      "tail": "lower",
+      "year": 2010,
+      "population": 1,
+      "selected": 1
+    },
+    {
+      "metric": "single_qubit_gate_error",
+      "scope": "default",
+      "tail": "lower",
+      "year": 2016,
+      "population": 1,
+      "selected": 1
+    },
+    {
+      "metric": "single_qubit_gate_error",
+      "scope": "default",
+      "tail": "lower",
+      "year": 2013,
+      "population": 3,
+      "selected": 3
+    },
+    {
+      "metric": "two_qubit_gate_error",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2022,
+      "population": 113,
+      "selected": 6
+    },
+    {
+      "metric": "two_qubit_gate_error",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2025,
+      "population": 197,
+      "selected": 10
+    },
+    {
+      "metric": "two_qubit_gate_error",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2023,
+      "population": 128,
+      "selected": 7
+    },
+    {
+      "metric": "two_qubit_gate_error",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2008,
+      "population": 8,
+      "selected": 5
+    },
+    {
+      "metric": "two_qubit_gate_error",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2020,
+      "population": 50,
+      "selected": 5
+    },
+    {
+      "metric": "two_qubit_gate_error",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2019,
+      "population": 29,
+      "selected": 5
+    },
+    {
+      "metric": "two_qubit_gate_error",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2015,
+      "population": 9,
+      "selected": 5
+    },
+    {
+      "metric": "two_qubit_gate_error",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2021,
+      "population": 97,
+      "selected": 5
+    },
+    {
+      "metric": "two_qubit_gate_error",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2024,
+      "population": 144,
+      "selected": 8
+    },
+    {
+      "metric": "two_qubit_gate_error",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2017,
+      "population": 14,
+      "selected": 5
+    },
+    {
+      "metric": "two_qubit_gate_error",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2009,
+      "population": 3,
+      "selected": 3
+    },
+    {
+      "metric": "two_qubit_gate_error",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2016,
+      "population": 9,
+      "selected": 5
+    },
+    {
+      "metric": "two_qubit_gate_error",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2018,
+      "population": 16,
+      "selected": 5
+    },
+    {
+      "metric": "two_qubit_gate_error",
+      "scope": "all",
+      "tail": "upper",
+      "year": 1999,
+      "population": 1,
+      "selected": 1
+    },
+    {
+      "metric": "two_qubit_gate_error",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2014,
+      "population": 7,
+      "selected": 5
+    },
+    {
+      "metric": "two_qubit_gate_error",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2005,
+      "population": 1,
+      "selected": 1
+    },
+    {
+      "metric": "two_qubit_gate_error",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2013,
+      "population": 5,
+      "selected": 5
+    },
+    {
+      "metric": "two_qubit_gate_error",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2007,
+      "population": 3,
+      "selected": 3
+    },
+    {
+      "metric": "two_qubit_gate_error",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2012,
+      "population": 9,
+      "selected": 5
+    },
+    {
+      "metric": "two_qubit_gate_error",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2006,
+      "population": 4,
+      "selected": 4
+    },
+    {
+      "metric": "two_qubit_gate_error",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2003,
+      "population": 1,
+      "selected": 1
+    },
+    {
+      "metric": "two_qubit_gate_error",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2010,
+      "population": 3,
+      "selected": 3
+    },
+    {
+      "metric": "two_qubit_gate_error",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2011,
+      "population": 1,
+      "selected": 1
+    },
+    {
+      "metric": "two_qubit_gate_error",
+      "scope": "all",
+      "tail": "lower",
+      "year": 2022,
+      "population": 113,
+      "selected": 6
+    },
+    {
+      "metric": "two_qubit_gate_error",
+      "scope": "all",
+      "tail": "lower",
+      "year": 2025,
+      "population": 197,
+      "selected": 10
+    },
+    {
+      "metric": "two_qubit_gate_error",
+      "scope": "all",
+      "tail": "lower",
+      "year": 2023,
+      "population": 128,
+      "selected": 7
+    },
+    {
+      "metric": "two_qubit_gate_error",
+      "scope": "all",
+      "tail": "lower",
+      "year": 2008,
+      "population": 8,
+      "selected": 5
+    },
+    {
+      "metric": "two_qubit_gate_error",
+      "scope": "all",
+      "tail": "lower",
+      "year": 2020,
+      "population": 50,
+      "selected": 5
+    },
+    {
+      "metric": "two_qubit_gate_error",
+      "scope": "all",
+      "tail": "lower",
+      "year": 2019,
+      "population": 29,
+      "selected": 5
+    },
+    {
+      "metric": "two_qubit_gate_error",
+      "scope": "all",
+      "tail": "lower",
+      "year": 2015,
+      "population": 9,
+      "selected": 5
+    },
+    {
+      "metric": "two_qubit_gate_error",
+      "scope": "all",
+      "tail": "lower",
+      "year": 2021,
+      "population": 97,
+      "selected": 5
+    },
+    {
+      "metric": "two_qubit_gate_error",
+      "scope": "all",
+      "tail": "lower",
+      "year": 2024,
+      "population": 144,
+      "selected": 8
+    },
+    {
+      "metric": "two_qubit_gate_error",
+      "scope": "all",
+      "tail": "lower",
+      "year": 2017,
+      "population": 14,
+      "selected": 5
+    },
+    {
+      "metric": "two_qubit_gate_error",
+      "scope": "all",
+      "tail": "lower",
+      "year": 2009,
+      "population": 3,
+      "selected": 3
+    },
+    {
+      "metric": "two_qubit_gate_error",
+      "scope": "all",
+      "tail": "lower",
+      "year": 2016,
+      "population": 9,
+      "selected": 5
+    },
+    {
+      "metric": "two_qubit_gate_error",
+      "scope": "all",
+      "tail": "lower",
+      "year": 2018,
+      "population": 16,
+      "selected": 5
+    },
+    {
+      "metric": "two_qubit_gate_error",
+      "scope": "all",
+      "tail": "lower",
+      "year": 1999,
+      "population": 1,
+      "selected": 1
+    },
+    {
+      "metric": "two_qubit_gate_error",
+      "scope": "all",
+      "tail": "lower",
+      "year": 2014,
+      "population": 7,
+      "selected": 5
+    },
+    {
+      "metric": "two_qubit_gate_error",
+      "scope": "all",
+      "tail": "lower",
+      "year": 2005,
+      "population": 1,
+      "selected": 1
+    },
+    {
+      "metric": "two_qubit_gate_error",
+      "scope": "all",
+      "tail": "lower",
+      "year": 2013,
+      "population": 5,
+      "selected": 5
+    },
+    {
+      "metric": "two_qubit_gate_error",
+      "scope": "all",
+      "tail": "lower",
+      "year": 2007,
+      "population": 3,
+      "selected": 3
+    },
+    {
+      "metric": "two_qubit_gate_error",
+      "scope": "all",
+      "tail": "lower",
+      "year": 2012,
+      "population": 9,
+      "selected": 5
+    },
+    {
+      "metric": "two_qubit_gate_error",
+      "scope": "all",
+      "tail": "lower",
+      "year": 2006,
+      "population": 4,
+      "selected": 4
+    },
+    {
+      "metric": "two_qubit_gate_error",
+      "scope": "all",
+      "tail": "lower",
+      "year": 2003,
+      "population": 1,
+      "selected": 1
+    },
+    {
+      "metric": "two_qubit_gate_error",
+      "scope": "all",
+      "tail": "lower",
+      "year": 2010,
+      "population": 3,
+      "selected": 3
+    },
+    {
+      "metric": "two_qubit_gate_error",
+      "scope": "all",
+      "tail": "lower",
+      "year": 2011,
+      "population": 1,
+      "selected": 1
+    },
+    {
+      "metric": "two_qubit_gate_error",
+      "scope": "default",
+      "tail": "upper",
+      "year": 2023,
+      "population": 1,
+      "selected": 1
+    },
+    {
+      "metric": "two_qubit_gate_error",
+      "scope": "default",
+      "tail": "upper",
+      "year": 2019,
+      "population": 2,
+      "selected": 2
+    },
+    {
+      "metric": "two_qubit_gate_error",
+      "scope": "default",
+      "tail": "upper",
+      "year": 2022,
+      "population": 4,
+      "selected": 4
+    },
+    {
+      "metric": "two_qubit_gate_error",
+      "scope": "default",
+      "tail": "lower",
+      "year": 2023,
+      "population": 1,
+      "selected": 1
+    },
+    {
+      "metric": "two_qubit_gate_error",
+      "scope": "default",
+      "tail": "lower",
+      "year": 2019,
+      "population": 2,
+      "selected": 2
+    },
+    {
+      "metric": "two_qubit_gate_error",
+      "scope": "default",
+      "tail": "lower",
+      "year": 2022,
+      "population": 4,
+      "selected": 4
+    },
+    {
+      "metric": "single_qubit_gate_time",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2024,
+      "population": 132,
+      "selected": 7
+    },
+    {
+      "metric": "single_qubit_gate_time",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2010,
+      "population": 9,
+      "selected": 5
+    },
+    {
+      "metric": "single_qubit_gate_time",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2022,
+      "population": 87,
+      "selected": 5
+    },
+    {
+      "metric": "single_qubit_gate_time",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2005,
+      "population": 5,
+      "selected": 5
+    },
+    {
+      "metric": "single_qubit_gate_time",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2021,
+      "population": 84,
+      "selected": 5
+    },
+    {
+      "metric": "single_qubit_gate_time",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2014,
+      "population": 12,
+      "selected": 5
+    },
+    {
+      "metric": "single_qubit_gate_time",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2020,
+      "population": 55,
+      "selected": 5
+    },
+    {
+      "metric": "single_qubit_gate_time",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2016,
+      "population": 21,
+      "selected": 5
+    },
+    {
+      "metric": "single_qubit_gate_time",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2025,
+      "population": 190,
+      "selected": 10
+    },
+    {
+      "metric": "single_qubit_gate_time",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2023,
+      "population": 99,
+      "selected": 5
+    },
+    {
+      "metric": "single_qubit_gate_time",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2006,
+      "population": 7,
+      "selected": 5
+    },
+    {
+      "metric": "single_qubit_gate_time",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2018,
+      "population": 24,
+      "selected": 5
+    },
+    {
+      "metric": "single_qubit_gate_time",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2000,
+      "population": 5,
+      "selected": 5
+    },
+    {
+      "metric": "single_qubit_gate_time",
+      "scope": "all",
+      "tail": "upper",
+      "year": 1997,
+      "population": 2,
+      "selected": 2
+    },
+    {
+      "metric": "single_qubit_gate_time",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2003,
+      "population": 8,
+      "selected": 5
+    },
+    {
+      "metric": "single_qubit_gate_time",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2017,
+      "population": 23,
+      "selected": 5
+    },
+    {
+      "metric": "single_qubit_gate_time",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2019,
+      "population": 31,
+      "selected": 5
+    },
+    {
+      "metric": "single_qubit_gate_time",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2008,
+      "population": 11,
+      "selected": 5
+    },
+    {
+      "metric": "single_qubit_gate_time",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2012,
+      "population": 11,
+      "selected": 5
+    },
+    {
+      "metric": "single_qubit_gate_time",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2015,
+      "population": 21,
+      "selected": 5
+    },
+    {
+      "metric": "single_qubit_gate_time",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2013,
+      "population": 9,
+      "selected": 5
+    },
+    {
+      "metric": "single_qubit_gate_time",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2004,
+      "population": 8,
+      "selected": 5
+    },
+    {
+      "metric": "single_qubit_gate_time",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2007,
+      "population": 2,
+      "selected": 2
+    },
+    {
+      "metric": "single_qubit_gate_time",
+      "scope": "all",
+      "tail": "upper",
+      "year": 1998,
+      "population": 2,
+      "selected": 2
+    },
+    {
+      "metric": "single_qubit_gate_time",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2009,
+      "population": 8,
+      "selected": 5
+    },
+    {
+      "metric": "single_qubit_gate_time",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2002,
+      "population": 6,
+      "selected": 5
+    },
+    {
+      "metric": "single_qubit_gate_time",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2001,
+      "population": 1,
+      "selected": 1
+    },
+    {
+      "metric": "single_qubit_gate_time",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2011,
+      "population": 5,
+      "selected": 5
+    },
+    {
+      "metric": "single_qubit_gate_time",
+      "scope": "all",
+      "tail": "lower",
+      "year": 2024,
+      "population": 132,
+      "selected": 7
+    },
+    {
+      "metric": "single_qubit_gate_time",
+      "scope": "all",
+      "tail": "lower",
+      "year": 2010,
+      "population": 9,
+      "selected": 5
+    },
+    {
+      "metric": "single_qubit_gate_time",
+      "scope": "all",
+      "tail": "lower",
+      "year": 2022,
+      "population": 87,
+      "selected": 5
+    },
+    {
+      "metric": "single_qubit_gate_time",
+      "scope": "all",
+      "tail": "lower",
+      "year": 2005,
+      "population": 5,
+      "selected": 5
+    },
+    {
+      "metric": "single_qubit_gate_time",
+      "scope": "all",
+      "tail": "lower",
+      "year": 2021,
+      "population": 84,
+      "selected": 5
+    },
+    {
+      "metric": "single_qubit_gate_time",
+      "scope": "all",
+      "tail": "lower",
+      "year": 2014,
+      "population": 12,
+      "selected": 5
+    },
+    {
+      "metric": "single_qubit_gate_time",
+      "scope": "all",
+      "tail": "lower",
+      "year": 2020,
+      "population": 55,
+      "selected": 5
+    },
+    {
+      "metric": "single_qubit_gate_time",
+      "scope": "all",
+      "tail": "lower",
+      "year": 2016,
+      "population": 21,
+      "selected": 5
+    },
+    {
+      "metric": "single_qubit_gate_time",
+      "scope": "all",
+      "tail": "lower",
+      "year": 2025,
+      "population": 190,
+      "selected": 10
+    },
+    {
+      "metric": "single_qubit_gate_time",
+      "scope": "all",
+      "tail": "lower",
+      "year": 2023,
+      "population": 99,
+      "selected": 5
+    },
+    {
+      "metric": "single_qubit_gate_time",
+      "scope": "all",
+      "tail": "lower",
+      "year": 2006,
+      "population": 7,
+      "selected": 5
+    },
+    {
+      "metric": "single_qubit_gate_time",
+      "scope": "all",
+      "tail": "lower",
+      "year": 2018,
+      "population": 24,
+      "selected": 5
+    },
+    {
+      "metric": "single_qubit_gate_time",
+      "scope": "all",
+      "tail": "lower",
+      "year": 2000,
+      "population": 5,
+      "selected": 5
+    },
+    {
+      "metric": "single_qubit_gate_time",
+      "scope": "all",
+      "tail": "lower",
+      "year": 1997,
+      "population": 2,
+      "selected": 2
+    },
+    {
+      "metric": "single_qubit_gate_time",
+      "scope": "all",
+      "tail": "lower",
+      "year": 2003,
+      "population": 8,
+      "selected": 5
+    },
+    {
+      "metric": "single_qubit_gate_time",
+      "scope": "all",
+      "tail": "lower",
+      "year": 2017,
+      "population": 23,
+      "selected": 5
+    },
+    {
+      "metric": "single_qubit_gate_time",
+      "scope": "all",
+      "tail": "lower",
+      "year": 2019,
+      "population": 31,
+      "selected": 5
+    },
+    {
+      "metric": "single_qubit_gate_time",
+      "scope": "all",
+      "tail": "lower",
+      "year": 2008,
+      "population": 11,
+      "selected": 5
+    },
+    {
+      "metric": "single_qubit_gate_time",
+      "scope": "all",
+      "tail": "lower",
+      "year": 2012,
+      "population": 11,
+      "selected": 5
+    },
+    {
+      "metric": "single_qubit_gate_time",
+      "scope": "all",
+      "tail": "lower",
+      "year": 2015,
+      "population": 21,
+      "selected": 5
+    },
+    {
+      "metric": "single_qubit_gate_time",
+      "scope": "all",
+      "tail": "lower",
+      "year": 2013,
+      "population": 9,
+      "selected": 5
+    },
+    {
+      "metric": "single_qubit_gate_time",
+      "scope": "all",
+      "tail": "lower",
+      "year": 2004,
+      "population": 8,
+      "selected": 5
+    },
+    {
+      "metric": "single_qubit_gate_time",
+      "scope": "all",
+      "tail": "lower",
+      "year": 2007,
+      "population": 2,
+      "selected": 2
+    },
+    {
+      "metric": "single_qubit_gate_time",
+      "scope": "all",
+      "tail": "lower",
+      "year": 1998,
+      "population": 2,
+      "selected": 2
+    },
+    {
+      "metric": "single_qubit_gate_time",
+      "scope": "all",
+      "tail": "lower",
+      "year": 2009,
+      "population": 8,
+      "selected": 5
+    },
+    {
+      "metric": "single_qubit_gate_time",
+      "scope": "all",
+      "tail": "lower",
+      "year": 2002,
+      "population": 6,
+      "selected": 5
+    },
+    {
+      "metric": "single_qubit_gate_time",
+      "scope": "all",
+      "tail": "lower",
+      "year": 2001,
+      "population": 1,
+      "selected": 1
+    },
+    {
+      "metric": "single_qubit_gate_time",
+      "scope": "all",
+      "tail": "lower",
+      "year": 2011,
+      "population": 5,
+      "selected": 5
+    },
+    {
+      "metric": "single_qubit_gate_time",
+      "scope": "default",
+      "tail": "upper",
+      "year": 2024,
+      "population": 46,
+      "selected": 5
+    },
+    {
+      "metric": "single_qubit_gate_time",
+      "scope": "default",
+      "tail": "upper",
+      "year": 2022,
+      "population": 27,
+      "selected": 5
+    },
+    {
+      "metric": "single_qubit_gate_time",
+      "scope": "default",
+      "tail": "upper",
+      "year": 2005,
+      "population": 3,
+      "selected": 3
+    },
+    {
+      "metric": "single_qubit_gate_time",
+      "scope": "default",
+      "tail": "upper",
+      "year": 2021,
+      "population": 38,
+      "selected": 5
+    },
+    {
+      "metric": "single_qubit_gate_time",
+      "scope": "default",
+      "tail": "upper",
+      "year": 2025,
+      "population": 67,
+      "selected": 5
+    },
+    {
+      "metric": "single_qubit_gate_time",
+      "scope": "default",
+      "tail": "upper",
+      "year": 2020,
+      "population": 18,
+      "selected": 5
+    },
+    {
+      "metric": "single_qubit_gate_time",
+      "scope": "default",
+      "tail": "upper",
+      "year": 2023,
+      "population": 41,
+      "selected": 5
+    },
+    {
+      "metric": "single_qubit_gate_time",
+      "scope": "default",
+      "tail": "upper",
+      "year": 2018,
+      "population": 5,
+      "selected": 5
+    },
+    {
+      "metric": "single_qubit_gate_time",
+      "scope": "default",
+      "tail": "upper",
+      "year": 2019,
+      "population": 8,
+      "selected": 5
+    },
+    {
+      "metric": "single_qubit_gate_time",
+      "scope": "default",
+      "tail": "upper",
+      "year": 2015,
+      "population": 14,
+      "selected": 5
+    },
+    {
+      "metric": "single_qubit_gate_time",
+      "scope": "default",
+      "tail": "upper",
+      "year": 2013,
+      "population": 2,
+      "selected": 2
+    },
+    {
+      "metric": "single_qubit_gate_time",
+      "scope": "default",
+      "tail": "upper",
+      "year": 2017,
+      "population": 3,
+      "selected": 3
+    },
+    {
+      "metric": "single_qubit_gate_time",
+      "scope": "default",
+      "tail": "upper",
+      "year": 2016,
+      "population": 6,
+      "selected": 5
+    },
+    {
+      "metric": "single_qubit_gate_time",
+      "scope": "default",
+      "tail": "upper",
+      "year": 2004,
+      "population": 2,
+      "selected": 2
+    },
+    {
+      "metric": "single_qubit_gate_time",
+      "scope": "default",
+      "tail": "upper",
+      "year": 2008,
+      "population": 1,
+      "selected": 1
+    },
+    {
+      "metric": "single_qubit_gate_time",
+      "scope": "default",
+      "tail": "upper",
+      "year": 2006,
+      "population": 1,
+      "selected": 1
+    },
+    {
+      "metric": "single_qubit_gate_time",
+      "scope": "default",
+      "tail": "upper",
+      "year": 2012,
+      "population": 5,
+      "selected": 5
+    },
+    {
+      "metric": "single_qubit_gate_time",
+      "scope": "default",
+      "tail": "upper",
+      "year": 2014,
+      "population": 2,
+      "selected": 2
+    },
+    {
+      "metric": "single_qubit_gate_time",
+      "scope": "default",
+      "tail": "upper",
+      "year": 2009,
+      "population": 1,
+      "selected": 1
+    },
+    {
+      "metric": "single_qubit_gate_time",
+      "scope": "default",
+      "tail": "lower",
+      "year": 2024,
+      "population": 46,
+      "selected": 5
+    },
+    {
+      "metric": "single_qubit_gate_time",
+      "scope": "default",
+      "tail": "lower",
+      "year": 2022,
+      "population": 27,
+      "selected": 5
+    },
+    {
+      "metric": "single_qubit_gate_time",
+      "scope": "default",
+      "tail": "lower",
+      "year": 2005,
+      "population": 3,
+      "selected": 3
+    },
+    {
+      "metric": "single_qubit_gate_time",
+      "scope": "default",
+      "tail": "lower",
+      "year": 2021,
+      "population": 38,
+      "selected": 5
+    },
+    {
+      "metric": "single_qubit_gate_time",
+      "scope": "default",
+      "tail": "lower",
+      "year": 2025,
+      "population": 67,
+      "selected": 5
+    },
+    {
+      "metric": "single_qubit_gate_time",
+      "scope": "default",
+      "tail": "lower",
+      "year": 2020,
+      "population": 18,
+      "selected": 5
+    },
+    {
+      "metric": "single_qubit_gate_time",
+      "scope": "default",
+      "tail": "lower",
+      "year": 2023,
+      "population": 41,
+      "selected": 5
+    },
+    {
+      "metric": "single_qubit_gate_time",
+      "scope": "default",
+      "tail": "lower",
+      "year": 2018,
+      "population": 5,
+      "selected": 5
+    },
+    {
+      "metric": "single_qubit_gate_time",
+      "scope": "default",
+      "tail": "lower",
+      "year": 2019,
+      "population": 8,
+      "selected": 5
+    },
+    {
+      "metric": "single_qubit_gate_time",
+      "scope": "default",
+      "tail": "lower",
+      "year": 2015,
+      "population": 14,
+      "selected": 5
+    },
+    {
+      "metric": "single_qubit_gate_time",
+      "scope": "default",
+      "tail": "lower",
+      "year": 2013,
+      "population": 2,
+      "selected": 2
+    },
+    {
+      "metric": "single_qubit_gate_time",
+      "scope": "default",
+      "tail": "lower",
+      "year": 2017,
+      "population": 3,
+      "selected": 3
+    },
+    {
+      "metric": "single_qubit_gate_time",
+      "scope": "default",
+      "tail": "lower",
+      "year": 2016,
+      "population": 6,
+      "selected": 5
+    },
+    {
+      "metric": "single_qubit_gate_time",
+      "scope": "default",
+      "tail": "lower",
+      "year": 2004,
+      "population": 2,
+      "selected": 2
+    },
+    {
+      "metric": "single_qubit_gate_time",
+      "scope": "default",
+      "tail": "lower",
+      "year": 2008,
+      "population": 1,
+      "selected": 1
+    },
+    {
+      "metric": "single_qubit_gate_time",
+      "scope": "default",
+      "tail": "lower",
+      "year": 2006,
+      "population": 1,
+      "selected": 1
+    },
+    {
+      "metric": "single_qubit_gate_time",
+      "scope": "default",
+      "tail": "lower",
+      "year": 2012,
+      "population": 5,
+      "selected": 5
+    },
+    {
+      "metric": "single_qubit_gate_time",
+      "scope": "default",
+      "tail": "lower",
+      "year": 2014,
+      "population": 2,
+      "selected": 2
+    },
+    {
+      "metric": "single_qubit_gate_time",
+      "scope": "default",
+      "tail": "lower",
+      "year": 2009,
+      "population": 1,
+      "selected": 1
+    },
+    {
+      "metric": "two_qubit_gate_time",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2025,
+      "population": 152,
+      "selected": 8
+    },
+    {
+      "metric": "two_qubit_gate_time",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2023,
+      "population": 113,
+      "selected": 6
+    },
+    {
+      "metric": "two_qubit_gate_time",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2024,
+      "population": 133,
+      "selected": 7
+    },
+    {
+      "metric": "two_qubit_gate_time",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2021,
+      "population": 113,
+      "selected": 6
+    },
+    {
+      "metric": "two_qubit_gate_time",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2008,
+      "population": 10,
+      "selected": 5
+    },
+    {
+      "metric": "two_qubit_gate_time",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2020,
+      "population": 77,
+      "selected": 5
+    },
+    {
+      "metric": "two_qubit_gate_time",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2012,
+      "population": 20,
+      "selected": 5
+    },
+    {
+      "metric": "two_qubit_gate_time",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2019,
+      "population": 36,
+      "selected": 5
+    },
+    {
+      "metric": "two_qubit_gate_time",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2014,
+      "population": 25,
+      "selected": 5
+    },
+    {
+      "metric": "two_qubit_gate_time",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2018,
+      "population": 34,
+      "selected": 5
+    },
+    {
+      "metric": "two_qubit_gate_time",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2016,
+      "population": 21,
+      "selected": 5
+    },
+    {
+      "metric": "two_qubit_gate_time",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2009,
+      "population": 12,
+      "selected": 5
+    },
+    {
+      "metric": "two_qubit_gate_time",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2022,
+      "population": 109,
+      "selected": 6
+    },
+    {
+      "metric": "two_qubit_gate_time",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2013,
+      "population": 19,
+      "selected": 5
+    },
+    {
+      "metric": "two_qubit_gate_time",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2010,
+      "population": 12,
+      "selected": 5
+    },
+    {
+      "metric": "two_qubit_gate_time",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2007,
+      "population": 6,
+      "selected": 5
+    },
+    {
+      "metric": "two_qubit_gate_time",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2017,
+      "population": 32,
+      "selected": 5
+    },
+    {
+      "metric": "two_qubit_gate_time",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2006,
+      "population": 6,
+      "selected": 5
+    },
+    {
+      "metric": "two_qubit_gate_time",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2003,
+      "population": 3,
+      "selected": 3
+    },
+    {
+      "metric": "two_qubit_gate_time",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2004,
+      "population": 6,
+      "selected": 5
+    },
+    {
+      "metric": "two_qubit_gate_time",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2005,
+      "population": 7,
+      "selected": 5
+    },
+    {
+      "metric": "two_qubit_gate_time",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2011,
+      "population": 11,
+      "selected": 5
+    },
+    {
+      "metric": "two_qubit_gate_time",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2015,
+      "population": 14,
+      "selected": 5
+    },
+    {
+      "metric": "two_qubit_gate_time",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2001,
+      "population": 1,
+      "selected": 1
+    },
+    {
+      "metric": "two_qubit_gate_time",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2002,
+      "population": 3,
+      "selected": 3
+    },
+    {
+      "metric": "two_qubit_gate_time",
+      "scope": "all",
+      "tail": "lower",
+      "year": 2025,
+      "population": 152,
+      "selected": 8
+    },
+    {
+      "metric": "two_qubit_gate_time",
+      "scope": "all",
+      "tail": "lower",
+      "year": 2023,
+      "population": 113,
+      "selected": 6
+    },
+    {
+      "metric": "two_qubit_gate_time",
+      "scope": "all",
+      "tail": "lower",
+      "year": 2024,
+      "population": 133,
+      "selected": 7
+    },
+    {
+      "metric": "two_qubit_gate_time",
+      "scope": "all",
+      "tail": "lower",
+      "year": 2021,
+      "population": 113,
+      "selected": 6
+    },
+    {
+      "metric": "two_qubit_gate_time",
+      "scope": "all",
+      "tail": "lower",
+      "year": 2008,
+      "population": 10,
+      "selected": 5
+    },
+    {
+      "metric": "two_qubit_gate_time",
+      "scope": "all",
+      "tail": "lower",
+      "year": 2020,
+      "population": 77,
+      "selected": 5
+    },
+    {
+      "metric": "two_qubit_gate_time",
+      "scope": "all",
+      "tail": "lower",
+      "year": 2012,
+      "population": 20,
+      "selected": 5
+    },
+    {
+      "metric": "two_qubit_gate_time",
+      "scope": "all",
+      "tail": "lower",
+      "year": 2019,
+      "population": 36,
+      "selected": 5
+    },
+    {
+      "metric": "two_qubit_gate_time",
+      "scope": "all",
+      "tail": "lower",
+      "year": 2014,
+      "population": 25,
+      "selected": 5
+    },
+    {
+      "metric": "two_qubit_gate_time",
+      "scope": "all",
+      "tail": "lower",
+      "year": 2018,
+      "population": 34,
+      "selected": 5
+    },
+    {
+      "metric": "two_qubit_gate_time",
+      "scope": "all",
+      "tail": "lower",
+      "year": 2016,
+      "population": 21,
+      "selected": 5
+    },
+    {
+      "metric": "two_qubit_gate_time",
+      "scope": "all",
+      "tail": "lower",
+      "year": 2009,
+      "population": 12,
+      "selected": 5
+    },
+    {
+      "metric": "two_qubit_gate_time",
+      "scope": "all",
+      "tail": "lower",
+      "year": 2022,
+      "population": 109,
+      "selected": 6
+    },
+    {
+      "metric": "two_qubit_gate_time",
+      "scope": "all",
+      "tail": "lower",
+      "year": 2013,
+      "population": 19,
+      "selected": 5
+    },
+    {
+      "metric": "two_qubit_gate_time",
+      "scope": "all",
+      "tail": "lower",
+      "year": 2010,
+      "population": 12,
+      "selected": 5
+    },
+    {
+      "metric": "two_qubit_gate_time",
+      "scope": "all",
+      "tail": "lower",
+      "year": 2007,
+      "population": 6,
+      "selected": 5
+    },
+    {
+      "metric": "two_qubit_gate_time",
+      "scope": "all",
+      "tail": "lower",
+      "year": 2017,
+      "population": 32,
+      "selected": 5
+    },
+    {
+      "metric": "two_qubit_gate_time",
+      "scope": "all",
+      "tail": "lower",
+      "year": 2006,
+      "population": 6,
+      "selected": 5
+    },
+    {
+      "metric": "two_qubit_gate_time",
+      "scope": "all",
+      "tail": "lower",
+      "year": 2003,
+      "population": 3,
+      "selected": 3
+    },
+    {
+      "metric": "two_qubit_gate_time",
+      "scope": "all",
+      "tail": "lower",
+      "year": 2004,
+      "population": 6,
+      "selected": 5
+    },
+    {
+      "metric": "two_qubit_gate_time",
+      "scope": "all",
+      "tail": "lower",
+      "year": 2005,
+      "population": 7,
+      "selected": 5
+    },
+    {
+      "metric": "two_qubit_gate_time",
+      "scope": "all",
+      "tail": "lower",
+      "year": 2011,
+      "population": 11,
+      "selected": 5
+    },
+    {
+      "metric": "two_qubit_gate_time",
+      "scope": "all",
+      "tail": "lower",
+      "year": 2015,
+      "population": 14,
+      "selected": 5
+    },
+    {
+      "metric": "two_qubit_gate_time",
+      "scope": "all",
+      "tail": "lower",
+      "year": 2001,
+      "population": 1,
+      "selected": 1
+    },
+    {
+      "metric": "two_qubit_gate_time",
+      "scope": "all",
+      "tail": "lower",
+      "year": 2002,
+      "population": 3,
+      "selected": 3
+    },
+    {
+      "metric": "two_qubit_gate_time",
+      "scope": "default",
+      "tail": "upper",
+      "year": 2023,
+      "population": 1,
+      "selected": 1
+    },
+    {
+      "metric": "two_qubit_gate_time",
+      "scope": "default",
+      "tail": "lower",
+      "year": 2023,
+      "population": 1,
+      "selected": 1
+    },
+    {
+      "metric": "readout_fidelity",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2021,
+      "population": 129,
+      "selected": 7
+    },
+    {
+      "metric": "readout_fidelity",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2025,
+      "population": 334,
+      "selected": 17
+    },
+    {
+      "metric": "readout_fidelity",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2022,
+      "population": 145,
+      "selected": 8
+    },
+    {
+      "metric": "readout_fidelity",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2005,
+      "population": 7,
+      "selected": 5
+    },
+    {
+      "metric": "readout_fidelity",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2015,
+      "population": 21,
+      "selected": 5
+    },
+    {
+      "metric": "readout_fidelity",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2023,
+      "population": 154,
+      "selected": 8
+    },
+    {
+      "metric": "readout_fidelity",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2020,
+      "population": 94,
+      "selected": 5
+    },
+    {
+      "metric": "readout_fidelity",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2012,
+      "population": 20,
+      "selected": 5
+    },
+    {
+      "metric": "readout_fidelity",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2016,
+      "population": 24,
+      "selected": 5
+    },
+    {
+      "metric": "readout_fidelity",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2002,
+      "population": 3,
+      "selected": 3
+    },
+    {
+      "metric": "readout_fidelity",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2024,
+      "population": 318,
+      "selected": 16
+    },
+    {
+      "metric": "readout_fidelity",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2019,
+      "population": 81,
+      "selected": 5
+    },
+    {
+      "metric": "readout_fidelity",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2010,
+      "population": 13,
+      "selected": 5
+    },
+    {
+      "metric": "readout_fidelity",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2013,
+      "population": 25,
+      "selected": 5
+    },
+    {
+      "metric": "readout_fidelity",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2017,
+      "population": 30,
+      "selected": 5
+    },
+    {
+      "metric": "readout_fidelity",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2004,
+      "population": 13,
+      "selected": 5
+    },
+    {
+      "metric": "readout_fidelity",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2014,
+      "population": 17,
+      "selected": 5
+    },
+    {
+      "metric": "readout_fidelity",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2009,
+      "population": 8,
+      "selected": 5
+    },
+    {
+      "metric": "readout_fidelity",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2003,
+      "population": 4,
+      "selected": 4
+    },
+    {
+      "metric": "readout_fidelity",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2008,
+      "population": 4,
+      "selected": 4
+    },
+    {
+      "metric": "readout_fidelity",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2018,
+      "population": 44,
+      "selected": 5
+    },
+    {
+      "metric": "readout_fidelity",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2007,
+      "population": 3,
+      "selected": 3
+    },
+    {
+      "metric": "readout_fidelity",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2011,
+      "population": 7,
+      "selected": 5
+    },
+    {
+      "metric": "readout_fidelity",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2006,
+      "population": 9,
+      "selected": 5
+    },
+    {
+      "metric": "readout_fidelity",
+      "scope": "default",
+      "tail": "upper",
+      "year": 2021,
+      "population": 107,
+      "selected": 6
+    },
+    {
+      "metric": "readout_fidelity",
+      "scope": "default",
+      "tail": "upper",
+      "year": 2022,
+      "population": 111,
+      "selected": 6
+    },
+    {
+      "metric": "readout_fidelity",
+      "scope": "default",
+      "tail": "upper",
+      "year": 2015,
+      "population": 7,
+      "selected": 5
+    },
+    {
+      "metric": "readout_fidelity",
+      "scope": "default",
+      "tail": "upper",
+      "year": 2023,
+      "population": 102,
+      "selected": 6
+    },
+    {
+      "metric": "readout_fidelity",
+      "scope": "default",
+      "tail": "upper",
+      "year": 2012,
+      "population": 8,
+      "selected": 5
+    },
+    {
+      "metric": "readout_fidelity",
+      "scope": "default",
+      "tail": "upper",
+      "year": 2016,
+      "population": 11,
+      "selected": 5
+    },
+    {
+      "metric": "readout_fidelity",
+      "scope": "default",
+      "tail": "upper",
+      "year": 2025,
+      "population": 231,
+      "selected": 12
+    },
+    {
+      "metric": "readout_fidelity",
+      "scope": "default",
+      "tail": "upper",
+      "year": 2005,
+      "population": 3,
+      "selected": 3
+    },
+    {
+      "metric": "readout_fidelity",
+      "scope": "default",
+      "tail": "upper",
+      "year": 2024,
+      "population": 231,
+      "selected": 12
+    },
+    {
+      "metric": "readout_fidelity",
+      "scope": "default",
+      "tail": "upper",
+      "year": 2020,
+      "population": 76,
+      "selected": 5
+    },
+    {
+      "metric": "readout_fidelity",
+      "scope": "default",
+      "tail": "upper",
+      "year": 2019,
+      "population": 60,
+      "selected": 5
+    },
+    {
+      "metric": "readout_fidelity",
+      "scope": "default",
+      "tail": "upper",
+      "year": 2017,
+      "population": 22,
+      "selected": 5
+    },
+    {
+      "metric": "readout_fidelity",
+      "scope": "default",
+      "tail": "upper",
+      "year": 2004,
+      "population": 4,
+      "selected": 4
+    },
+    {
+      "metric": "readout_fidelity",
+      "scope": "default",
+      "tail": "upper",
+      "year": 2014,
+      "population": 14,
+      "selected": 5
+    },
+    {
+      "metric": "readout_fidelity",
+      "scope": "default",
+      "tail": "upper",
+      "year": 2003,
+      "population": 3,
+      "selected": 3
+    },
+    {
+      "metric": "readout_fidelity",
+      "scope": "default",
+      "tail": "upper",
+      "year": 2010,
+      "population": 2,
+      "selected": 2
+    },
+    {
+      "metric": "readout_fidelity",
+      "scope": "default",
+      "tail": "upper",
+      "year": 2018,
+      "population": 29,
+      "selected": 5
+    },
+    {
+      "metric": "readout_fidelity",
+      "scope": "default",
+      "tail": "upper",
+      "year": 2013,
+      "population": 13,
+      "selected": 5
+    },
+    {
+      "metric": "readout_fidelity",
+      "scope": "default",
+      "tail": "upper",
+      "year": 2008,
+      "population": 2,
+      "selected": 2
+    },
+    {
+      "metric": "readout_fidelity",
+      "scope": "default",
+      "tail": "upper",
+      "year": 2002,
+      "population": 1,
+      "selected": 1
+    },
+    {
+      "metric": "readout_fidelity",
+      "scope": "default",
+      "tail": "upper",
+      "year": 2006,
+      "population": 6,
+      "selected": 5
+    },
+    {
+      "metric": "readout_fidelity",
+      "scope": "default",
+      "tail": "upper",
+      "year": 2011,
+      "population": 3,
+      "selected": 3
+    },
+    {
+      "metric": "readout_fidelity",
+      "scope": "default",
+      "tail": "upper",
+      "year": 2007,
+      "population": 1,
+      "selected": 1
+    },
+    {
+      "metric": "readout_error",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2024,
+      "population": 181,
+      "selected": 10
+    },
+    {
+      "metric": "readout_error",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2022,
+      "population": 157,
+      "selected": 8
+    },
+    {
+      "metric": "readout_error",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2023,
+      "population": 133,
+      "selected": 7
+    },
+    {
+      "metric": "readout_error",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2008,
+      "population": 5,
+      "selected": 5
+    },
+    {
+      "metric": "readout_error",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2020,
+      "population": 51,
+      "selected": 5
+    },
+    {
+      "metric": "readout_error",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2012,
+      "population": 4,
+      "selected": 4
+    },
+    {
+      "metric": "readout_error",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2021,
+      "population": 86,
+      "selected": 5
+    },
+    {
+      "metric": "readout_error",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2025,
+      "population": 252,
+      "selected": 13
+    },
+    {
+      "metric": "readout_error",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2017,
+      "population": 15,
+      "selected": 5
+    },
+    {
+      "metric": "readout_error",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2014,
+      "population": 4,
+      "selected": 4
+    },
+    {
+      "metric": "readout_error",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2003,
+      "population": 3,
+      "selected": 3
+    },
+    {
+      "metric": "readout_error",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2018,
+      "population": 26,
+      "selected": 5
+    },
+    {
+      "metric": "readout_error",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2013,
+      "population": 3,
+      "selected": 3
+    },
+    {
+      "metric": "readout_error",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2019,
+      "population": 38,
+      "selected": 5
+    },
+    {
+      "metric": "readout_error",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2007,
+      "population": 1,
+      "selected": 1
+    },
+    {
+      "metric": "readout_error",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2011,
+      "population": 5,
+      "selected": 5
+    },
+    {
+      "metric": "readout_error",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2009,
+      "population": 3,
+      "selected": 3
+    },
+    {
+      "metric": "readout_error",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2015,
+      "population": 14,
+      "selected": 5
+    },
+    {
+      "metric": "readout_error",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2006,
+      "population": 2,
+      "selected": 2
+    },
+    {
+      "metric": "readout_error",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2005,
+      "population": 1,
+      "selected": 1
+    },
+    {
+      "metric": "readout_error",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2004,
+      "population": 3,
+      "selected": 3
+    },
+    {
+      "metric": "readout_error",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2016,
+      "population": 4,
+      "selected": 4
+    },
+    {
+      "metric": "readout_error",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2010,
+      "population": 2,
+      "selected": 2
+    },
+    {
+      "metric": "readout_error",
+      "scope": "all",
+      "tail": "lower",
+      "year": 2024,
+      "population": 181,
+      "selected": 10
+    },
+    {
+      "metric": "readout_error",
+      "scope": "all",
+      "tail": "lower",
+      "year": 2022,
+      "population": 157,
+      "selected": 8
+    },
+    {
+      "metric": "readout_error",
+      "scope": "all",
+      "tail": "lower",
+      "year": 2023,
+      "population": 133,
+      "selected": 7
+    },
+    {
+      "metric": "readout_error",
+      "scope": "all",
+      "tail": "lower",
+      "year": 2008,
+      "population": 5,
+      "selected": 5
+    },
+    {
+      "metric": "readout_error",
+      "scope": "all",
+      "tail": "lower",
+      "year": 2020,
+      "population": 51,
+      "selected": 5
+    },
+    {
+      "metric": "readout_error",
+      "scope": "all",
+      "tail": "lower",
+      "year": 2012,
+      "population": 4,
+      "selected": 4
+    },
+    {
+      "metric": "readout_error",
+      "scope": "all",
+      "tail": "lower",
+      "year": 2021,
+      "population": 86,
+      "selected": 5
+    },
+    {
+      "metric": "readout_error",
+      "scope": "all",
+      "tail": "lower",
+      "year": 2025,
+      "population": 252,
+      "selected": 13
+    },
+    {
+      "metric": "readout_error",
+      "scope": "all",
+      "tail": "lower",
+      "year": 2017,
+      "population": 15,
+      "selected": 5
+    },
+    {
+      "metric": "readout_error",
+      "scope": "all",
+      "tail": "lower",
+      "year": 2014,
+      "population": 4,
+      "selected": 4
+    },
+    {
+      "metric": "readout_error",
+      "scope": "all",
+      "tail": "lower",
+      "year": 2003,
+      "population": 3,
+      "selected": 3
+    },
+    {
+      "metric": "readout_error",
+      "scope": "all",
+      "tail": "lower",
+      "year": 2018,
+      "population": 26,
+      "selected": 5
+    },
+    {
+      "metric": "readout_error",
+      "scope": "all",
+      "tail": "lower",
+      "year": 2013,
+      "population": 3,
+      "selected": 3
+    },
+    {
+      "metric": "readout_error",
+      "scope": "all",
+      "tail": "lower",
+      "year": 2019,
+      "population": 38,
+      "selected": 5
+    },
+    {
+      "metric": "readout_error",
+      "scope": "all",
+      "tail": "lower",
+      "year": 2007,
+      "population": 1,
+      "selected": 1
+    },
+    {
+      "metric": "readout_error",
+      "scope": "all",
+      "tail": "lower",
+      "year": 2011,
+      "population": 5,
+      "selected": 5
+    },
+    {
+      "metric": "readout_error",
+      "scope": "all",
+      "tail": "lower",
+      "year": 2009,
+      "population": 3,
+      "selected": 3
+    },
+    {
+      "metric": "readout_error",
+      "scope": "all",
+      "tail": "lower",
+      "year": 2015,
+      "population": 14,
+      "selected": 5
+    },
+    {
+      "metric": "readout_error",
+      "scope": "all",
+      "tail": "lower",
+      "year": 2006,
+      "population": 2,
+      "selected": 2
+    },
+    {
+      "metric": "readout_error",
+      "scope": "all",
+      "tail": "lower",
+      "year": 2005,
+      "population": 1,
+      "selected": 1
+    },
+    {
+      "metric": "readout_error",
+      "scope": "all",
+      "tail": "lower",
+      "year": 2004,
+      "population": 3,
+      "selected": 3
+    },
+    {
+      "metric": "readout_error",
+      "scope": "all",
+      "tail": "lower",
+      "year": 2016,
+      "population": 4,
+      "selected": 4
+    },
+    {
+      "metric": "readout_error",
+      "scope": "all",
+      "tail": "lower",
+      "year": 2010,
+      "population": 2,
+      "selected": 2
+    },
+    {
+      "metric": "readout_error",
+      "scope": "default",
+      "tail": "upper",
+      "year": 2023,
+      "population": 93,
+      "selected": 5
+    },
+    {
+      "metric": "readout_error",
+      "scope": "default",
+      "tail": "upper",
+      "year": 2022,
+      "population": 80,
+      "selected": 5
+    },
+    {
+      "metric": "readout_error",
+      "scope": "default",
+      "tail": "upper",
+      "year": 2025,
+      "population": 132,
+      "selected": 7
+    },
+    {
+      "metric": "readout_error",
+      "scope": "default",
+      "tail": "upper",
+      "year": 2024,
+      "population": 91,
+      "selected": 5
+    },
+    {
+      "metric": "readout_error",
+      "scope": "default",
+      "tail": "upper",
+      "year": 2008,
+      "population": 2,
+      "selected": 2
+    },
+    {
+      "metric": "readout_error",
+      "scope": "default",
+      "tail": "upper",
+      "year": 2020,
+      "population": 30,
+      "selected": 5
+    },
+    {
+      "metric": "readout_error",
+      "scope": "default",
+      "tail": "upper",
+      "year": 2021,
+      "population": 21,
+      "selected": 5
+    },
+    {
+      "metric": "readout_error",
+      "scope": "default",
+      "tail": "upper",
+      "year": 2017,
+      "population": 12,
+      "selected": 5
+    },
+    {
+      "metric": "readout_error",
+      "scope": "default",
+      "tail": "upper",
+      "year": 2019,
+      "population": 21,
+      "selected": 5
+    },
+    {
+      "metric": "readout_error",
+      "scope": "default",
+      "tail": "upper",
+      "year": 2015,
+      "population": 14,
+      "selected": 5
+    },
+    {
+      "metric": "readout_error",
+      "scope": "default",
+      "tail": "upper",
+      "year": 2018,
+      "population": 17,
+      "selected": 5
+    },
+    {
+      "metric": "readout_error",
+      "scope": "default",
+      "tail": "upper",
+      "year": 2013,
+      "population": 1,
+      "selected": 1
+    },
+    {
+      "metric": "readout_error",
+      "scope": "default",
+      "tail": "upper",
+      "year": 2006,
+      "population": 2,
+      "selected": 2
+    },
+    {
+      "metric": "readout_error",
+      "scope": "default",
+      "tail": "upper",
+      "year": 2011,
+      "population": 3,
+      "selected": 3
+    },
+    {
+      "metric": "readout_error",
+      "scope": "default",
+      "tail": "upper",
+      "year": 2014,
+      "population": 2,
+      "selected": 2
+    },
+    {
+      "metric": "readout_error",
+      "scope": "default",
+      "tail": "upper",
+      "year": 2016,
+      "population": 3,
+      "selected": 3
+    },
+    {
+      "metric": "readout_error",
+      "scope": "default",
+      "tail": "upper",
+      "year": 2004,
+      "population": 1,
+      "selected": 1
+    },
+    {
+      "metric": "readout_error",
+      "scope": "default",
+      "tail": "lower",
+      "year": 2023,
+      "population": 93,
+      "selected": 5
+    },
+    {
+      "metric": "readout_error",
+      "scope": "default",
+      "tail": "lower",
+      "year": 2022,
+      "population": 80,
+      "selected": 5
+    },
+    {
+      "metric": "readout_error",
+      "scope": "default",
+      "tail": "lower",
+      "year": 2025,
+      "population": 132,
+      "selected": 7
+    },
+    {
+      "metric": "readout_error",
+      "scope": "default",
+      "tail": "lower",
+      "year": 2024,
+      "population": 91,
+      "selected": 5
+    },
+    {
+      "metric": "readout_error",
+      "scope": "default",
+      "tail": "lower",
+      "year": 2008,
+      "population": 2,
+      "selected": 2
+    },
+    {
+      "metric": "readout_error",
+      "scope": "default",
+      "tail": "lower",
+      "year": 2020,
+      "population": 30,
+      "selected": 5
+    },
+    {
+      "metric": "readout_error",
+      "scope": "default",
+      "tail": "lower",
+      "year": 2021,
+      "population": 21,
+      "selected": 5
+    },
+    {
+      "metric": "readout_error",
+      "scope": "default",
+      "tail": "lower",
+      "year": 2017,
+      "population": 12,
+      "selected": 5
+    },
+    {
+      "metric": "readout_error",
+      "scope": "default",
+      "tail": "lower",
+      "year": 2019,
+      "population": 21,
+      "selected": 5
+    },
+    {
+      "metric": "readout_error",
+      "scope": "default",
+      "tail": "lower",
+      "year": 2015,
+      "population": 14,
+      "selected": 5
+    },
+    {
+      "metric": "readout_error",
+      "scope": "default",
+      "tail": "lower",
+      "year": 2018,
+      "population": 17,
+      "selected": 5
+    },
+    {
+      "metric": "readout_error",
+      "scope": "default",
+      "tail": "lower",
+      "year": 2013,
+      "population": 1,
+      "selected": 1
+    },
+    {
+      "metric": "readout_error",
+      "scope": "default",
+      "tail": "lower",
+      "year": 2006,
+      "population": 2,
+      "selected": 2
+    },
+    {
+      "metric": "readout_error",
+      "scope": "default",
+      "tail": "lower",
+      "year": 2011,
+      "population": 3,
+      "selected": 3
+    },
+    {
+      "metric": "readout_error",
+      "scope": "default",
+      "tail": "lower",
+      "year": 2014,
+      "population": 2,
+      "selected": 2
+    },
+    {
+      "metric": "readout_error",
+      "scope": "default",
+      "tail": "lower",
+      "year": 2016,
+      "population": 3,
+      "selected": 3
+    },
+    {
+      "metric": "readout_error",
+      "scope": "default",
+      "tail": "lower",
+      "year": 2004,
+      "population": 1,
+      "selected": 1
+    },
+    {
+      "metric": "readout_time",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2018,
+      "population": 19,
+      "selected": 5
+    },
+    {
+      "metric": "readout_time",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2022,
+      "population": 89,
+      "selected": 5
+    },
+    {
+      "metric": "readout_time",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2024,
+      "population": 144,
+      "selected": 8
+    },
+    {
+      "metric": "readout_time",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2023,
+      "population": 74,
+      "selected": 5
+    },
+    {
+      "metric": "readout_time",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2020,
+      "population": 47,
+      "selected": 5
+    },
+    {
+      "metric": "readout_time",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2010,
+      "population": 16,
+      "selected": 5
+    },
+    {
+      "metric": "readout_time",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2025,
+      "population": 143,
+      "selected": 8
+    },
+    {
+      "metric": "readout_time",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2021,
+      "population": 32,
+      "selected": 5
+    },
+    {
+      "metric": "readout_time",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2002,
+      "population": 6,
+      "selected": 5
+    },
+    {
+      "metric": "readout_time",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2017,
+      "population": 29,
+      "selected": 5
+    },
+    {
+      "metric": "readout_time",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2019,
+      "population": 26,
+      "selected": 5
+    },
+    {
+      "metric": "readout_time",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2005,
+      "population": 5,
+      "selected": 5
+    },
+    {
+      "metric": "readout_time",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2014,
+      "population": 17,
+      "selected": 5
+    },
+    {
+      "metric": "readout_time",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2003,
+      "population": 7,
+      "selected": 5
+    },
+    {
+      "metric": "readout_time",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2015,
+      "population": 19,
+      "selected": 5
+    },
+    {
+      "metric": "readout_time",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2013,
+      "population": 13,
+      "selected": 5
+    },
+    {
+      "metric": "readout_time",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2004,
+      "population": 7,
+      "selected": 5
+    },
+    {
+      "metric": "readout_time",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2007,
+      "population": 5,
+      "selected": 5
+    },
+    {
+      "metric": "readout_time",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2012,
+      "population": 14,
+      "selected": 5
+    },
+    {
+      "metric": "readout_time",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2016,
+      "population": 14,
+      "selected": 5
+    },
+    {
+      "metric": "readout_time",
+      "scope": "all",
+      "tail": "upper",
+      "year": 1998,
+      "population": 1,
+      "selected": 1
+    },
+    {
+      "metric": "readout_time",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2011,
+      "population": 11,
+      "selected": 5
+    },
+    {
+      "metric": "readout_time",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2009,
+      "population": 3,
+      "selected": 3
+    },
+    {
+      "metric": "readout_time",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2006,
+      "population": 4,
+      "selected": 4
+    },
+    {
+      "metric": "readout_time",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2008,
+      "population": 5,
+      "selected": 5
+    },
+    {
+      "metric": "readout_time",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2001,
+      "population": 1,
+      "selected": 1
+    },
+    {
+      "metric": "readout_time",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2000,
+      "population": 1,
+      "selected": 1
+    },
+    {
+      "metric": "readout_time",
+      "scope": "all",
+      "tail": "upper",
+      "year": 1999,
+      "population": 1,
+      "selected": 1
+    },
+    {
+      "metric": "readout_time",
+      "scope": "all",
+      "tail": "lower",
+      "year": 2018,
+      "population": 19,
+      "selected": 5
+    },
+    {
+      "metric": "readout_time",
+      "scope": "all",
+      "tail": "lower",
+      "year": 2022,
+      "population": 89,
+      "selected": 5
+    },
+    {
+      "metric": "readout_time",
+      "scope": "all",
+      "tail": "lower",
+      "year": 2024,
+      "population": 144,
+      "selected": 8
+    },
+    {
+      "metric": "readout_time",
+      "scope": "all",
+      "tail": "lower",
+      "year": 2023,
+      "population": 74,
+      "selected": 5
+    },
+    {
+      "metric": "readout_time",
+      "scope": "all",
+      "tail": "lower",
+      "year": 2020,
+      "population": 47,
+      "selected": 5
+    },
+    {
+      "metric": "readout_time",
+      "scope": "all",
+      "tail": "lower",
+      "year": 2010,
+      "population": 16,
+      "selected": 5
+    },
+    {
+      "metric": "readout_time",
+      "scope": "all",
+      "tail": "lower",
+      "year": 2025,
+      "population": 143,
+      "selected": 8
+    },
+    {
+      "metric": "readout_time",
+      "scope": "all",
+      "tail": "lower",
+      "year": 2021,
+      "population": 32,
+      "selected": 5
+    },
+    {
+      "metric": "readout_time",
+      "scope": "all",
+      "tail": "lower",
+      "year": 2002,
+      "population": 6,
+      "selected": 5
+    },
+    {
+      "metric": "readout_time",
+      "scope": "all",
+      "tail": "lower",
+      "year": 2017,
+      "population": 29,
+      "selected": 5
+    },
+    {
+      "metric": "readout_time",
+      "scope": "all",
+      "tail": "lower",
+      "year": 2019,
+      "population": 26,
+      "selected": 5
+    },
+    {
+      "metric": "readout_time",
+      "scope": "all",
+      "tail": "lower",
+      "year": 2005,
+      "population": 5,
+      "selected": 5
+    },
+    {
+      "metric": "readout_time",
+      "scope": "all",
+      "tail": "lower",
+      "year": 2014,
+      "population": 17,
+      "selected": 5
+    },
+    {
+      "metric": "readout_time",
+      "scope": "all",
+      "tail": "lower",
+      "year": 2003,
+      "population": 7,
+      "selected": 5
+    },
+    {
+      "metric": "readout_time",
+      "scope": "all",
+      "tail": "lower",
+      "year": 2015,
+      "population": 19,
+      "selected": 5
+    },
+    {
+      "metric": "readout_time",
+      "scope": "all",
+      "tail": "lower",
+      "year": 2013,
+      "population": 13,
+      "selected": 5
+    },
+    {
+      "metric": "readout_time",
+      "scope": "all",
+      "tail": "lower",
+      "year": 2004,
+      "population": 7,
+      "selected": 5
+    },
+    {
+      "metric": "readout_time",
+      "scope": "all",
+      "tail": "lower",
+      "year": 2007,
+      "population": 5,
+      "selected": 5
+    },
+    {
+      "metric": "readout_time",
+      "scope": "all",
+      "tail": "lower",
+      "year": 2012,
+      "population": 14,
+      "selected": 5
+    },
+    {
+      "metric": "readout_time",
+      "scope": "all",
+      "tail": "lower",
+      "year": 2016,
+      "population": 14,
+      "selected": 5
+    },
+    {
+      "metric": "readout_time",
+      "scope": "all",
+      "tail": "lower",
+      "year": 1998,
+      "population": 1,
+      "selected": 1
+    },
+    {
+      "metric": "readout_time",
+      "scope": "all",
+      "tail": "lower",
+      "year": 2011,
+      "population": 11,
+      "selected": 5
+    },
+    {
+      "metric": "readout_time",
+      "scope": "all",
+      "tail": "lower",
+      "year": 2009,
+      "population": 3,
+      "selected": 3
+    },
+    {
+      "metric": "readout_time",
+      "scope": "all",
+      "tail": "lower",
+      "year": 2006,
+      "population": 4,
+      "selected": 4
+    },
+    {
+      "metric": "readout_time",
+      "scope": "all",
+      "tail": "lower",
+      "year": 2008,
+      "population": 5,
+      "selected": 5
+    },
+    {
+      "metric": "readout_time",
+      "scope": "all",
+      "tail": "lower",
+      "year": 2001,
+      "population": 1,
+      "selected": 1
+    },
+    {
+      "metric": "readout_time",
+      "scope": "all",
+      "tail": "lower",
+      "year": 2000,
+      "population": 1,
+      "selected": 1
+    },
+    {
+      "metric": "readout_time",
+      "scope": "all",
+      "tail": "lower",
+      "year": 1999,
+      "population": 1,
+      "selected": 1
+    },
+    {
+      "metric": "readout_time",
+      "scope": "default",
+      "tail": "upper",
+      "year": 2022,
+      "population": 42,
+      "selected": 5
+    },
+    {
+      "metric": "readout_time",
+      "scope": "default",
+      "tail": "upper",
+      "year": 2023,
+      "population": 43,
+      "selected": 5
+    },
+    {
+      "metric": "readout_time",
+      "scope": "default",
+      "tail": "upper",
+      "year": 2010,
+      "population": 7,
+      "selected": 5
+    },
+    {
+      "metric": "readout_time",
+      "scope": "default",
+      "tail": "upper",
+      "year": 2025,
+      "population": 80,
+      "selected": 5
+    },
+    {
+      "metric": "readout_time",
+      "scope": "default",
+      "tail": "upper",
+      "year": 2021,
+      "population": 10,
+      "selected": 5
+    },
+    {
+      "metric": "readout_time",
+      "scope": "default",
+      "tail": "upper",
+      "year": 2017,
+      "population": 20,
+      "selected": 5
+    },
+    {
+      "metric": "readout_time",
+      "scope": "default",
+      "tail": "upper",
+      "year": 2005,
+      "population": 3,
+      "selected": 3
+    },
+    {
+      "metric": "readout_time",
+      "scope": "default",
+      "tail": "upper",
+      "year": 2014,
+      "population": 9,
+      "selected": 5
+    },
+    {
+      "metric": "readout_time",
+      "scope": "default",
+      "tail": "upper",
+      "year": 2020,
+      "population": 32,
+      "selected": 5
+    },
+    {
+      "metric": "readout_time",
+      "scope": "default",
+      "tail": "upper",
+      "year": 2019,
+      "population": 14,
+      "selected": 5
+    },
+    {
+      "metric": "readout_time",
+      "scope": "default",
+      "tail": "upper",
+      "year": 2015,
+      "population": 7,
+      "selected": 5
+    },
+    {
+      "metric": "readout_time",
+      "scope": "default",
+      "tail": "upper",
+      "year": 2024,
+      "population": 50,
+      "selected": 5
+    },
+    {
+      "metric": "readout_time",
+      "scope": "default",
+      "tail": "upper",
+      "year": 2013,
+      "population": 9,
+      "selected": 5
+    },
+    {
+      "metric": "readout_time",
+      "scope": "default",
+      "tail": "upper",
+      "year": 2004,
+      "population": 5,
+      "selected": 5
+    },
+    {
+      "metric": "readout_time",
+      "scope": "default",
+      "tail": "upper",
+      "year": 2003,
+      "population": 2,
+      "selected": 2
+    },
+    {
+      "metric": "readout_time",
+      "scope": "default",
+      "tail": "upper",
+      "year": 2012,
+      "population": 5,
+      "selected": 5
+    },
+    {
+      "metric": "readout_time",
+      "scope": "default",
+      "tail": "upper",
+      "year": 2016,
+      "population": 4,
+      "selected": 4
+    },
+    {
+      "metric": "readout_time",
+      "scope": "default",
+      "tail": "upper",
+      "year": 2018,
+      "population": 7,
+      "selected": 5
+    },
+    {
+      "metric": "readout_time",
+      "scope": "default",
+      "tail": "upper",
+      "year": 2006,
+      "population": 2,
+      "selected": 2
+    },
+    {
+      "metric": "readout_time",
+      "scope": "default",
+      "tail": "upper",
+      "year": 2011,
+      "population": 2,
+      "selected": 2
+    },
+    {
+      "metric": "readout_time",
+      "scope": "default",
+      "tail": "upper",
+      "year": 2000,
+      "population": 1,
+      "selected": 1
+    },
+    {
+      "metric": "readout_time",
+      "scope": "default",
+      "tail": "lower",
+      "year": 2022,
+      "population": 42,
+      "selected": 5
+    },
+    {
+      "metric": "readout_time",
+      "scope": "default",
+      "tail": "lower",
+      "year": 2023,
+      "population": 43,
+      "selected": 5
+    },
+    {
+      "metric": "readout_time",
+      "scope": "default",
+      "tail": "lower",
+      "year": 2010,
+      "population": 7,
+      "selected": 5
+    },
+    {
+      "metric": "readout_time",
+      "scope": "default",
+      "tail": "lower",
+      "year": 2025,
+      "population": 80,
+      "selected": 5
+    },
+    {
+      "metric": "readout_time",
+      "scope": "default",
+      "tail": "lower",
+      "year": 2021,
+      "population": 10,
+      "selected": 5
+    },
+    {
+      "metric": "readout_time",
+      "scope": "default",
+      "tail": "lower",
+      "year": 2017,
+      "population": 20,
+      "selected": 5
+    },
+    {
+      "metric": "readout_time",
+      "scope": "default",
+      "tail": "lower",
+      "year": 2005,
+      "population": 3,
+      "selected": 3
+    },
+    {
+      "metric": "readout_time",
+      "scope": "default",
+      "tail": "lower",
+      "year": 2014,
+      "population": 9,
+      "selected": 5
+    },
+    {
+      "metric": "readout_time",
+      "scope": "default",
+      "tail": "lower",
+      "year": 2020,
+      "population": 32,
+      "selected": 5
+    },
+    {
+      "metric": "readout_time",
+      "scope": "default",
+      "tail": "lower",
+      "year": 2019,
+      "population": 14,
+      "selected": 5
+    },
+    {
+      "metric": "readout_time",
+      "scope": "default",
+      "tail": "lower",
+      "year": 2015,
+      "population": 7,
+      "selected": 5
+    },
+    {
+      "metric": "readout_time",
+      "scope": "default",
+      "tail": "lower",
+      "year": 2024,
+      "population": 50,
+      "selected": 5
+    },
+    {
+      "metric": "readout_time",
+      "scope": "default",
+      "tail": "lower",
+      "year": 2013,
+      "population": 9,
+      "selected": 5
+    },
+    {
+      "metric": "readout_time",
+      "scope": "default",
+      "tail": "lower",
+      "year": 2004,
+      "population": 5,
+      "selected": 5
+    },
+    {
+      "metric": "readout_time",
+      "scope": "default",
+      "tail": "lower",
+      "year": 2003,
+      "population": 2,
+      "selected": 2
+    },
+    {
+      "metric": "readout_time",
+      "scope": "default",
+      "tail": "lower",
+      "year": 2012,
+      "population": 5,
+      "selected": 5
+    },
+    {
+      "metric": "readout_time",
+      "scope": "default",
+      "tail": "lower",
+      "year": 2016,
+      "population": 4,
+      "selected": 4
+    },
+    {
+      "metric": "readout_time",
+      "scope": "default",
+      "tail": "lower",
+      "year": 2018,
+      "population": 7,
+      "selected": 5
+    },
+    {
+      "metric": "readout_time",
+      "scope": "default",
+      "tail": "lower",
+      "year": 2006,
+      "population": 2,
+      "selected": 2
+    },
+    {
+      "metric": "readout_time",
+      "scope": "default",
+      "tail": "lower",
+      "year": 2011,
+      "population": 2,
+      "selected": 2
+    },
+    {
+      "metric": "readout_time",
+      "scope": "default",
+      "tail": "lower",
+      "year": 2000,
+      "population": 1,
+      "selected": 1
+    },
+    {
+      "metric": "qubit_frequency",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2023,
+      "population": 607,
+      "selected": 31
+    },
+    {
+      "metric": "qubit_frequency",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2024,
+      "population": 846,
+      "selected": 43
+    },
+    {
+      "metric": "qubit_frequency",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2010,
+      "population": 62,
+      "selected": 5
+    },
+    {
+      "metric": "qubit_frequency",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2021,
+      "population": 472,
+      "selected": 24
+    },
+    {
+      "metric": "qubit_frequency",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2022,
+      "population": 560,
+      "selected": 28
+    },
+    {
+      "metric": "qubit_frequency",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2019,
+      "population": 317,
+      "selected": 16
+    },
+    {
+      "metric": "qubit_frequency",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2018,
+      "population": 224,
+      "selected": 12
+    },
+    {
+      "metric": "qubit_frequency",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2025,
+      "population": 1013,
+      "selected": 51
+    },
+    {
+      "metric": "qubit_frequency",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2017,
+      "population": 201,
+      "selected": 11
+    },
+    {
+      "metric": "qubit_frequency",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2003,
+      "population": 23,
+      "selected": 5
+    },
+    {
+      "metric": "qubit_frequency",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2005,
+      "population": 34,
+      "selected": 5
+    },
+    {
+      "metric": "qubit_frequency",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2015,
+      "population": 108,
+      "selected": 6
+    },
+    {
+      "metric": "qubit_frequency",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2004,
+      "population": 38,
+      "selected": 5
+    },
+    {
+      "metric": "qubit_frequency",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2011,
+      "population": 68,
+      "selected": 5
+    },
+    {
+      "metric": "qubit_frequency",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2008,
+      "population": 38,
+      "selected": 5
+    },
+    {
+      "metric": "qubit_frequency",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2020,
+      "population": 365,
+      "selected": 19
+    },
+    {
+      "metric": "qubit_frequency",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2012,
+      "population": 89,
+      "selected": 5
+    },
+    {
+      "metric": "qubit_frequency",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2016,
+      "population": 129,
+      "selected": 7
+    },
+    {
+      "metric": "qubit_frequency",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2013,
+      "population": 94,
+      "selected": 5
+    },
+    {
+      "metric": "qubit_frequency",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2014,
+      "population": 80,
+      "selected": 5
+    },
+    {
+      "metric": "qubit_frequency",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2006,
+      "population": 21,
+      "selected": 5
+    },
+    {
+      "metric": "qubit_frequency",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2002,
+      "population": 10,
+      "selected": 5
+    },
+    {
+      "metric": "qubit_frequency",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2007,
+      "population": 36,
+      "selected": 5
+    },
+    {
+      "metric": "qubit_frequency",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2009,
+      "population": 32,
+      "selected": 5
+    },
+    {
+      "metric": "qubit_frequency",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2001,
+      "population": 2,
+      "selected": 2
+    },
+    {
+      "metric": "qubit_frequency",
+      "scope": "all",
+      "tail": "upper",
+      "year": 1999,
+      "population": 2,
+      "selected": 2
+    },
+    {
+      "metric": "qubit_frequency",
+      "scope": "default",
+      "tail": "upper",
+      "year": 2023,
+      "population": 418,
+      "selected": 21
+    },
+    {
+      "metric": "qubit_frequency",
+      "scope": "default",
+      "tail": "upper",
+      "year": 2024,
+      "population": 610,
+      "selected": 31
+    },
+    {
+      "metric": "qubit_frequency",
+      "scope": "default",
+      "tail": "upper",
+      "year": 2010,
+      "population": 38,
+      "selected": 5
+    },
+    {
+      "metric": "qubit_frequency",
+      "scope": "default",
+      "tail": "upper",
+      "year": 2021,
+      "population": 383,
+      "selected": 20
+    },
+    {
+      "metric": "qubit_frequency",
+      "scope": "default",
+      "tail": "upper",
+      "year": 2022,
+      "population": 395,
+      "selected": 20
+    },
+    {
+      "metric": "qubit_frequency",
+      "scope": "default",
+      "tail": "upper",
+      "year": 2025,
+      "population": 777,
+      "selected": 39
+    },
+    {
+      "metric": "qubit_frequency",
+      "scope": "default",
+      "tail": "upper",
+      "year": 2017,
+      "population": 146,
+      "selected": 8
+    },
+    {
+      "metric": "qubit_frequency",
+      "scope": "default",
+      "tail": "upper",
+      "year": 2005,
+      "population": 16,
+      "selected": 5
+    },
+    {
+      "metric": "qubit_frequency",
+      "scope": "default",
+      "tail": "upper",
+      "year": 2015,
+      "population": 74,
+      "selected": 5
+    },
+    {
+      "metric": "qubit_frequency",
+      "scope": "default",
+      "tail": "upper",
+      "year": 2011,
+      "population": 47,
+      "selected": 5
+    },
+    {
+      "metric": "qubit_frequency",
+      "scope": "default",
+      "tail": "upper",
+      "year": 2019,
+      "population": 223,
+      "selected": 12
+    },
+    {
+      "metric": "qubit_frequency",
+      "scope": "default",
+      "tail": "upper",
+      "year": 2012,
+      "population": 56,
+      "selected": 5
+    },
+    {
+      "metric": "qubit_frequency",
+      "scope": "default",
+      "tail": "upper",
+      "year": 2016,
+      "population": 76,
+      "selected": 5
+    },
+    {
+      "metric": "qubit_frequency",
+      "scope": "default",
+      "tail": "upper",
+      "year": 2013,
+      "population": 62,
+      "selected": 5
+    },
+    {
+      "metric": "qubit_frequency",
+      "scope": "default",
+      "tail": "upper",
+      "year": 2020,
+      "population": 260,
+      "selected": 13
+    },
+    {
+      "metric": "qubit_frequency",
+      "scope": "default",
+      "tail": "upper",
+      "year": 2014,
+      "population": 52,
+      "selected": 5
+    },
+    {
+      "metric": "qubit_frequency",
+      "scope": "default",
+      "tail": "upper",
+      "year": 2018,
+      "population": 154,
+      "selected": 8
+    },
+    {
+      "metric": "qubit_frequency",
+      "scope": "default",
+      "tail": "upper",
+      "year": 2007,
+      "population": 19,
+      "selected": 5
+    },
+    {
+      "metric": "qubit_frequency",
+      "scope": "default",
+      "tail": "upper",
+      "year": 2009,
+      "population": 21,
+      "selected": 5
+    },
+    {
+      "metric": "qubit_frequency",
+      "scope": "default",
+      "tail": "upper",
+      "year": 2008,
+      "population": 20,
+      "selected": 5
+    },
+    {
+      "metric": "qubit_frequency",
+      "scope": "default",
+      "tail": "upper",
+      "year": 2004,
+      "population": 11,
+      "selected": 5
+    },
+    {
+      "metric": "qubit_frequency",
+      "scope": "default",
+      "tail": "upper",
+      "year": 2003,
+      "population": 9,
+      "selected": 5
+    },
+    {
+      "metric": "qubit_frequency",
+      "scope": "default",
+      "tail": "upper",
+      "year": 2006,
+      "population": 13,
+      "selected": 5
+    },
+    {
+      "metric": "qubit_frequency",
+      "scope": "default",
+      "tail": "upper",
+      "year": 2002,
+      "population": 2,
+      "selected": 2
+    },
+    {
+      "metric": "qubit_frequency",
+      "scope": "default",
+      "tail": "upper",
+      "year": 2001,
+      "population": 2,
+      "selected": 2
+    },
+    {
+      "metric": "resonator_frequency",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2009,
+      "population": 100,
+      "selected": 5
+    },
+    {
+      "metric": "resonator_frequency",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2010,
+      "population": 84,
+      "selected": 5
+    },
+    {
+      "metric": "resonator_frequency",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2012,
+      "population": 125,
+      "selected": 7
+    },
+    {
+      "metric": "resonator_frequency",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2023,
+      "population": 528,
+      "selected": 27
+    },
+    {
+      "metric": "resonator_frequency",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2024,
+      "population": 683,
+      "selected": 35
+    },
+    {
+      "metric": "resonator_frequency",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2021,
+      "population": 352,
+      "selected": 18
+    },
+    {
+      "metric": "resonator_frequency",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2022,
+      "population": 393,
+      "selected": 20
+    },
+    {
+      "metric": "resonator_frequency",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2025,
+      "population": 965,
+      "selected": 49
+    },
+    {
+      "metric": "resonator_frequency",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2016,
+      "population": 174,
+      "selected": 9
+    },
+    {
+      "metric": "resonator_frequency",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2017,
+      "population": 239,
+      "selected": 12
+    },
+    {
+      "metric": "resonator_frequency",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2019,
+      "population": 320,
+      "selected": 16
+    },
+    {
+      "metric": "resonator_frequency",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2015,
+      "population": 210,
+      "selected": 11
+    },
+    {
+      "metric": "resonator_frequency",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2020,
+      "population": 345,
+      "selected": 18
+    },
+    {
+      "metric": "resonator_frequency",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2011,
+      "population": 105,
+      "selected": 6
+    },
+    {
+      "metric": "resonator_frequency",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2003,
+      "population": 34,
+      "selected": 5
+    },
+    {
+      "metric": "resonator_frequency",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2014,
+      "population": 144,
+      "selected": 8
+    },
+    {
+      "metric": "resonator_frequency",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2008,
+      "population": 77,
+      "selected": 5
+    },
+    {
+      "metric": "resonator_frequency",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2013,
+      "population": 139,
+      "selected": 7
+    },
+    {
+      "metric": "resonator_frequency",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2018,
+      "population": 267,
+      "selected": 14
+    },
+    {
+      "metric": "resonator_frequency",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2004,
+      "population": 25,
+      "selected": 5
+    },
+    {
+      "metric": "resonator_frequency",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2007,
+      "population": 41,
+      "selected": 5
+    },
+    {
+      "metric": "resonator_frequency",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2005,
+      "population": 31,
+      "selected": 5
+    },
+    {
+      "metric": "resonator_frequency",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2006,
+      "population": 33,
+      "selected": 5
+    },
+    {
+      "metric": "resonator_frequency",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2001,
+      "population": 5,
+      "selected": 5
+    },
+    {
+      "metric": "resonator_frequency",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2002,
+      "population": 6,
+      "selected": 5
+    },
+    {
+      "metric": "resonator_frequency",
+      "scope": "all",
+      "tail": "upper",
+      "year": 1992,
+      "population": 2,
+      "selected": 2
+    },
+    {
+      "metric": "resonator_frequency",
+      "scope": "default",
+      "tail": "upper",
+      "year": 2024,
+      "population": 214,
+      "selected": 11
+    },
+    {
+      "metric": "resonator_frequency",
+      "scope": "default",
+      "tail": "upper",
+      "year": 2021,
+      "population": 139,
+      "selected": 7
+    },
+    {
+      "metric": "resonator_frequency",
+      "scope": "default",
+      "tail": "upper",
+      "year": 2023,
+      "population": 108,
+      "selected": 6
+    },
+    {
+      "metric": "resonator_frequency",
+      "scope": "default",
+      "tail": "upper",
+      "year": 2022,
+      "population": 101,
+      "selected": 6
+    },
+    {
+      "metric": "resonator_frequency",
+      "scope": "default",
+      "tail": "upper",
+      "year": 2025,
+      "population": 346,
+      "selected": 18
+    },
+    {
+      "metric": "resonator_frequency",
+      "scope": "default",
+      "tail": "upper",
+      "year": 2019,
+      "population": 108,
+      "selected": 6
+    },
+    {
+      "metric": "resonator_frequency",
+      "scope": "default",
+      "tail": "upper",
+      "year": 2014,
+      "population": 24,
+      "selected": 5
+    },
+    {
+      "metric": "resonator_frequency",
+      "scope": "default",
+      "tail": "upper",
+      "year": 2018,
+      "population": 52,
+      "selected": 5
+    },
+    {
+      "metric": "resonator_frequency",
+      "scope": "default",
+      "tail": "upper",
+      "year": 2017,
+      "population": 68,
+      "selected": 5
+    },
+    {
+      "metric": "resonator_frequency",
+      "scope": "default",
+      "tail": "upper",
+      "year": 2016,
+      "population": 19,
+      "selected": 5
+    },
+    {
+      "metric": "resonator_frequency",
+      "scope": "default",
+      "tail": "upper",
+      "year": 2005,
+      "population": 2,
+      "selected": 2
+    },
+    {
+      "metric": "resonator_frequency",
+      "scope": "default",
+      "tail": "upper",
+      "year": 2020,
+      "population": 99,
+      "selected": 5
+    },
+    {
+      "metric": "resonator_frequency",
+      "scope": "default",
+      "tail": "upper",
+      "year": 2013,
+      "population": 13,
+      "selected": 5
+    },
+    {
+      "metric": "resonator_frequency",
+      "scope": "default",
+      "tail": "upper",
+      "year": 2011,
+      "population": 6,
+      "selected": 5
+    },
+    {
+      "metric": "resonator_frequency",
+      "scope": "default",
+      "tail": "upper",
+      "year": 2015,
+      "population": 40,
+      "selected": 5
+    },
+    {
+      "metric": "resonator_frequency",
+      "scope": "default",
+      "tail": "upper",
+      "year": 2012,
+      "population": 8,
+      "selected": 5
+    },
+    {
+      "metric": "resonator_frequency",
+      "scope": "default",
+      "tail": "upper",
+      "year": 2008,
+      "population": 10,
+      "selected": 5
+    },
+    {
+      "metric": "resonator_frequency",
+      "scope": "default",
+      "tail": "upper",
+      "year": 2004,
+      "population": 2,
+      "selected": 2
+    },
+    {
+      "metric": "resonator_frequency",
+      "scope": "default",
+      "tail": "upper",
+      "year": 2006,
+      "population": 4,
+      "selected": 4
+    },
+    {
+      "metric": "resonator_frequency",
+      "scope": "default",
+      "tail": "upper",
+      "year": 2007,
+      "population": 8,
+      "selected": 5
+    },
+    {
+      "metric": "resonator_frequency",
+      "scope": "default",
+      "tail": "upper",
+      "year": 2010,
+      "population": 3,
+      "selected": 3
+    },
+    {
+      "metric": "resonator_frequency",
+      "scope": "default",
+      "tail": "upper",
+      "year": 2009,
+      "population": 2,
+      "selected": 2
+    },
+    {
+      "metric": "resonator_frequency",
+      "scope": "default",
+      "tail": "upper",
+      "year": 2003,
+      "population": 1,
+      "selected": 1
+    },
+    {
+      "metric": "resonator_qi",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2018,
+      "population": 30,
+      "selected": 5
+    },
+    {
+      "metric": "resonator_qi",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2023,
+      "population": 131,
+      "selected": 7
+    },
+    {
+      "metric": "resonator_qi",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2015,
+      "population": 48,
+      "selected": 5
+    },
+    {
+      "metric": "resonator_qi",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2021,
+      "population": 53,
+      "selected": 5
+    },
+    {
+      "metric": "resonator_qi",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2016,
+      "population": 35,
+      "selected": 5
+    },
+    {
+      "metric": "resonator_qi",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2017,
+      "population": 42,
+      "selected": 5
+    },
+    {
+      "metric": "resonator_qi",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2019,
+      "population": 66,
+      "selected": 5
+    },
+    {
+      "metric": "resonator_qi",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2012,
+      "population": 12,
+      "selected": 5
+    },
+    {
+      "metric": "resonator_qi",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2024,
+      "population": 149,
+      "selected": 8
+    },
+    {
+      "metric": "resonator_qi",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2025,
+      "population": 236,
+      "selected": 12
+    },
+    {
+      "metric": "resonator_qi",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2009,
+      "population": 5,
+      "selected": 5
+    },
+    {
+      "metric": "resonator_qi",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2013,
+      "population": 25,
+      "selected": 5
+    },
+    {
+      "metric": "resonator_qi",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2020,
+      "population": 66,
+      "selected": 5
+    },
+    {
+      "metric": "resonator_qi",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2007,
+      "population": 9,
+      "selected": 5
+    },
+    {
+      "metric": "resonator_qi",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2022,
+      "population": 103,
+      "selected": 6
+    },
+    {
+      "metric": "resonator_qi",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2014,
+      "population": 17,
+      "selected": 5
+    },
+    {
+      "metric": "resonator_qi",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2008,
+      "population": 2,
+      "selected": 2
+    },
+    {
+      "metric": "resonator_qi",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2010,
+      "population": 9,
+      "selected": 5
+    },
+    {
+      "metric": "resonator_qi",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2011,
+      "population": 8,
+      "selected": 5
+    },
+    {
+      "metric": "resonator_qi",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2002,
+      "population": 1,
+      "selected": 1
+    },
+    {
+      "metric": "resonator_qi",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2006,
+      "population": 2,
+      "selected": 2
+    },
+    {
+      "metric": "resonator_qi",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2005,
+      "population": 1,
+      "selected": 1
+    },
+    {
+      "metric": "resonator_qi",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2004,
+      "population": 2,
+      "selected": 2
+    },
+    {
+      "metric": "resonator_qi",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2003,
+      "population": 1,
+      "selected": 1
+    },
+    {
+      "metric": "resonator_qi",
+      "scope": "default",
+      "tail": "upper",
+      "year": 2023,
+      "population": 4,
+      "selected": 4
+    },
+    {
+      "metric": "resonator_qi",
+      "scope": "default",
+      "tail": "upper",
+      "year": 2025,
+      "population": 40,
+      "selected": 5
+    },
+    {
+      "metric": "resonator_qi",
+      "scope": "default",
+      "tail": "upper",
+      "year": 2024,
+      "population": 8,
+      "selected": 5
+    },
+    {
+      "metric": "resonator_qi",
+      "scope": "default",
+      "tail": "upper",
+      "year": 2012,
+      "population": 1,
+      "selected": 1
+    },
+    {
+      "metric": "resonator_qi",
+      "scope": "default",
+      "tail": "upper",
+      "year": 2017,
+      "population": 4,
+      "selected": 4
+    },
+    {
+      "metric": "resonator_qi",
+      "scope": "default",
+      "tail": "upper",
+      "year": 2013,
+      "population": 3,
+      "selected": 3
+    },
+    {
+      "metric": "resonator_qi",
+      "scope": "default",
+      "tail": "upper",
+      "year": 2005,
+      "population": 1,
+      "selected": 1
+    },
+    {
+      "metric": "resonator_qi",
+      "scope": "default",
+      "tail": "upper",
+      "year": 2022,
+      "population": 9,
+      "selected": 5
+    },
+    {
+      "metric": "resonator_qi",
+      "scope": "default",
+      "tail": "upper",
+      "year": 2015,
+      "population": 2,
+      "selected": 2
+    },
+    {
+      "metric": "resonator_qi",
+      "scope": "default",
+      "tail": "upper",
+      "year": 2014,
+      "population": 1,
+      "selected": 1
+    },
+    {
+      "metric": "resonator_qi",
+      "scope": "default",
+      "tail": "upper",
+      "year": 2021,
+      "population": 1,
+      "selected": 1
+    },
+    {
+      "metric": "resonator_qi",
+      "scope": "default",
+      "tail": "upper",
+      "year": 2016,
+      "population": 1,
+      "selected": 1
+    },
+    {
+      "metric": "resonator_qi",
+      "scope": "default",
+      "tail": "upper",
+      "year": 2020,
+      "population": 1,
+      "selected": 1
+    },
+    {
+      "metric": "resonator_q_loaded",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2018,
+      "population": 15,
+      "selected": 5
+    },
+    {
+      "metric": "resonator_q_loaded",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2023,
+      "population": 40,
+      "selected": 5
+    },
+    {
+      "metric": "resonator_q_loaded",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2015,
+      "population": 23,
+      "selected": 5
+    },
+    {
+      "metric": "resonator_q_loaded",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2021,
+      "population": 19,
+      "selected": 5
+    },
+    {
+      "metric": "resonator_q_loaded",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2019,
+      "population": 18,
+      "selected": 5
+    },
+    {
+      "metric": "resonator_q_loaded",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2012,
+      "population": 8,
+      "selected": 5
+    },
+    {
+      "metric": "resonator_q_loaded",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2024,
+      "population": 48,
+      "selected": 5
+    },
+    {
+      "metric": "resonator_q_loaded",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2016,
+      "population": 19,
+      "selected": 5
+    },
+    {
+      "metric": "resonator_q_loaded",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2025,
+      "population": 51,
+      "selected": 5
+    },
+    {
+      "metric": "resonator_q_loaded",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2009,
+      "population": 16,
+      "selected": 5
+    },
+    {
+      "metric": "resonator_q_loaded",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2022,
+      "population": 38,
+      "selected": 5
+    },
+    {
+      "metric": "resonator_q_loaded",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2013,
+      "population": 27,
+      "selected": 5
+    },
+    {
+      "metric": "resonator_q_loaded",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2014,
+      "population": 16,
+      "selected": 5
+    },
+    {
+      "metric": "resonator_q_loaded",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2011,
+      "population": 15,
+      "selected": 5
+    },
+    {
+      "metric": "resonator_q_loaded",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2008,
+      "population": 1,
+      "selected": 1
+    },
+    {
+      "metric": "resonator_q_loaded",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2020,
+      "population": 26,
+      "selected": 5
+    },
+    {
+      "metric": "resonator_q_loaded",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2017,
+      "population": 20,
+      "selected": 5
+    },
+    {
+      "metric": "resonator_q_loaded",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2010,
+      "population": 7,
+      "selected": 5
+    },
+    {
+      "metric": "resonator_q_loaded",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2006,
+      "population": 1,
+      "selected": 1
+    },
+    {
+      "metric": "resonator_q_loaded",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2005,
+      "population": 2,
+      "selected": 2
+    },
+    {
+      "metric": "resonator_q_loaded",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2001,
+      "population": 1,
+      "selected": 1
+    },
+    {
+      "metric": "resonator_q_loaded",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2004,
+      "population": 5,
+      "selected": 5
+    },
+    {
+      "metric": "resonator_q_loaded",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2007,
+      "population": 12,
+      "selected": 5
+    },
+    {
+      "metric": "resonator_q_loaded",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2003,
+      "population": 1,
+      "selected": 1
+    },
+    {
+      "metric": "resonator_q_loaded",
+      "scope": "default",
+      "tail": "upper",
+      "year": 2012,
+      "population": 1,
+      "selected": 1
+    },
+    {
+      "metric": "resonator_q_loaded",
+      "scope": "default",
+      "tail": "upper",
+      "year": 2023,
+      "population": 5,
+      "selected": 5
+    },
+    {
+      "metric": "resonator_q_loaded",
+      "scope": "default",
+      "tail": "upper",
+      "year": 2019,
+      "population": 1,
+      "selected": 1
+    },
+    {
+      "metric": "resonator_q_loaded",
+      "scope": "default",
+      "tail": "upper",
+      "year": 2020,
+      "population": 2,
+      "selected": 2
+    },
+    {
+      "metric": "resonator_q_loaded",
+      "scope": "default",
+      "tail": "upper",
+      "year": 2024,
+      "population": 1,
+      "selected": 1
+    },
+    {
+      "metric": "resonator_q_loaded",
+      "scope": "default",
+      "tail": "upper",
+      "year": 2015,
+      "population": 5,
+      "selected": 5
+    },
+    {
+      "metric": "resonator_q_loaded",
+      "scope": "default",
+      "tail": "upper",
+      "year": 2009,
+      "population": 1,
+      "selected": 1
+    },
+    {
+      "metric": "resonator_q_loaded",
+      "scope": "default",
+      "tail": "upper",
+      "year": 2017,
+      "population": 1,
+      "selected": 1
+    },
+    {
+      "metric": "resonator_q_loaded",
+      "scope": "default",
+      "tail": "upper",
+      "year": 2016,
+      "population": 2,
+      "selected": 2
+    },
+    {
+      "metric": "resonator_q_loaded",
+      "scope": "default",
+      "tail": "upper",
+      "year": 2004,
+      "population": 1,
+      "selected": 1
+    },
+    {
+      "metric": "resonator_q_loaded",
+      "scope": "default",
+      "tail": "upper",
+      "year": 2013,
+      "population": 2,
+      "selected": 2
+    },
+    {
+      "metric": "resonator_q_loaded",
+      "scope": "default",
+      "tail": "upper",
+      "year": 2022,
+      "population": 6,
+      "selected": 5
+    },
+    {
+      "metric": "tls_loss",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2025,
+      "population": 61,
+      "selected": 5
+    },
+    {
+      "metric": "tls_loss",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2019,
+      "population": 15,
+      "selected": 5
+    },
+    {
+      "metric": "tls_loss",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2021,
+      "population": 16,
+      "selected": 5
+    },
+    {
+      "metric": "tls_loss",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2023,
+      "population": 18,
+      "selected": 5
+    },
+    {
+      "metric": "tls_loss",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2020,
+      "population": 32,
+      "selected": 5
+    },
+    {
+      "metric": "tls_loss",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2024,
+      "population": 72,
+      "selected": 5
+    },
+    {
+      "metric": "tls_loss",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2022,
+      "population": 29,
+      "selected": 5
+    },
+    {
+      "metric": "tls_loss",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2009,
+      "population": 6,
+      "selected": 5
+    },
+    {
+      "metric": "tls_loss",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2018,
+      "population": 18,
+      "selected": 5
+    },
+    {
+      "metric": "tls_loss",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2014,
+      "population": 14,
+      "selected": 5
+    },
+    {
+      "metric": "tls_loss",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2017,
+      "population": 10,
+      "selected": 5
+    },
+    {
+      "metric": "tls_loss",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2013,
+      "population": 10,
+      "selected": 5
+    },
+    {
+      "metric": "tls_loss",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2012,
+      "population": 6,
+      "selected": 5
+    },
+    {
+      "metric": "tls_loss",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2008,
+      "population": 2,
+      "selected": 2
+    },
+    {
+      "metric": "tls_loss",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2011,
+      "population": 1,
+      "selected": 1
+    },
+    {
+      "metric": "tls_loss",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2016,
+      "population": 2,
+      "selected": 2
+    },
+    {
+      "metric": "tls_loss",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2015,
+      "population": 1,
+      "selected": 1
+    },
+    {
+      "metric": "tls_loss",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2005,
+      "population": 1,
+      "selected": 1
+    },
+    {
+      "metric": "tls_loss",
+      "scope": "all",
+      "tail": "lower",
+      "year": 2025,
+      "population": 61,
+      "selected": 5
+    },
+    {
+      "metric": "tls_loss",
+      "scope": "all",
+      "tail": "lower",
+      "year": 2019,
+      "population": 15,
+      "selected": 5
+    },
+    {
+      "metric": "tls_loss",
+      "scope": "all",
+      "tail": "lower",
+      "year": 2021,
+      "population": 16,
+      "selected": 5
+    },
+    {
+      "metric": "tls_loss",
+      "scope": "all",
+      "tail": "lower",
+      "year": 2023,
+      "population": 18,
+      "selected": 5
+    },
+    {
+      "metric": "tls_loss",
+      "scope": "all",
+      "tail": "lower",
+      "year": 2020,
+      "population": 32,
+      "selected": 5
+    },
+    {
+      "metric": "tls_loss",
+      "scope": "all",
+      "tail": "lower",
+      "year": 2024,
+      "population": 72,
+      "selected": 5
+    },
+    {
+      "metric": "tls_loss",
+      "scope": "all",
+      "tail": "lower",
+      "year": 2022,
+      "population": 29,
+      "selected": 5
+    },
+    {
+      "metric": "tls_loss",
+      "scope": "all",
+      "tail": "lower",
+      "year": 2009,
+      "population": 6,
+      "selected": 5
+    },
+    {
+      "metric": "tls_loss",
+      "scope": "all",
+      "tail": "lower",
+      "year": 2018,
+      "population": 18,
+      "selected": 5
+    },
+    {
+      "metric": "tls_loss",
+      "scope": "all",
+      "tail": "lower",
+      "year": 2014,
+      "population": 14,
+      "selected": 5
+    },
+    {
+      "metric": "tls_loss",
+      "scope": "all",
+      "tail": "lower",
+      "year": 2017,
+      "population": 10,
+      "selected": 5
+    },
+    {
+      "metric": "tls_loss",
+      "scope": "all",
+      "tail": "lower",
+      "year": 2013,
+      "population": 10,
+      "selected": 5
+    },
+    {
+      "metric": "tls_loss",
+      "scope": "all",
+      "tail": "lower",
+      "year": 2012,
+      "population": 6,
+      "selected": 5
+    },
+    {
+      "metric": "tls_loss",
+      "scope": "all",
+      "tail": "lower",
+      "year": 2008,
+      "population": 2,
+      "selected": 2
+    },
+    {
+      "metric": "tls_loss",
+      "scope": "all",
+      "tail": "lower",
+      "year": 2011,
+      "population": 1,
+      "selected": 1
+    },
+    {
+      "metric": "tls_loss",
+      "scope": "all",
+      "tail": "lower",
+      "year": 2016,
+      "population": 2,
+      "selected": 2
+    },
+    {
+      "metric": "tls_loss",
+      "scope": "all",
+      "tail": "lower",
+      "year": 2015,
+      "population": 1,
+      "selected": 1
+    },
+    {
+      "metric": "tls_loss",
+      "scope": "all",
+      "tail": "lower",
+      "year": 2005,
+      "population": 1,
+      "selected": 1
+    },
+    {
+      "metric": "tls_loss",
+      "scope": "default",
+      "tail": "upper",
+      "year": 2024,
+      "population": 13,
+      "selected": 5
+    },
+    {
+      "metric": "tls_loss",
+      "scope": "default",
+      "tail": "upper",
+      "year": 2023,
+      "population": 1,
+      "selected": 1
+    },
+    {
+      "metric": "tls_loss",
+      "scope": "default",
+      "tail": "lower",
+      "year": 2024,
+      "population": 13,
+      "selected": 5
+    },
+    {
+      "metric": "tls_loss",
+      "scope": "default",
+      "tail": "lower",
+      "year": 2023,
+      "population": 1,
+      "selected": 1
+    },
+    {
+      "metric": "logical_error",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2008,
+      "population": 1,
+      "selected": 1
+    },
+    {
+      "metric": "logical_error",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2020,
+      "population": 3,
+      "selected": 3
+    },
+    {
+      "metric": "logical_error",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2017,
+      "population": 1,
+      "selected": 1
+    },
+    {
+      "metric": "logical_error",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2024,
+      "population": 23,
+      "selected": 5
+    },
+    {
+      "metric": "logical_error",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2022,
+      "population": 20,
+      "selected": 5
+    },
+    {
+      "metric": "logical_error",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2023,
+      "population": 19,
+      "selected": 5
+    },
+    {
+      "metric": "logical_error",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2021,
+      "population": 6,
+      "selected": 5
+    },
+    {
+      "metric": "logical_error",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2025,
+      "population": 48,
+      "selected": 5
+    },
+    {
+      "metric": "logical_error",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2018,
+      "population": 4,
+      "selected": 4
+    },
+    {
+      "metric": "logical_error",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2019,
+      "population": 4,
+      "selected": 4
+    },
+    {
+      "metric": "logical_error",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2016,
+      "population": 1,
+      "selected": 1
+    },
+    {
+      "metric": "logical_error",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2013,
+      "population": 2,
+      "selected": 2
+    },
+    {
+      "metric": "logical_error",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2015,
+      "population": 2,
+      "selected": 2
+    },
+    {
+      "metric": "logical_error",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2014,
+      "population": 1,
+      "selected": 1
+    },
+    {
+      "metric": "logical_error",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2007,
+      "population": 1,
+      "selected": 1
+    },
+    {
+      "metric": "logical_error",
+      "scope": "all",
+      "tail": "lower",
+      "year": 2008,
+      "population": 1,
+      "selected": 1
+    },
+    {
+      "metric": "logical_error",
+      "scope": "all",
+      "tail": "lower",
+      "year": 2020,
+      "population": 3,
+      "selected": 3
+    },
+    {
+      "metric": "logical_error",
+      "scope": "all",
+      "tail": "lower",
+      "year": 2017,
+      "population": 1,
+      "selected": 1
+    },
+    {
+      "metric": "logical_error",
+      "scope": "all",
+      "tail": "lower",
+      "year": 2024,
+      "population": 23,
+      "selected": 5
+    },
+    {
+      "metric": "logical_error",
+      "scope": "all",
+      "tail": "lower",
+      "year": 2022,
+      "population": 20,
+      "selected": 5
+    },
+    {
+      "metric": "logical_error",
+      "scope": "all",
+      "tail": "lower",
+      "year": 2023,
+      "population": 19,
+      "selected": 5
+    },
+    {
+      "metric": "logical_error",
+      "scope": "all",
+      "tail": "lower",
+      "year": 2021,
+      "population": 6,
+      "selected": 5
+    },
+    {
+      "metric": "logical_error",
+      "scope": "all",
+      "tail": "lower",
+      "year": 2025,
+      "population": 48,
+      "selected": 5
+    },
+    {
+      "metric": "logical_error",
+      "scope": "all",
+      "tail": "lower",
+      "year": 2018,
+      "population": 4,
+      "selected": 4
+    },
+    {
+      "metric": "logical_error",
+      "scope": "all",
+      "tail": "lower",
+      "year": 2019,
+      "population": 4,
+      "selected": 4
+    },
+    {
+      "metric": "logical_error",
+      "scope": "all",
+      "tail": "lower",
+      "year": 2016,
+      "population": 1,
+      "selected": 1
+    },
+    {
+      "metric": "logical_error",
+      "scope": "all",
+      "tail": "lower",
+      "year": 2013,
+      "population": 2,
+      "selected": 2
+    },
+    {
+      "metric": "logical_error",
+      "scope": "all",
+      "tail": "lower",
+      "year": 2015,
+      "population": 2,
+      "selected": 2
+    },
+    {
+      "metric": "logical_error",
+      "scope": "all",
+      "tail": "lower",
+      "year": 2014,
+      "population": 1,
+      "selected": 1
+    },
+    {
+      "metric": "logical_error",
+      "scope": "all",
+      "tail": "lower",
+      "year": 2007,
+      "population": 1,
+      "selected": 1
+    },
+    {
+      "metric": "logical_error",
+      "scope": "default",
+      "tail": "upper",
+      "year": 2024,
+      "population": 1,
+      "selected": 1
+    },
+    {
+      "metric": "logical_error",
+      "scope": "default",
+      "tail": "lower",
+      "year": 2024,
+      "population": 1,
+      "selected": 1
+    },
+    {
+      "metric": "qubit_count",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2023,
+      "population": 788,
+      "selected": 40
+    },
+    {
+      "metric": "qubit_count",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2020,
+      "population": 436,
+      "selected": 22
+    },
+    {
+      "metric": "qubit_count",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2024,
+      "population": 936,
+      "selected": 47
+    },
+    {
+      "metric": "qubit_count",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2010,
+      "population": 92,
+      "selected": 5
+    },
+    {
+      "metric": "qubit_count",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2016,
+      "population": 206,
+      "selected": 11
+    },
+    {
+      "metric": "qubit_count",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2021,
+      "population": 588,
+      "selected": 30
+    },
+    {
+      "metric": "qubit_count",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2019,
+      "population": 280,
+      "selected": 14
+    },
+    {
+      "metric": "qubit_count",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2022,
+      "population": 630,
+      "selected": 32
+    },
+    {
+      "metric": "qubit_count",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2025,
+      "population": 1119,
+      "selected": 56
+    },
+    {
+      "metric": "qubit_count",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2008,
+      "population": 87,
+      "selected": 5
+    },
+    {
+      "metric": "qubit_count",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2003,
+      "population": 33,
+      "selected": 5
+    },
+    {
+      "metric": "qubit_count",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2018,
+      "population": 286,
+      "selected": 15
+    },
+    {
+      "metric": "qubit_count",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2009,
+      "population": 104,
+      "selected": 6
+    },
+    {
+      "metric": "qubit_count",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2006,
+      "population": 50,
+      "selected": 5
+    },
+    {
+      "metric": "qubit_count",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2017,
+      "population": 232,
+      "selected": 12
+    },
+    {
+      "metric": "qubit_count",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2005,
+      "population": 53,
+      "selected": 5
+    },
+    {
+      "metric": "qubit_count",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2007,
+      "population": 52,
+      "selected": 5
+    },
+    {
+      "metric": "qubit_count",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2011,
+      "population": 93,
+      "selected": 5
+    },
+    {
+      "metric": "qubit_count",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2012,
+      "population": 113,
+      "selected": 6
+    },
+    {
+      "metric": "qubit_count",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2015,
+      "population": 171,
+      "selected": 9
+    },
+    {
+      "metric": "qubit_count",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2014,
+      "population": 152,
+      "selected": 8
+    },
+    {
+      "metric": "qubit_count",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2013,
+      "population": 126,
+      "selected": 7
+    },
+    {
+      "metric": "qubit_count",
+      "scope": "all",
+      "tail": "upper",
+      "year": 1997,
+      "population": 3,
+      "selected": 3
+    },
+    {
+      "metric": "qubit_count",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2004,
+      "population": 40,
+      "selected": 5
+    },
+    {
+      "metric": "qubit_count",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2002,
+      "population": 23,
+      "selected": 5
+    },
+    {
+      "metric": "qubit_count",
+      "scope": "all",
+      "tail": "upper",
+      "year": 1999,
+      "population": 3,
+      "selected": 3
+    },
+    {
+      "metric": "qubit_count",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2001,
+      "population": 10,
+      "selected": 5
+    },
+    {
+      "metric": "qubit_count",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2000,
+      "population": 4,
+      "selected": 4
+    },
+    {
+      "metric": "qubit_count",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2026,
+      "population": 3,
+      "selected": 3
+    },
+    {
+      "metric": "qubit_count",
+      "scope": "default",
+      "tail": "upper",
+      "year": 2024,
+      "population": 5,
+      "selected": 5
+    },
+    {
+      "metric": "qubit_count",
+      "scope": "default",
+      "tail": "upper",
+      "year": 2010,
+      "population": 1,
+      "selected": 1
+    },
+    {
+      "metric": "qubit_count",
+      "scope": "default",
+      "tail": "upper",
+      "year": 2023,
+      "population": 4,
+      "selected": 4
+    },
+    {
+      "metric": "qubit_count",
+      "scope": "default",
+      "tail": "upper",
+      "year": 2021,
+      "population": 6,
+      "selected": 5
+    },
+    {
+      "metric": "qubit_count",
+      "scope": "default",
+      "tail": "upper",
+      "year": 2014,
+      "population": 3,
+      "selected": 3
+    },
+    {
+      "metric": "qubit_count",
+      "scope": "default",
+      "tail": "upper",
+      "year": 2018,
+      "population": 3,
+      "selected": 3
+    },
+    {
+      "metric": "qubit_count",
+      "scope": "default",
+      "tail": "upper",
+      "year": 2025,
+      "population": 4,
+      "selected": 4
+    },
+    {
+      "metric": "qubit_count",
+      "scope": "default",
+      "tail": "upper",
+      "year": 2008,
+      "population": 2,
+      "selected": 2
+    },
+    {
+      "metric": "qubit_count",
+      "scope": "default",
+      "tail": "upper",
+      "year": 2020,
+      "population": 3,
+      "selected": 3
+    },
+    {
+      "metric": "qubit_count",
+      "scope": "default",
+      "tail": "upper",
+      "year": 2012,
+      "population": 2,
+      "selected": 2
+    },
+    {
+      "metric": "qubit_count",
+      "scope": "default",
+      "tail": "upper",
+      "year": 2022,
+      "population": 2,
+      "selected": 2
+    },
+    {
+      "metric": "qubit_count",
+      "scope": "default",
+      "tail": "upper",
+      "year": 2017,
+      "population": 2,
+      "selected": 2
+    },
+    {
+      "metric": "qubit_count",
+      "scope": "default",
+      "tail": "upper",
+      "year": 2004,
+      "population": 1,
+      "selected": 1
+    },
+    {
+      "metric": "qubit_count",
+      "scope": "default",
+      "tail": "upper",
+      "year": 2015,
+      "population": 2,
+      "selected": 2
+    },
+    {
+      "metric": "qubit_count",
+      "scope": "default",
+      "tail": "upper",
+      "year": 2019,
+      "population": 2,
+      "selected": 2
+    },
+    {
+      "metric": "qubit_count",
+      "scope": "default",
+      "tail": "upper",
+      "year": 2007,
+      "population": 1,
+      "selected": 1
+    },
+    {
+      "metric": "resonator_linewidth",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2010,
+      "population": 33,
+      "selected": 5
+    },
+    {
+      "metric": "resonator_linewidth",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2012,
+      "population": 33,
+      "selected": 5
+    },
+    {
+      "metric": "resonator_linewidth",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2023,
+      "population": 175,
+      "selected": 9
+    },
+    {
+      "metric": "resonator_linewidth",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2020,
+      "population": 90,
+      "selected": 5
+    },
+    {
+      "metric": "resonator_linewidth",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2025,
+      "population": 294,
+      "selected": 15
+    },
+    {
+      "metric": "resonator_linewidth",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2018,
+      "population": 114,
+      "selected": 6
+    },
+    {
+      "metric": "resonator_linewidth",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2022,
+      "population": 125,
+      "selected": 7
+    },
+    {
+      "metric": "resonator_linewidth",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2024,
+      "population": 241,
+      "selected": 13
+    },
+    {
+      "metric": "resonator_linewidth",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2011,
+      "population": 28,
+      "selected": 5
+    },
+    {
+      "metric": "resonator_linewidth",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2015,
+      "population": 67,
+      "selected": 5
+    },
+    {
+      "metric": "resonator_linewidth",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2019,
+      "population": 90,
+      "selected": 5
+    },
+    {
+      "metric": "resonator_linewidth",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2009,
+      "population": 30,
+      "selected": 5
+    },
+    {
+      "metric": "resonator_linewidth",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2021,
+      "population": 109,
+      "selected": 6
+    },
+    {
+      "metric": "resonator_linewidth",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2014,
+      "population": 43,
+      "selected": 5
+    },
+    {
+      "metric": "resonator_linewidth",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2017,
+      "population": 68,
+      "selected": 5
+    },
+    {
+      "metric": "resonator_linewidth",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2016,
+      "population": 66,
+      "selected": 5
+    },
+    {
+      "metric": "resonator_linewidth",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2005,
+      "population": 3,
+      "selected": 3
+    },
+    {
+      "metric": "resonator_linewidth",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2013,
+      "population": 40,
+      "selected": 5
+    },
+    {
+      "metric": "resonator_linewidth",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2008,
+      "population": 30,
+      "selected": 5
+    },
+    {
+      "metric": "resonator_linewidth",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2007,
+      "population": 13,
+      "selected": 5
+    },
+    {
+      "metric": "resonator_linewidth",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2004,
+      "population": 2,
+      "selected": 2
+    },
+    {
+      "metric": "resonator_linewidth",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2006,
+      "population": 8,
+      "selected": 5
+    },
+    {
+      "metric": "resonator_linewidth",
+      "scope": "all",
+      "tail": "upper",
+      "year": 2003,
+      "population": 2,
+      "selected": 2
+    },
+    {
+      "metric": "resonator_linewidth",
+      "scope": "all",
+      "tail": "lower",
+      "year": 2010,
+      "population": 33,
+      "selected": 5
+    },
+    {
+      "metric": "resonator_linewidth",
+      "scope": "all",
+      "tail": "lower",
+      "year": 2012,
+      "population": 33,
+      "selected": 5
+    },
+    {
+      "metric": "resonator_linewidth",
+      "scope": "all",
+      "tail": "lower",
+      "year": 2023,
+      "population": 175,
+      "selected": 9
+    },
+    {
+      "metric": "resonator_linewidth",
+      "scope": "all",
+      "tail": "lower",
+      "year": 2020,
+      "population": 90,
+      "selected": 5
+    },
+    {
+      "metric": "resonator_linewidth",
+      "scope": "all",
+      "tail": "lower",
+      "year": 2025,
+      "population": 294,
+      "selected": 15
+    },
+    {
+      "metric": "resonator_linewidth",
+      "scope": "all",
+      "tail": "lower",
+      "year": 2018,
+      "population": 114,
+      "selected": 6
+    },
+    {
+      "metric": "resonator_linewidth",
+      "scope": "all",
+      "tail": "lower",
+      "year": 2022,
+      "population": 125,
+      "selected": 7
+    },
+    {
+      "metric": "resonator_linewidth",
+      "scope": "all",
+      "tail": "lower",
+      "year": 2024,
+      "population": 241,
+      "selected": 13
+    },
+    {
+      "metric": "resonator_linewidth",
+      "scope": "all",
+      "tail": "lower",
+      "year": 2011,
+      "population": 28,
+      "selected": 5
+    },
+    {
+      "metric": "resonator_linewidth",
+      "scope": "all",
+      "tail": "lower",
+      "year": 2015,
+      "population": 67,
+      "selected": 5
+    },
+    {
+      "metric": "resonator_linewidth",
+      "scope": "all",
+      "tail": "lower",
+      "year": 2019,
+      "population": 90,
+      "selected": 5
+    },
+    {
+      "metric": "resonator_linewidth",
+      "scope": "all",
+      "tail": "lower",
+      "year": 2009,
+      "population": 30,
+      "selected": 5
+    },
+    {
+      "metric": "resonator_linewidth",
+      "scope": "all",
+      "tail": "lower",
+      "year": 2021,
+      "population": 109,
+      "selected": 6
+    },
+    {
+      "metric": "resonator_linewidth",
+      "scope": "all",
+      "tail": "lower",
+      "year": 2014,
+      "population": 43,
+      "selected": 5
+    },
+    {
+      "metric": "resonator_linewidth",
+      "scope": "all",
+      "tail": "lower",
+      "year": 2017,
+      "population": 68,
+      "selected": 5
+    },
+    {
+      "metric": "resonator_linewidth",
+      "scope": "all",
+      "tail": "lower",
+      "year": 2016,
+      "population": 66,
+      "selected": 5
+    },
+    {
+      "metric": "resonator_linewidth",
+      "scope": "all",
+      "tail": "lower",
+      "year": 2005,
+      "population": 3,
+      "selected": 3
+    },
+    {
+      "metric": "resonator_linewidth",
+      "scope": "all",
+      "tail": "lower",
+      "year": 2013,
+      "population": 40,
+      "selected": 5
+    },
+    {
+      "metric": "resonator_linewidth",
+      "scope": "all",
+      "tail": "lower",
+      "year": 2008,
+      "population": 30,
+      "selected": 5
+    },
+    {
+      "metric": "resonator_linewidth",
+      "scope": "all",
+      "tail": "lower",
+      "year": 2007,
+      "population": 13,
+      "selected": 5
+    },
+    {
+      "metric": "resonator_linewidth",
+      "scope": "all",
+      "tail": "lower",
+      "year": 2004,
+      "population": 2,
+      "selected": 2
+    },
+    {
+      "metric": "resonator_linewidth",
+      "scope": "all",
+      "tail": "lower",
+      "year": 2006,
+      "population": 8,
+      "selected": 5
+    },
+    {
+      "metric": "resonator_linewidth",
+      "scope": "all",
+      "tail": "lower",
+      "year": 2003,
+      "population": 2,
+      "selected": 2
+    },
+    {
+      "metric": "resonator_linewidth",
+      "scope": "default",
+      "tail": "upper",
+      "year": 2024,
+      "population": 65,
+      "selected": 5
+    },
+    {
+      "metric": "resonator_linewidth",
+      "scope": "default",
+      "tail": "upper",
+      "year": 2025,
+      "population": 89,
+      "selected": 5
+    },
+    {
+      "metric": "resonator_linewidth",
+      "scope": "default",
+      "tail": "upper",
+      "year": 2020,
+      "population": 21,
+      "selected": 5
+    },
+    {
+      "metric": "resonator_linewidth",
+      "scope": "default",
+      "tail": "upper",
+      "year": 2023,
+      "population": 29,
+      "selected": 5
+    },
+    {
+      "metric": "resonator_linewidth",
+      "scope": "default",
+      "tail": "upper",
+      "year": 2014,
+      "population": 12,
+      "selected": 5
+    },
+    {
+      "metric": "resonator_linewidth",
+      "scope": "default",
+      "tail": "upper",
+      "year": 2017,
+      "population": 17,
+      "selected": 5
+    },
+    {
+      "metric": "resonator_linewidth",
+      "scope": "default",
+      "tail": "upper",
+      "year": 2022,
+      "population": 30,
+      "selected": 5
+    },
+    {
+      "metric": "resonator_linewidth",
+      "scope": "default",
+      "tail": "upper",
+      "year": 2019,
+      "population": 34,
+      "selected": 5
+    },
+    {
+      "metric": "resonator_linewidth",
+      "scope": "default",
+      "tail": "upper",
+      "year": 2005,
+      "population": 1,
+      "selected": 1
+    },
+    {
+      "metric": "resonator_linewidth",
+      "scope": "default",
+      "tail": "upper",
+      "year": 2013,
+      "population": 7,
+      "selected": 5
+    },
+    {
+      "metric": "resonator_linewidth",
+      "scope": "default",
+      "tail": "upper",
+      "year": 2018,
+      "population": 30,
+      "selected": 5
+    },
+    {
+      "metric": "resonator_linewidth",
+      "scope": "default",
+      "tail": "upper",
+      "year": 2012,
+      "population": 4,
+      "selected": 4
+    },
+    {
+      "metric": "resonator_linewidth",
+      "scope": "default",
+      "tail": "upper",
+      "year": 2008,
+      "population": 8,
+      "selected": 5
+    },
+    {
+      "metric": "resonator_linewidth",
+      "scope": "default",
+      "tail": "upper",
+      "year": 2016,
+      "population": 6,
+      "selected": 5
+    },
+    {
+      "metric": "resonator_linewidth",
+      "scope": "default",
+      "tail": "upper",
+      "year": 2021,
+      "population": 32,
+      "selected": 5
+    },
+    {
+      "metric": "resonator_linewidth",
+      "scope": "default",
+      "tail": "upper",
+      "year": 2006,
+      "population": 2,
+      "selected": 2
+    },
+    {
+      "metric": "resonator_linewidth",
+      "scope": "default",
+      "tail": "upper",
+      "year": 2015,
+      "population": 6,
+      "selected": 5
+    },
+    {
+      "metric": "resonator_linewidth",
+      "scope": "default",
+      "tail": "upper",
+      "year": 2011,
+      "population": 1,
+      "selected": 1
+    },
+    {
+      "metric": "resonator_linewidth",
+      "scope": "default",
+      "tail": "upper",
+      "year": 2009,
+      "population": 4,
+      "selected": 4
+    },
+    {
+      "metric": "resonator_linewidth",
+      "scope": "default",
+      "tail": "lower",
+      "year": 2024,
+      "population": 65,
+      "selected": 5
+    },
+    {
+      "metric": "resonator_linewidth",
+      "scope": "default",
+      "tail": "lower",
+      "year": 2025,
+      "population": 89,
+      "selected": 5
+    },
+    {
+      "metric": "resonator_linewidth",
+      "scope": "default",
+      "tail": "lower",
+      "year": 2020,
+      "population": 21,
+      "selected": 5
+    },
+    {
+      "metric": "resonator_linewidth",
+      "scope": "default",
+      "tail": "lower",
+      "year": 2023,
+      "population": 29,
+      "selected": 5
+    },
+    {
+      "metric": "resonator_linewidth",
+      "scope": "default",
+      "tail": "lower",
+      "year": 2014,
+      "population": 12,
+      "selected": 5
+    },
+    {
+      "metric": "resonator_linewidth",
+      "scope": "default",
+      "tail": "lower",
+      "year": 2017,
+      "population": 17,
+      "selected": 5
+    },
+    {
+      "metric": "resonator_linewidth",
+      "scope": "default",
+      "tail": "lower",
+      "year": 2022,
+      "population": 30,
+      "selected": 5
+    },
+    {
+      "metric": "resonator_linewidth",
+      "scope": "default",
+      "tail": "lower",
+      "year": 2019,
+      "population": 34,
+      "selected": 5
+    },
+    {
+      "metric": "resonator_linewidth",
+      "scope": "default",
+      "tail": "lower",
+      "year": 2005,
+      "population": 1,
+      "selected": 1
+    },
+    {
+      "metric": "resonator_linewidth",
+      "scope": "default",
+      "tail": "lower",
+      "year": 2013,
+      "population": 7,
+      "selected": 5
+    },
+    {
+      "metric": "resonator_linewidth",
+      "scope": "default",
+      "tail": "lower",
+      "year": 2018,
+      "population": 30,
+      "selected": 5
+    },
+    {
+      "metric": "resonator_linewidth",
+      "scope": "default",
+      "tail": "lower",
+      "year": 2012,
+      "population": 4,
+      "selected": 4
+    },
+    {
+      "metric": "resonator_linewidth",
+      "scope": "default",
+      "tail": "lower",
+      "year": 2008,
+      "population": 8,
+      "selected": 5
+    },
+    {
+      "metric": "resonator_linewidth",
+      "scope": "default",
+      "tail": "lower",
+      "year": 2016,
+      "population": 6,
+      "selected": 5
+    },
+    {
+      "metric": "resonator_linewidth",
+      "scope": "default",
+      "tail": "lower",
+      "year": 2021,
+      "population": 32,
+      "selected": 5
+    },
+    {
+      "metric": "resonator_linewidth",
+      "scope": "default",
+      "tail": "lower",
+      "year": 2006,
+      "population": 2,
+      "selected": 2
+    },
+    {
+      "metric": "resonator_linewidth",
+      "scope": "default",
+      "tail": "lower",
+      "year": 2015,
+      "population": 6,
+      "selected": 5
+    },
+    {
+      "metric": "resonator_linewidth",
+      "scope": "default",
+      "tail": "lower",
+      "year": 2011,
+      "population": 1,
+      "selected": 1
+    },
+    {
+      "metric": "resonator_linewidth",
+      "scope": "default",
+      "tail": "lower",
+      "year": 2009,
+      "population": 4,
+      "selected": 4
+    }
+  ]
+}

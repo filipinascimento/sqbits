@@ -1,0 +1,83 @@
+{
+  "as_of": "2026-10-21",
+  "model": "gpt-6.1-sol",
+  "no_new_inference": true,
+  "scope": "Review full PDFs and existing extraction for every flagged paper, including all its segments; emit source-backed correction proposals rather than rewriting the raw extraction.",
+  "papers": 1774,
+  "requests": 1930,
+  "pdf_pages": 35808,
+  "measured_previous_input_tokens": 92911081,
+  "compact_recordset_characters": 101779129,
+  "scenarios": {
+    "lower": {
+      "estimated_input_tokens": 117126907,
+      "estimated_output_tokens": 1930000,
+      "long_context_requests": 0,
+      "standard_usd_with_25pct_contingency": 390.15,
+      "batch_usd_with_25pct_contingency": 195.07
+    },
+    "planning": {
+      "estimated_input_tokens": 122215863,
+      "estimated_output_tokens": 5790000,
+      "long_context_requests": 1,
+      "standard_usd_with_25pct_contingency": 455.19,
+      "batch_usd_with_25pct_contingency": 227.6
+    },
+    "upper": {
+      "estimated_input_tokens": 130697457,
+      "estimated_output_tokens": 9650000,
+      "long_context_requests": 1,
+      "standard_usd_with_25pct_contingency": 530.0,
+      "batch_usd_with_25pct_contingency": 265.0
+    }
+  },
+  "assumptions": {
+    "additional_prompt_tokens_per_request": 2000,
+    "output_tokens_per_request_including_reasoning": [
+      1000,
+      3000,
+      5000
+    ],
+    "chars_per_token": [
+      5,
+      4,
+      3
+    ],
+    "contingency_fraction": 0.25,
+    "standard_input_30m_cache_write_usd_per_million": 2.5,
+    "standard_output_usd_per_million": 10,
+    "long_context_threshold": 272000,
+    "long_input_30m_cache_write_usd_per_million": 5,
+    "long_output_usd_per_million": 15,
+    "batch_multiplier": 0.5,
+    "no_cache_hit_savings_assumed": true
+  },
+  "observed_narrow_sol_audit": {
+    "requests": 50,
+    "total_usd_conservative": 2.59342,
+    "median_seconds": 13.53,
+    "scope": "Outcome extremes only; much narrower than reviewing whole extraction."
+  },
+  "planning_eta": {
+    "standard_hours_at_50_concurrent": [
+      2,
+      6
+    ],
+    "batch_hours": [
+      24,
+      48
+    ],
+    "batch_hours_with_repairs_up_to": 72,
+    "notes": "ETA is a planning assumption, not a measured full-review throughput. Depends on account token/rate limits and dependent repairs. Prior complete Sol extractions took roughly 8\u201311 minutes per paper; narrow audit median 13.5 seconds. Full review falls between these workloads."
+  },
+  "sources": [
+    "https://developers.openai.com/api/docs/pricing",
+    "https://developers.openai.com/api/docs/guides/batch"
+  ],
+  "limitations": [
+    "Existing input counts include the previous extraction schema, so reusing them is conservative for PDF input.",
+    "Existing extraction text uses a 3\u20135 character/token estimate, not a provider token count.",
+    "Output sizes are scenarios; full re-extraction would be substantially more expensive.",
+    "Cache retention, rate limits, actual output/reasoning and retries may change cost. No new review has been started."
+  ]
+}
