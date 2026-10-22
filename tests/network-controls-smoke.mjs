@@ -35,19 +35,19 @@ async function checkNetwork(view){
   await checkNodeHover(page,view);return;
  }
  await page.evaluate(()=>{window.controlTestLayout=window.sqbits.graph.helios.layout();});
- const initial=await page.evaluate(()=>{const h=window.sqbits.graph.helios;return {width:h.edgeWidthScale(),size:h.nodeSizeScale(),gravity:h.behavior.layout.parameter('kGravity'),edgeColor:h.behavior.mappers.getSerializedChannelConfig('edge','color'),renderMode:h.renderer.graphLayer.getEffectiveEdgeRenderingMode()};});
- assert.equal(initial.width,1.5);assert.equal(initial.size,1);assert.equal(initial.gravity,.001);assert.equal(initial.renderMode,'quad');
+ const initial=await page.evaluate(()=>{const h=window.sqbits.graph.helios;return {width:h.edgeWidthScale(),opacity:h.edgeOpacityScale(),size:h.nodeSizeScale(),gravity:h.behavior.layout.parameter('kGravity'),edgeColor:h.behavior.mappers.getSerializedChannelConfig('edge','color'),renderMode:h.renderer.graphLayer.getEffectiveEdgeRenderingMode()};});
+ assert.equal(initial.width,1.5);assert.equal(initial.opacity,.2);assert.equal(initial.size,1);assert.equal(initial.gravity,.001);assert.equal(initial.renderMode,'quad');
  assert.equal(initial.edgeColor.type,'nodeToEdge');assert.equal(initial.edgeColor.attributes,'@node.color');assert.equal(initial.edgeColor.endpoints,'both');
  if(await page.evaluate(()=>window.sqbits.graph.running))await page.locator('#layout-toggle').click();
  await page.waitForFunction(()=>!window.sqbits.graph.running&&!document.querySelector('#layout-toggle').disabled);
  const before=await snapshot();
- await slider('edge-width',3);await slider('node-size',1.75);await slider('gravity',-2.5);
+ await slider('edge-width',3);await slider('edge-opacity',.6);await slider('node-size',1.75);await slider('gravity',-2.5);
  await page.waitForFunction(()=>Math.abs(window.sqbits.graph.helios.behavior.layout.parameter('kGravity')-10**-2.5)<1e-10);
  assert.equal(await page.evaluate(()=>window.sqbits.graph.running),false,'A gravity adjustment must respect manual pause');
- assert.equal(await page.evaluate(()=>window.sqbits.graph.helios.edgeWidthScale()),3);assert.equal(await page.evaluate(()=>window.sqbits.graph.helios.nodeSizeScale()),1.75);
+ assert.equal(await page.evaluate(()=>window.sqbits.graph.helios.edgeWidthScale()),3);assert.equal(await page.evaluate(()=>window.sqbits.graph.helios.edgeOpacityScale()),.6);assert.equal(await page.evaluate(()=>window.sqbits.graph.helios.nodeSizeScale()),1.75);
  assert.deepEqual(await snapshot(),before,'Appearance/gravity controls must not reseed positions');
  assert.equal(await page.evaluate(()=>window.controlTestLayout===window.sqbits.graph.helios.layout()),true);
- assert.equal(await page.locator('#edge-width-value').innerText(),'3×');assert.equal(await page.locator('#node-size-value').innerText(),'1.75×');
+ assert.equal(await page.locator('#edge-width-value').innerText(),'3×');assert.equal(await page.locator('#edge-opacity-value').innerText(),'60%');assert.equal(await page.locator('#node-size-value').innerText(),'1.75×');
  console.log('SLIDERS_PASSED',view);
  await checkNodeHover(page,view);
  await page.evaluate(()=>document.querySelector('#chart').scrollIntoView({block:'center',behavior:'instant'}));await page.waitForSelector('.helios-label[data-node-id]:visible');
@@ -99,8 +99,8 @@ async function checkNetwork(view){
  await checkNodeHover(page,view);
  if(view==='devices')await page.locator('#type').selectOption('fluxonium');else await setYearRange(page,2020,2026);
  await page.waitForFunction(()=>window.sqbits.graph?.helios.getGraphFilter().enabled&&!document.querySelector('#gravity').disabled);assert.equal(await page.evaluate(()=>window.sqbits.graph.helios.layout()===window.controlTestLayout),true);
- const persisted=await page.evaluate(()=>{const h=window.sqbits.graph.helios;return {width:h.edgeWidthScale(),size:h.nodeSizeScale(),gravity:h.behavior.layout.parameter('kGravity'),mode:h.mode(),running:window.sqbits.graph.running};});
- assert.deepEqual(persisted,{width:3,size:1.75,gravity:10**-2.8,mode:'3d',running:false});
+ const persisted=await page.evaluate(()=>{const h=window.sqbits.graph.helios;return {width:h.edgeWidthScale(),opacity:h.edgeOpacityScale(),size:h.nodeSizeScale(),gravity:h.behavior.layout.parameter('kGravity'),mode:h.mode(),running:window.sqbits.graph.running};});
+ assert.deepEqual(persisted,{width:3,opacity:.6,size:1.75,gravity:10**-2.8,mode:'3d',running:false});
  const cdp=await page.context().newCDPSession(page),capture=await cdp.send('Page.captureScreenshot',{format:'png',fromSurface:false,captureBeyondViewport:false});
  writeFileSync(`verification/network-controls-${view}.png`,Buffer.from(capture.data,'base64'));
  console.log('NETWORK_CONTROLS_PASSED',view,{communityMembers:highlight.expected,highlightedEdges:highlight.edges,...persisted});
@@ -109,8 +109,8 @@ try{
  await page.goto(url+'#'+(startPaused?'trends':views[0]));
  if(startPaused){await page.waitForFunction(()=>window.sqbits?.trends?.aggregate);await page.evaluate(()=>{for(const s of Object.values(window.sqbits.state.networks))s.running=false;});}
  for(const view of views){if(await page.evaluate(()=>window.sqbits?.state.view)!==view)await page.locator(`[data-view="${view}"]`).first().click();await checkNetwork(view);}
- if(views.includes('papers')&&!startPaused){if(views.length>1)await page.locator('[data-view="papers"]').first().click();await ready();assert.equal(await page.locator('#edge-width').inputValue(),'3');assert.equal(await page.locator('#node-size').inputValue(),'1.75');}
+ if(views.includes('papers')&&!startPaused){if(views.length>1)await page.locator('[data-view="papers"]').first().click();await ready();assert.equal(await page.locator('#edge-width').inputValue(),'3');assert.equal(await page.locator('#edge-opacity').inputValue(),'0.6');assert.equal(await page.locator('#node-size').inputValue(),'1.75');}
  await page.setViewportSize({width:390,height:844});assert.ok(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+2));
- for(const id of ['edge-width','node-size','gravity'])assert.ok(await page.locator('#'+id).isVisible());
+ for(const id of ['edge-width','edge-opacity','node-size','gravity'])assert.ok(await page.locator('#'+id).isVisible());
  assert.deepEqual(errors,[]);console.log('NETWORK_CONTROL_BROWSER_CHECKS_PASSED');
 }catch(error){console.error(error);process.exitCode=1;}finally{await browser.close();}

@@ -13,14 +13,15 @@ const app=document.querySelector('#app');
 const titles={papers:['The literature, connected.','Follow citation links and explore automatically labelled research communities.'],devices:['Find the design connections.','Explore device and component records linked by similarity of reported design choices.'],timeline:['Performance, over time.','Compare one reported outcome at a time, with conditions and source evidence close at hand.'],trends:['How device designs evolve.','Explore categorical design choices, reporting coverage and their shares over publication time.'],guide:['Inside a superconducting qubit.','A visual guide to the structures, materials and processes behind the measurements.']};
 let summary,paperData,deviceData,outcomeAudit,categoryFixes,graph,chart,designTrends,guideDistributions,yearRange,filterTimer,selectionPanel,selectionVersion=0,networkRenderVersion=null,renderVersion=0,inspectorVersion=0,selectedPoints=[],timelinePoints=[],focusPaper=null,focusDevice=null;
 const viewFromHash=location.hash.slice(1);
-const networkDefaults=()=>({mode:'2d',running:true,nodeSizeScale:1,edgeWidthScale:1.5,gravity:.001});
+const networkDefaults=()=>({mode:'2d',running:true,nodeSizeScale:1,edgeWidthScale:1.5,edgeOpacityScale:.2,gravity:.001});
 const state={view:titles[viewFromHash]?viewFromHash:'papers',metric:'t1',color:'community',colorScale:'auto',log:true,interaction:'lasso',filters:{},networks:{papers:networkDefaults(),devices:networkDefaults()},timelineFilters:{attribution:'own_work',realization:'measured_device',scope:'individual_qubit'},designTrends:{}};
 const graphSliders=[
  {id:'edge-width',key:'edgeWidthScale',label:'Edge width',min:.25,max:6,step:.05,hint:'Scale the width of network links.'},
+ {id:'edge-opacity',key:'edgeOpacityScale',label:'Edge opacity',min:0,max:1,step:.01,percent:true,hint:'Adjust how transparent network links appear.'},
  {id:'node-size',key:'nodeSizeScale',label:'Node size',min:.25,max:4,step:.05,hint:'Scale node sizes while preserving their relative differences.'},
  {id:'gravity',key:'gravity',label:'Gravity',min:-5,max:-1,step:.05,log:true,hint:'Pull toward the center, relative to the default gravity. Higher values make the layout more compact. Resume a paused layout to see the effect.'},
 ];
-const sliderValue=(control,value)=>fmt(control.log?value/.001:value)+'×';
+const sliderValue=(control,value)=>control.percent?fmt(Math.round(value*100))+'%':fmt(control.log?value/.001:value)+'×';
 const $=id=>document.getElementById(id);
 const option=(value,label,selected)=>`<option value="${esc(value)}" ${String(value)===String(selected)?'selected':''}>${esc(label)}</option>`;
 function selectControl(id,label,values,value,all='All'){return `<label class="field">${label}<select id="${id}">${all!==null?option('',all,value):''}${values.map(([v,l])=>option(v,l,value)).join('')}</select></label>`;}

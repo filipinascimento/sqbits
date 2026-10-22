@@ -4,7 +4,7 @@ import {encoding,pretty,esc,fmt} from './data.js';
 import {networkFilterRules,communityRanks} from './network-model.js';
 import {buildMapperRulePredicate} from '../node_modules/helios-web/src/behaviors/mapperBehaviorShared.js';
 
-export async function mountGraph(container,{nodes,edges,directed,colorBy,colorScale='auto',metrics=[],filters={},papers=[],onSelection,onEdge,mode='2d',running=true,nodeSizeScale=1,edgeWidthScale=1.5,gravity=.001,onLayoutState}){
+export async function mountGraph(container,{nodes,edges,directed,colorBy,colorScale='auto',metrics=[],filters={},papers=[],onSelection,onEdge,mode='2d',running=true,nodeSizeScale=1,edgeWidthScale=1.5,edgeOpacityScale=.2,gravity=.001,onLayoutState}){
  const network=await HeliosNetwork.create({directed,initialEdges:Math.max(1,edges.length)});
  if(!container.isConnected){network.dispose();return null;}
  const handles=network.addNodes(nodes.length),lookup=new Map(nodes.map((n,i)=>[n.id,Number(handles[i])])),byIndex=new Map(nodes.map((n,i)=>[Number(handles[i]),n]));
@@ -32,7 +32,7 @@ export async function mountGraph(container,{nodes,edges,directed,colorBy,colorSc
     labels:{enabled:true,source:'label',selectionMode:'ranked',maxVisible:28,maxChars:44,minScreenRadiusPx:0,fontSizeScale:.95,outlineWidth:4,fill:'#22413d',outlineColor:'#f8f8f3'},
     // Match community emphasis through native transient shader hover, without
     // rewriting state buffers or disturbing the evidence selection.
-    hover:{nodeHover:true,hoverLabel:false,hoverConnectedEdges:true,highlightConnectedEdges:true,hoverAffectsOtherElements:true,hoverStyleFromHighlight:true},appearance:{background:'#f4f6f2',shadedEnabled:false,shadedNodes:false,shadedEdges:false}}});
+    hover:{nodeHover:true,hoverLabel:false,hoverConnectedEdges:true,highlightConnectedEdges:true,hoverAffectsOtherElements:true,hoverStyleFromHighlight:true},appearance:{background:'#f4f6f2',edgeOpacityScale,edgeOpacityBase:0,shadedEnabled:false,shadedNodes:false,shadedEdges:false}}});
   await helios.ready;
   if(!container.isConnected){helios.destroy();return null;}
   helios.behavior.labels.update({enabled:true,source:id=>{const n=byIndex.get(id);return n&&representatives.get(n.community)===n?n.communityLabel:null;},selectionMode:'ranked',pinnedNodes:[...representatives.values()].map(n=>lookup.get(n.id)),maxVisible:28,minScreenRadiusPx:0,maxChars:44,fontSizeScale:.95,outlineWidth:4,fill:'#22413d',outlineColor:'#f8f8f3'});
@@ -40,7 +40,7 @@ export async function mountGraph(container,{nodes,edges,directed,colorBy,colorSc
   helios.behavior.mappers.setChannelConfig('node','opacity',{type:'constant',value:.92});
   // Keep Helios's default edge mapper: width 1, with endpoint colors derived
   // from the live node-color mapper and interpolated along each edge.
-  helios.nodeSizeScale(nodeSizeScale);helios.edgeWidthScale(edgeWidthScale);
+  helios.nodeSizeScale(nodeSizeScale);helios.edgeWidthScale(edgeWidthScale);helios.edgeOpacityScale(edgeOpacityScale);
   helios.semanticZoomExponent(.65);
  }catch(error){helios?.destroy();if(!helios)network.dispose();throw error;}
  const tip=document.createElement('div');tip.className='graph-tooltip';tip.hidden=true;container.append(tip);
@@ -108,6 +108,7 @@ export async function mountGraph(container,{nodes,edges,directed,colorBy,colorSc
   labels(on){if(!on)clearHighlight();helios.behavior.labels.enabled(on);},
   nodeSizeScale(v){helios.nodeSizeScale(+v);},
   edgeWidthScale(v){helios.edgeWidthScale(+v);},
+  edgeOpacityScale(v){helios.edgeOpacityScale(+v);},
   gravity(v){return perform(()=>{helios.behavior.layout.parameter('kGravity',+v);notify();});},
   select(node){const id=lookup.get(node.id);if(id!=null)helios.behavior.selection.selectOnly('node',id,{silent:false});},
   clearSelection(){helios.behavior.selection.clearSelection();},
